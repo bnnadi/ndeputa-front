@@ -1,16 +1,15 @@
 // libraries
-// var expressBodyParser = require('body-parser');
-// var expressCookieParser = require('cookie-parser');
-// var expressDevice = require('express-device');
+var expressBodyParser = require('body-parser');
+var expressCookieParser = require('cookie-parser');
+var expressDevice = require('express-device');
 // var expressMulter = require('multer');
-// var expressRequestParam = require('request-param');
-// var expressSession = require('express-session');
+var expressRequestParam = require('request-param');
+var expressSession = require('express-session');
 var fs = require('fs');
 // var maxmind = require('maxmind');
-// var mongoose = require('mongoose');
 var os = require('os');
 var passport = require('passport');
-// var redis = require('redis');
+var redis = require('redis');
 // var striptags = require('striptags');
 
 
@@ -20,13 +19,13 @@ var passport = require('passport');
 // });
 
 //classes
-// var RedisStore = require('connect-redis')(expressSession);
+var RedisStore = require('connect-redis')(expressSession);
 
 // instances
 
-// var redisClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOST, {
-//     auth_pass: process.env.REDIS_PASS
-// });
+var redisClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOST, {
+    auth_pass: process.env.REDIS_PASS
+});
 
 // var upload = expressMulter();
 
@@ -70,7 +69,6 @@ module.exports = function() {
     // configure Express middleware
 
     // ignore all git requests
-    // this secures all public git folders so people can't download the repos
     this.use(function(req, res, next) {
 
         if (req.path && req.path.indexOf('.git') !== -1) {
@@ -92,24 +90,21 @@ module.exports = function() {
 
     });
 
-    // this.use(expressRequestParam());
+    this.use(expressRequestParam());
 
-    // this.use(expressDevice.capture());
+    this.use(expressDevice.capture());
 
+    this.use(expressBodyParser());
 
-    // this.use(connectPoweredBy('Sith Empire'));
-
-    // this.use(expressBodyParser());
-
-    // this.use(expressSession({
-    //     secret: 'asdhwhnxxiou1mizxehdncfx3gx',
-    //     cookie: {
-    //         maxAge: 3 * 24 * 60 * 60 * 1000
-    //     },
-    //     resave: true,
-    //     saveUninitialized: true,
-    //     store: new RedisStore(redisStoreOptions)
-    // }));
+    this.use(expressSession({
+        secret: 'asdhwhnxxiou1mizxehdncfx3gx',
+        cookie: {
+            maxAge: 3 * 24 * 60 * 60 * 1000
+        },
+        resave: true,
+        saveUninitialized: true,
+        store: new RedisStore(redisStoreOptions)
+    }));
 
     this.use(passport.initialize());
     this.use(passport.session());

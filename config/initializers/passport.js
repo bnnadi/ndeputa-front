@@ -5,7 +5,7 @@ var sequelize = require('sequelize');
 var passport = require('passport');
 
 // strategies
-var LocalStrategy = require('passport').Strategy;
+var LocalStrategy = require('passport-local').Strategy;
 
 module.exports = function(done) {
 
@@ -18,8 +18,8 @@ module.exports = function(done) {
 
         username = username.toLowerCase().replace(/^[ \t]+|[ \t]+$/ig, '');
 
-
-        // var LoginUserModel = mongoose.model('v1User');
+        var models = require("./app/models");
+        var LoginUserModel = models.user;
 
         // LoginUserModel
         //     .findOne({
