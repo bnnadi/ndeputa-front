@@ -1,29 +1,23 @@
-var Sequelize = require('sequelize');
-
 module.exports = function(done) {
 
     done = (typeof done === 'function') ? done : function() {};
 
-    const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
-        host: 'localhost',
-        dialect: 'mysql' | 'sqlite' | 'postgres' | 'mssql',
+    var models = require(__dirname + '/../../app/models');
 
-        pool: {
-            max: 5,
-            min: 0,
-            acquire: 30000,
-            idle: 10000
-        },
+    models.sequelize.sync().then(function() {
 
-        // SQLite only
-        storage: 'path/to/database.sqlite'
+        server.listen(port, function() {
+            debug('Express server listening on port ' + server.address().port);
+        });
+        server.on('error', onError);
+        server.on('listening', onListening);
     });
 
     console.log('Initializer: Sequelize started');
 
 
 
-    require('@bnnadi/bisikennadi-utils').v1BisikeNnadi();
+    require('./app/models');
 
 
     console.log('Initializer: Sequelize completed');

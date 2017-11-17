@@ -1,6 +1,6 @@
 // libraries
 var _ = require('lodash');
-var bcrypt = require('bcrypt');
+var bcrypt = require('bcryptjs');
 var sequelize = require('sequelize');
 var passport = require('passport');
 
@@ -19,39 +19,39 @@ module.exports = function(done) {
         username = username.toLowerCase().replace(/^[ \t]+|[ \t]+$/ig, '');
 
 
-        var LoginUserModel = mongoose.model('v1User');
+        // var LoginUserModel = mongoose.model('v1User');
 
-        LoginUserModel
-            .findOne({
-                username: username,
-                deleted: false,
-            })
-            .exec(function(err, account) {
+        // LoginUserModel
+        //     .findOne({
+        //         username: username,
+        //         deleted: false,
+        //     })
+        //     .exec(function(err, account) {
 
-                if (err || !account) {
-                    done(err, false);
-                    return;
-                }
+        //         if (err || !account) {
+        //             done(err, false);
+        //             return;
+        //         }
 
-                var isV1Password = bcrypt.compareSync(password, account.password);
+        //         var isV1Password = bcrypt.compareSync(password, account.password);
 
-                if (isV1Password) {
+        //         if (isV1Password) {
 
-                    if (!account.firstLogin) {
-                        account.firstLogin = new Date();
-                    }
+        //             if (!account.firstLogin) {
+        //                 account.firstLogin = new Date();
+        //             }
 
-                    account.lastLogin = new Date();
+        //             account.lastLogin = new Date();
 
-                    account.save(done);
+        //             account.save(done);
 
-                    return;
+        //             return;
 
-                }
+        //         }
 
-                done(true, null);
+        //         done(true, null);
 
-            });
+        //     });
 
     }));
 
@@ -68,15 +68,15 @@ module.exports = function(done) {
 
         var id = user._id;
 
-        var UserModel = mongoose.model('v1User');
+        // var UserModel = mongoose.model('v1User');
 
-        UserModel
-            .findOne({
-                _id: id,
-                deleted: false,
-            })
-            .select('-password')
-            .exec(done);
+        // UserModel
+        //     .findOne({
+        //         _id: id,
+        //         deleted: false,
+        //     })
+        //     .select('-password')
+        //     .exec(done);
 
     });
 

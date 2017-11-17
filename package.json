@@ -1,37 +1,39 @@
 {
-  "name": "ims",
-  "version": "1.0.0",
-  "description": "Node inventory management system with barcode scanning",
-  "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/bnnadi/IMS.git"
-  },
-  "keywords": [
-    "ims",
-    "inventory",
-    "mamagement",
-    "system",
-    "api"
-  ],
-  "author": "Bisike Nnadi",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/bnnadi/IMS/issues"
-  },
-  "homepage": "https://github.com/bnnadi/IMS#readme",
-  "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "dotenv": "^4.0.0",
-    "express": "^4.16.2",
-    "jsonwebtoken": "^8.1.0",
-    "lodash": "^4.17.4",
-    "nodemailer": "^4.4.0",
-    "passport": "^0.4.0",
-    "randomstring": "^1.1.5",
-    "sequelize": "^4.22.7"
-  }
+    "name": "ims",
+    "version": "1.0.0",
+    "description": "Node inventory management system with barcode scanning",
+    "main": "server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/bnnadi/IMS.git"
+    },
+    "keywords": [
+        "ims",
+        "inventory",
+        "mamagement",
+        "system",
+        "api"
+    ],
+    "author": "Bisike Nnadi",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/bnnadi/IMS/issues"
+    },
+    "homepage": "https://github.com/bnnadi/IMS#readme",
+    "dependencies": {
+        "bcryptjs": "2.4.3",
+        "dotenv": "4.0.0",
+        "express": "4.16.2",
+        "jsonwebtoken": "8.1.0",
+        "lodash": "4.17.4",
+        "mysql": "2.15.0",
+        "nodemailer": "4.4.0",
+        "passport": "0.4.0",
+        "randomstring": "1.1.5",
+        "sequelize": "2.0.0-rc1",
+        "sequelize-cli": "3.0.0"
+    }
 }

@@ -1,8 +1,8 @@
 'use strict';
-ROOT = __dirname;
+var ROOT = __dirname;
 
 // core libs
-var dotenv = require('dotenv');
+var dotenv = require('dotenv').config();
 var express = require('express');
 var fs = require('fs');
 var http = require('http');
