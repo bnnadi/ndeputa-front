@@ -1,24 +1,22 @@
-var Sequelize = require('sequelize');
+"use strict";
 
-var UserSchema = {
-    user_id: Sequelize.INTEGER,
-    username: Sequelize.STRING,
-    first_name: Sequelize.STRING,
-    last_name: Sequelize.STRING,
-    password: Sequelize.STRING,
-    email: Sequelize.STRING,
-    user_type: Sequelize.STRING,
-    lastlogin: Sequelize.DATE,
-    created_date: Sequelize.DATE,
-    modified_date: Sequelize.DATE
-};
+module.exports = function(sequelize, DataTypes) {
+    var User = sequelize.define("User", {
+        user_id: DataTypes.INTEGER,
+        username: DataTypes.STRING,
+        first_name: DataTypes.STRING,
+        last_name: DataTypes.STRING,
+        password: DataTypes.STRING,
+        email: DataTypes.STRING,
+        user_type: DataTypes.STRING,
+        lastlogin: DataTypes.DATE,
+        created_date: DataTypes.DATE,
+        modified_date: DataTypes.DATE
+    }, {
+        tableName: 'users'
+    });
 
-module.exports = function(connection) {
+    User.associate = function(models) {};
 
-    // if (!connection) {
-    //     connection = mongoose;
-    // }
-
-    connection.define('v1User', UserSchema);
-
+    return User;
 };
