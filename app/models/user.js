@@ -10,6 +10,7 @@ module.exports = function(sequelize, DataTypes) {
         email: DataTypes.STRING,
         user_type: DataTypes.STRING,
         lastlogin: DataTypes.DATE,
+        createdBy_id: DataTypes.INTEGER,
         created_date: DataTypes.DATE,
         modified_date: DataTypes.DATE
     }, {

@@ -1,5 +1,6 @@
-'use strict';
-var ROOT = __dirname;
+#!/usr/bin/env nodejs
+
+ROOT = __dirname;
 
 // core libs
 var dotenv = require('dotenv').config();

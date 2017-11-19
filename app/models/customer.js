@@ -3,7 +3,8 @@
 module.exports = function(sequelize, DataTypes) {
     var Customer = sequelize.define("Customer", {
         customer_id: DataTypes.INTEGER,
-        customer_name: DataTypes.STRING
+        customer_name: DataTypes.STRING,
+        createdBy_id: DataTypes.INTEGER
     }, {
         tableName: 'customers'
     });

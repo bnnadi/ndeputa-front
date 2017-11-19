@@ -29,10 +29,10 @@ var redisClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_H
 
 // var upload = expressMulter();
 
-// var redisStoreOptions = {
-//     client: redisClient,
-//     db: parseInt(process.env.REDIS_DB),
-// };
+var redisStoreOptions = {
+    client: redisClient,
+    db: parseInt(process.env.REDIS_DB),
+};
 
 Object.defineProperty(global, 'bnStack', {
     get: function() {
@@ -94,7 +94,10 @@ module.exports = function() {
 
     this.use(expressDevice.capture());
 
-    this.use(expressBodyParser());
+    this.use(expressBodyParser.urlencoded({
+        extended: true
+    }));
+    this.use(expressBodyParser.json());
 
     this.use(expressSession({
         secret: 'asdhwhnxxiou1mizxehdncfx3gx',
@@ -111,7 +114,6 @@ module.exports = function() {
 
     // custom middleware
     this.use(function(req, res, next) {
-
 
         req.bnBoolean = function(param, defaultValue) {
 
@@ -145,6 +147,76 @@ module.exports = function() {
             }
 
         };
+
+        req.bnNumber = function(param, defaultValue) {
+
+            var value = req.param(param);
+
+            if (typeof value === 'string') {
+                value = value.replace(/[^0-9.-]/igm, '');
+            }
+
+            if (value === undefined) {
+                return defaultValue;
+            } else {
+                value = parseFloat(value);
+                if (isNaN(value)) {
+                    return defaultValue;
+                }
+                return value;
+            }
+
+        };
+
+        req.bnNullParam = function(param, defaultValue) {
+
+            var paramOrder = ['params', 'query', 'body'];
+            var paramValue;
+
+            for (var i = 0, j = paramOrder.length; i < j; i++) {
+                if (req[paramOrder[i]][param] !== undefined) {
+                    paramValue = req[paramOrder[i]][param];
+                    break;
+                }
+            }
+
+            if (paramValue === undefined) {
+                return defaultValue;
+            } else {
+                return paramValue;
+            }
+
+        };
+
+        req.bnString = function(param, defaultValue) {
+
+            if (req.param(param) === undefined) {
+                return defaultValue;
+            } else {
+                return striptags(req.param(param));
+            }
+
+        };
+
+        req.bnDate = function(param, defaultValue) {
+
+            // using nrNullParam because null is a valid value for dates
+            var paramValue = req.nrNullParam(param);
+
+            if (paramValue === undefined) {
+                return defaultValue;
+            } else {
+
+                if (paramValue === null) {
+                    return null;
+                }
+
+                return moment(req.param(param)).startOf('day').toDate();
+
+            }
+
+        };
+
 
         req.bnRemote = function() {
 
