@@ -12,6 +12,10 @@ var config = {
     "port": process.env.DB_PORT
 };
 
+if (env === 'production') {
+    config.logging = false;
+}
+
 if (process.env.DATABASE_URL) {
     var sequelize = new Sequelize(process.env.DATABASE_URL, config);
 } else {

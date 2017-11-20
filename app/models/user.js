@@ -3,6 +3,17 @@ var bcrypt = require('bcryptjs');
 
 module.exports = function(sequelize, DataTypes) {
     var User = sequelize.define("user", {
+        accountType: {
+            type: DataTypes.ENUM,
+            values: ['admin', 'agent', 'guard', 'pmanager', 'smanager', 'worker']
+        },
+        email: {
+            type: DataTypes.STRING,
+            vaildate: {
+                notNull: true,
+                isEmail: true
+            }
+        },
         firstName: {
             type: DataTypes.STRING,
             field: 'first_name'
@@ -23,22 +34,9 @@ module.exports = function(sequelize, DataTypes) {
                 notNull: true
             }
         },
-        email: {
-            type: DataTypes.STRING,
-            vaildate: {
-                notNull: true,
-                isEmail: true
-            }
-        },
-        accountType: {
-            type: DataTypes.ENUM,
-            values: ['admin', 'agent', 'guard', 'pmanager', 'smanager', 'worker']
-        },
         lastloginAt: {
             type: DataTypes.DATE,
-            vaildate: {
-                isDate: true
-            }
+            defaultValue: null
         },
         createdById: {
             type: DataTypes.INTEGER,
@@ -49,18 +47,12 @@ module.exports = function(sequelize, DataTypes) {
         tableName: 'users',
         timestamps: true,
         paranoid: true,
-        indexes: [{
-            unique: true,
-            fields: ['email']
-        }],
-        getterMethods: {
-            fullName() {
-                return this.first_name + ' ' + this.last_name;
-            }
-        },
-        validate: {
-            isValidPassword(password) {
+        instanceMethods: {
+            isValidPassword: function(password) {
                 return bcrypt.compareSync(password, this.password);
+            },
+            fullName: function() {
+                return [this.first_name, this.last_name].join(' ');
             }
         }
     });

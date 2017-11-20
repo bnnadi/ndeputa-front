@@ -23,6 +23,7 @@ module.exports = function(done) {
             .then(function(user) {
 
                 if (!user) { return done(null, false); }
+                if (!user.isValidPassword(password)) { return done(null, false); }
 
                 done(null, user);
                 return;

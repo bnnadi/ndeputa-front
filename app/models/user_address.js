@@ -1,7 +1,7 @@
 "use strict";
 
 module.exports = function(sequelize, DataTypes) {
-    var UserAddress = sequelize.define("user", {
+    var UserAddress = sequelize.define("user_address", {
         userId: {
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -22,6 +22,10 @@ module.exports = function(sequelize, DataTypes) {
         country: {
             type: DataTypes.STRING,
             allowNull: false,
+        },
+        zip: {
+            type: DataTypes.STRING,
+            defaultValue: null
         },
         createdById: {
             type: DataTypes.INTEGER,

@@ -45,9 +45,9 @@ var routes = require('./config/routes');
 var app = express();
 var httpPort = process.env.HTTP_PORT;
 
-if (process.env.ENVIRONMENT === 'development') {
+if (process.env.NODE_ENV === 'development') {
     environmentsDev.call(app);
-} else if (process.env.ENVIRONMENT === 'production') {
+} else if (process.env.NODE_ENV === 'production') {
     environmentsPro.call(app);
 }
 
