@@ -25,13 +25,15 @@ module.exports = function routes() {
         var output = {};
 
         async.each([
-            'application',
+            'admin',
+            'factory',
+            'sales',
+            'security'
         ], function(item, next) {
 
             fs.readFile(ROOT + '/public/' + item + '/bower.json', 'utf8', function(err, data) {
 
                 if (err) {
-                    console.log(err);
                     next(null);
                     return;
                 }
@@ -60,7 +62,10 @@ module.exports = function routes() {
         var output = {};
 
         async.each([
-            'application',
+            'admin',
+            'factory',
+            'sales',
+            'security'
         ], function(item, next) {
 
             fs.readFile(FRONTEND + '/' + item + '/bower.json', 'utf8', function(err, data) {
