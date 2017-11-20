@@ -8,8 +8,8 @@ var config = {
     "database_name": process.env.DB_NAME,
     "username": process.env.DB_USERNAME,
     "password": process.env.DB_PASSWORD,
-    "dialect": "mysql",
-    "port": 3306
+    "dialect": process.env.DB_DIALECT,
+    "port": process.env.DB_PORT
 };
 
 if (process.env.DATABASE_URL) {

@@ -20,16 +20,15 @@ module.exports = function(done) {
             .find({
                 where: { username: username }
             })
-            .then(function(err, user) {
+            .then(function(user) {
 
-                console.log(err);
-                console.log(user);
-
-                if (err) { return done(err); }
                 if (!user) { return done(null, false); }
 
                 done(null, user);
                 return;
+            })
+            .catch(function(reason) {
+                return done(reason);
             });
 
     }));
@@ -51,7 +50,8 @@ module.exports = function(done) {
             .findOne({
                 where: { user_id: id }
             })
-            .then(done);
+            .then(done)
+            .catch(done);
     });
 
     done();

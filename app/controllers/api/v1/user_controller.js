@@ -46,6 +46,8 @@ controller.login = function(req, res, next) {
         if (err) {
 
             errors = ['NNC-01001'];
+            console.log(err.name);
+            console.log(err.message);
             console.log(nnLine, new Date());
             res.status(500);
             res.json({

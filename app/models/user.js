@@ -26,7 +26,7 @@ module.exports = function(sequelize, DataTypes) {
         user_type: {
             type: DataTypes.STRING
         },
-        lastlogin: {
+        lastloginAt: {
             type: DataTypes.DATE
         },
         createdBy_id: {
@@ -36,8 +36,6 @@ module.exports = function(sequelize, DataTypes) {
     }, {
         tableName: 'users',
         timestamps: true,
-        updatedAt: 'updateTimestamp',
-        deletedAt: 'destroyTime',
         paranoid: true
     });
 

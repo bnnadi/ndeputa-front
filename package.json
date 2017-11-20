@@ -1,51 +1,55 @@
 {
-    "name": "ims",
-    "version": "1.0.0",
-    "description": "Node inventory management system with barcode scanning",
-    "main": "server.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/bnnadi/IMS.git"
-    },
-    "keywords": [
-        "ims",
-        "inventory",
-        "mamagement",
-        "system",
-        "api"
-    ],
-    "author": "Bisike Nnadi",
-    "license": "ISC",
-    "bugs": {
-        "url": "https://github.com/bnnadi/IMS/issues"
-    },
-    "homepage": "https://github.com/bnnadi/IMS#readme",
-    "dependencies": {
-        "async": "2.6.0",
-        "bcryptjs": "2.4.3",
-        "body-parser": "1.18.2",
-        "connect-redis": "3.3.2",
-        "cookie-parser": "1.4.3",
-        "dotenv": "4.0.0",
-        "ejs-mate": "2.3.0",
-        "express": "4.16.2",
-        "express-device": "^0.4.2",
-        "express-session": "1.15.6",
-        "js-schema": "1.0.1",
-        "jsonwebtoken": "8.1.0",
-        "lodash": "4.17.4",
-        "mysql": "2.15.0",
-        "nodemailer": "4.4.0",
-        "passport": "0.4.0",
-        "passport-local": "1.0.0",
-        "randomstring": "1.1.5",
-        "redis": "2.8.0",
-        "request-param": "1.0.1",
-        "sequelize": "2.0.0-rc1",
-        "sequelize-cli": "3.0.0",
-        "uuid": "3.1.0"
-    }
+  "name": "ims",
+  "version": "1.0.0",
+  "description": "Node inventory management system with barcode scanning",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bnnadi/IMS.git"
+  },
+  "keywords": [
+    "ims",
+    "inventory",
+    "mamagement",
+    "system",
+    "api"
+  ],
+  "author": "Bisike Nnadi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bnnadi/IMS/issues"
+  },
+  "homepage": "https://github.com/bnnadi/IMS#readme",
+  "dependencies": {
+    "async": "2.6.0",
+    "bcryptjs": "2.4.3",
+    "body-parser": "1.18.2",
+    "connect-redis": "3.3.2",
+    "cookie-parser": "1.4.3",
+    "dotenv": "4.0.0",
+    "ejs-mate": "2.3.0",
+    "express": "4.16.2",
+    "express-device": "^0.4.2",
+    "express-session": "1.15.6",
+    "js-schema": "1.0.1",
+    "jsonwebtoken": "8.1.0",
+    "lodash": "4.17.4",
+    "mysql": "2.15.0",
+    "nodemailer": "4.4.0",
+    "passport": "0.4.0",
+    "passport-local": "1.0.0",
+    "randomstring": "1.1.5",
+    "redis": "2.8.0",
+    "request-param": "1.0.1",
+    "sequelize": "2.0.0-rc1",
+    "sequelize-cli": "3.0.0",
+    "uuid": "3.1.0"
+  },
+  "devDependencies": {
+    "chance": "^1.0.12",
+    "gulp": "^3.9.1"
+  }
 }

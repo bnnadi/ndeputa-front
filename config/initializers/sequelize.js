@@ -7,10 +7,16 @@ module.exports = function(done) {
 
     var models = require(BACKEND + '/models');
 
-    models.sequelize.sync().then(function() {
-        done();
-    });
+    models.sequelize
+        .authenticate()
+        .then(function() {
+            console.log('Connection has been established successfully.');
+            console.log('Initializer: Sequelize completed');
+            done();
+        })
+        .catch(function(err) {
+            console.error('Unable to connect to the database:', err);
+        });
 
-    console.log('Initializer: Sequelize completed');
 
 };
