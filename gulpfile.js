@@ -24,19 +24,18 @@ gulp.task('v1-test-db', function() {
 
 gulp.task('v1-admin', function() {
     var User = models.user;
-    async.each([
-            {},
-            {},
-            {},
-        ],
-        function(user, cb) {
-            User
-                .create({ where: user })
-                .then(cb)
-                .catch(cb);
-        },
+    var admin = {
+        email: chance.email(),
+        first_name: chance.first(),
+        last_name: chance.last(),
+        password: chance.first(),
+        accountType: 'admin'
+    };
+
+    async.waterfall(,
         function(err) {
-            if (err) { console.log(err); } else { console.log("Success!!"); };
+            if (err) { return console.log(err); }
+            console.log("Success!!");
         });
 });
 gulp.task('v1-sales-agent', function() {});

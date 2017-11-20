@@ -10,7 +10,6 @@ module.exports = function(done) {
     models.sequelize
         .authenticate()
         .then(function() {
-            console.log('Connection has been established successfully.');
             console.log('Initializer: Sequelize completed');
             done();
         })

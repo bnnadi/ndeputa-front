@@ -1,42 +1,68 @@
 "use strict";
+var bcrypt = require('bcryptjs');
 
 module.exports = function(sequelize, DataTypes) {
     var User = sequelize.define("user", {
-        user_id: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true,
+        firstName: {
+            type: DataTypes.STRING,
+            field: 'first_name'
         },
-        username: {
-            type: DataTypes.STRING
-        },
-        first_name: {
-            type: DataTypes.STRING
-        },
-        last_name: {
-            type: DataTypes.STRING
+        lastName: {
+            type: DataTypes.STRING,
+            field: 'last_name'
         },
         password: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING(30),
+            set(val) {
+                if (val.legnth < 8) {
+                    this.setDataValue(null);
+                }
+                this.setDataValue('password', bcrypt.hashSync(val, bcrypt.genSaltSync()));
+            },
+            vaildate: {
+                notNull: true
+            }
         },
         email: {
             type: DataTypes.STRING,
-            allowNull: false,
+            vaildate: {
+                notNull: true,
+                isEmail: true
+            }
         },
-        user_type: {
-            type: DataTypes.STRING
+        accountType: {
+            type: DataTypes.ENUM,
+            values: ['admin', 'agent', 'guard', 'pmanager', 'smanager', 'worker']
         },
         lastloginAt: {
-            type: DataTypes.DATE
+            type: DataTypes.DATE,
+            vaildate: {
+                isDate: true
+            }
         },
-        createdBy_id: {
+        createdById: {
             type: DataTypes.INTEGER,
-            allowNull: false,
+            defaultValue: 0,
+            field: 'createdBy_id'
         }
     }, {
         tableName: 'users',
         timestamps: true,
-        paranoid: true
+        paranoid: true,
+        indexes: [{
+            unique: true,
+            fields: ['email']
+        }],
+        getterMethods: {
+            fullName() {
+                return this.first_name + ' ' + this.last_name;
+            }
+        },
+        validate: {
+            isValidPassword(password) {
+                return bcrypt.compareSync(password, this.password);
+            }
+        }
     });
 
     User.associate = function(models) {};

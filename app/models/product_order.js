@@ -2,23 +2,23 @@
 
 module.exports = function(sequelize, DataTypes) {
     var ProductOrder = sequelize.define("productOrder", {
-        products_orders_id: {
+        productId: {
             type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true,
+            field: 'product_id'
         },
-        product_id: DataTypes.INTEGER,
-        order_id: DataTypes.INTEGER,
-        product_qty: DataTypes.STRING,
-        createdBy_id: {
+        orderId: {
             type: DataTypes.INTEGER,
-            allowNull: false,
+            field: 'order_id'
+        },
+        product_qty: DataTypes.STRING,
+        createdById: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0,
+            field: 'createdBy_id'
         }
     }, {
         tableName: 'products_orders',
         timestamps: true,
-        updatedAt: 'updateTimestamp',
-        deletedAt: 'destroyTime',
         paranoid: true
     });
 

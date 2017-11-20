@@ -2,21 +2,15 @@
 
 module.exports = function(sequelize, DataTypes) {
     var Product = sequelize.define("product", {
-        product_id: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true,
-        },
         product_name: DataTypes.STRING,
-        createdBy_id: {
+        createdById: {
             type: DataTypes.INTEGER,
-            allowNull: false,
+            defaultValue: 0,
+            field: 'createdBy_id'
         }
     }, {
         tableName: 'products',
         timestamps: true,
-        updatedAt: 'updateTimestamp',
-        deletedAt: 'destroyTime',
         paranoid: true
     });
 

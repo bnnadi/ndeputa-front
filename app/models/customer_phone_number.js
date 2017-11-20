@@ -1,27 +1,28 @@
 "use strict";
 
 module.exports = function(sequelize, DataTypes) {
-    var Order = sequelize.define("order", {
+    var CustomerPhoneNumber = sequelize.define("customer_phone_number", {
         customerId: {
             type: DataTypes.INTEGER,
+            allowNull: false,
             field: 'customer_id'
+        },
+        number: {
+            type: DataTypes.STRING,
+            allowNull: false,
         },
         createdById: {
             type: DataTypes.INTEGER,
             defaultValue: 0,
             field: 'createdBy_id'
-        },
-        orderName: {
-            type: DataTypes.STRING,
-            field: 'order_name'
         }
     }, {
-        tableName: 'orders',
+        tableName: 'customers_phone_numbers',
         timestamps: true,
         paranoid: true
     });
 
-    Order.associate = function(models) {};
+    CustomerPhoneNumber.associate = function(models) {};
 
-    return Order;
+    return CustomerPhoneNumber;
 };
