@@ -5,7 +5,7 @@ var jsSchema = require('js-schema');
 var passport = require('passport');
 
 // classes
-var Controller = require('./base_controller');
+var Controller = require(ROOT + '/app/controllers/base_controller');
 
 // instances
 var controller = new Controller();

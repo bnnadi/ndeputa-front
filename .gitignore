@@ -1,5 +1,8 @@
 node_modules/
-
+public/admin/
+public/sales/
+public/factory/
+public/security/
 data/
 
 *.http

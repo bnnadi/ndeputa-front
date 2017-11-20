@@ -1,4 +1,5 @@
 // libraries
+var ejsMate = require('ejs-mate');
 var expressBodyParser = require('body-parser');
 var expressCookieParser = require('cookie-parser');
 var expressDevice = require('express-device');
@@ -63,6 +64,12 @@ Object.defineProperty(global, 'bnFunction', {
 
 module.exports = function() {
 
+    this.set('views', 'app/views');
+    this.set('view engine', 'ejs');
+
+    // Register EJS as a template engine.
+    this.engine('ejs', ejsMate);
+
     this.locals.ENVIRONMENT = process.env.ENVIRONMENT || 'development';
 
 
@@ -73,6 +80,7 @@ module.exports = function() {
 
         if (req.path && req.path.indexOf('.git') !== -1) {
             res.status(404);
+            res.render('public/errors/404');
             return;
         }
 
