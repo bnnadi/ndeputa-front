@@ -2,6 +2,8 @@ var express = require('express');
 
 module.exports = function() {
 
+    this.use(express.static(FRONTEND));
+
     // adds additional logging information to the console
     if (process.env.LOG_LINES === 'true') {
         ['log', 'warn'].forEach(function(method) {
