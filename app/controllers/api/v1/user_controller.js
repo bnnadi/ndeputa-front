@@ -30,7 +30,7 @@ controller.login = function(req, res) {
 
     if (invalid) {
 
-        var errors = ['NRC-01001'];
+        var errors = ['NN-01001'];
         // res.nrBunyan(errors);
         console.log(bnLine, new Date());
         res.status(400);
@@ -45,7 +45,7 @@ controller.login = function(req, res) {
 
         if (err) {
 
-            errors = ['NRC-01001'];
+            errors = ['NN-01001'];
             console.log(bnLine, new Date());
             res.status(500);
             res.json({
@@ -57,7 +57,7 @@ controller.login = function(req, res) {
 
         if (!result) {
 
-            errors = ['NRC-01001'];
+            errors = ['NN-01001'];
             console.log(bnLine, new Date());
             res.status(404);
             res.json({
@@ -72,7 +72,7 @@ controller.login = function(req, res) {
         req.login(result, {}, function(err) {
 
             if (err) {
-                var errors = ['BNC-00002'];
+                var errors = ['NN-00002'];
                 console.log("WHAT!!!");
                 console.log(bnLine, new Date());
                 res.status(500);
