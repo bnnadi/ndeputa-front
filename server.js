@@ -1,6 +1,8 @@
 #!/usr/bin/env nodejs
 
 ROOT = __dirname;
+BACKEND = ROOT + '/app';
+FRONTEND = ROOT + '/public';
 
 // core libs
 var dotenv = require('dotenv').config();

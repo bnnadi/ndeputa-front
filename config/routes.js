@@ -2,11 +2,11 @@ var _ = require('lodash');
 var async = require('async');
 var fs = require('fs');
 
-var public = require(ROOT + '/app/controllers/public_controller');
+var public = require(BACKEND + '/controllers/public_controller');
 
-var v1Admin = require(ROOT + '/app/controllers/admin_controller');
-var v1PasswordReset = require(ROOT + '/app/controllers/password_reset_controller');
-var v1User = require(ROOT + '/app/controllers/user_controller');
+var v1Admin = require(BACKEND + '/controllers/api/v1/admin_controller');
+var v1PasswordReset = require(BACKEND + '/controllers/api/v1/password_reset_controller');
+var v1User = require(BACKEND + '/controllers/api/v1/user_controller');
 
 module.exports = function routes() {
 

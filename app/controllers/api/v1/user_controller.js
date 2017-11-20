@@ -10,7 +10,7 @@ var Controller = require(ROOT + '/app/controllers/base_controller');
 // instances
 var controller = new Controller();
 
-var UserModel = require('../models').User;
+var UserModel = require(BACKEND + '/models').User;
 
 controller.login = function(req, res) {
 
