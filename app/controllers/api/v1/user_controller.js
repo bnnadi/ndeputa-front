@@ -10,9 +10,9 @@ var Controller = require(ROOT + '/app/controllers/base_controller');
 // instances
 var controller = new Controller();
 
-var UserModel = require(BACKEND + '/models').User;
+var UserModel = require(BACKEND + '/models').user;
 
-controller.login = function(req, res) {
+controller.login = function(req, res, next) {
 
     var username = req.body.username.toLowerCase().replace(/^[ \t]+|[ \t]+$/ig, '');
     var password = req.body.password;
@@ -30,9 +30,9 @@ controller.login = function(req, res) {
 
     if (invalid) {
 
-        var errors = ['NN-01001'];
-        // res.nrBunyan(errors);
-        console.log(bnLine, new Date());
+        var errors = ['NNC-01001'];
+        // res.nnBunyan(errors);
+        console.log(nnLine, new Date());
         res.status(400);
         res.json({
             errors: errors,
@@ -41,12 +41,12 @@ controller.login = function(req, res) {
 
     }
 
-    passport.authenticate('local', function(err, result) {
+    passport.authenticate('v1-local-user', function(err, result, info) {
 
         if (err) {
 
-            errors = ['NN-01001'];
-            console.log(bnLine, new Date());
+            errors = ['NNC-01001'];
+            console.log(nnLine, new Date());
             res.status(500);
             res.json({
                 errors: errors,
@@ -57,8 +57,8 @@ controller.login = function(req, res) {
 
         if (!result) {
 
-            errors = ['NN-01001'];
-            console.log(bnLine, new Date());
+            errors = ['NNC-01001'];
+            console.log(nnLine, new Date());
             res.status(404);
             res.json({
                 errors: errors,
@@ -72,9 +72,9 @@ controller.login = function(req, res) {
         req.login(result, {}, function(err) {
 
             if (err) {
-                var errors = ['NN-00002'];
+                var errors = ['NNC-00002'];
                 console.log("WHAT!!!");
-                console.log(bnLine, new Date());
+                console.log(nnLine, new Date());
                 res.status(500);
                 res.json({
                     errors: errors,
@@ -88,11 +88,11 @@ controller.login = function(req, res) {
 
         });
 
-    })(req, res);
+    })(req, res, next);
 
 };
 
-controller.logout = function(req, res) {
+controller.logout = function(req, res, next) {
 
     req.logout();
 
@@ -104,7 +104,7 @@ controller.logout = function(req, res) {
 
 };
 
-controller.createOne = function(req, res) {
+controller.createOne = function(req, res, next) {
 
     var user = req.user || {};
 
@@ -134,7 +134,7 @@ controller.createOne = function(req, res) {
         });
 };
 
-controller.readOne = function(req, res) {};
+controller.readOne = function(req, res, next) {};
 
 controller.before([
     'login'
@@ -143,7 +143,7 @@ controller.before([
     if (req.user && req.user.accountType) {
         res.status(401);
         res.json({
-            errors: ['BNC-00001']
+            errors: ['NNC-00001']
         });
         return;
     }
@@ -160,7 +160,7 @@ controller.before([
     if (!req.user || !req.user.accountType) {
         res.status(401);
         res.json({
-            errors: ['BNC-00000']
+            errors: ['NNC-00000']
         });
         return;
     }

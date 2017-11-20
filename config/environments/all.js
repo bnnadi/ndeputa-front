@@ -35,7 +35,7 @@ var redisStoreOptions = {
     db: parseInt(process.env.REDIS_DB),
 };
 
-Object.defineProperty(global, 'bnStack', {
+Object.defineProperty(global, 'nnStack', {
     get: function() {
         var orig = Error.prepareStackTrace;
         Error.prepareStackTrace = function(_, stack) {
@@ -49,15 +49,15 @@ Object.defineProperty(global, 'bnStack', {
     }
 });
 
-Object.defineProperty(global, 'bnLine', {
+Object.defineProperty(global, 'nnLine', {
     get: function() {
-        return '\033[33mline ' + bnStack[1].getLineNumber() + '\033[0m';
+        return '\033[33mline ' + nnStack[1].getLineNumber() + '\033[0m';
     }
 });
 
-Object.defineProperty(global, 'bnFunction', {
+Object.defineProperty(global, 'nnFunction', {
     get: function() {
-        return '\033[32mline ' + bnStack[1].getFunctionName() + '\033[0m';
+        return '\033[32mline ' + nnStack[1].getFunctionName() + '\033[0m';
     }
 });
 
@@ -123,7 +123,7 @@ module.exports = function() {
     // custom middleware
     this.use(function(req, res, next) {
 
-        req.bnBoolean = function(param, defaultValue) {
+        req.nnBoolean = function(param, defaultValue) {
 
             if (req.param(param) === undefined) {
                 return defaultValue;
@@ -144,7 +144,7 @@ module.exports = function() {
         };
 
 
-        req.bnArray = function(param, defaultValue) {
+        req.nnArray = function(param, defaultValue) {
 
             if (req.param(param) === undefined) {
                 return defaultValue;
@@ -156,7 +156,7 @@ module.exports = function() {
 
         };
 
-        req.bnNumber = function(param, defaultValue) {
+        req.nnNumber = function(param, defaultValue) {
 
             var value = req.param(param);
 
@@ -176,7 +176,7 @@ module.exports = function() {
 
         };
 
-        req.bnNullParam = function(param, defaultValue) {
+        req.nnNullParam = function(param, defaultValue) {
 
             var paramOrder = ['params', 'query', 'body'];
             var paramValue;
@@ -196,7 +196,7 @@ module.exports = function() {
 
         };
 
-        req.bnString = function(param, defaultValue) {
+        req.nnString = function(param, defaultValue) {
 
             if (req.param(param) === undefined) {
                 return defaultValue;
@@ -206,7 +206,7 @@ module.exports = function() {
 
         };
 
-        req.bnDate = function(param, defaultValue) {
+        req.nnDate = function(param, defaultValue) {
 
             // using nrNullParam because null is a valid value for dates
             var paramValue = req.nrNullParam(param);
@@ -226,7 +226,7 @@ module.exports = function() {
         };
 
 
-        req.bnRemote = function() {
+        req.nnRemote = function() {
 
             var ipAddress = this.ip.substring(this.ip.indexOf('f:') + 2);
             var location = maxmind.getLocation(ipAddress);

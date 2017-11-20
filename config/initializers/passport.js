@@ -2,97 +2,56 @@
 var _ = require('lodash');
 var bcrypt = require('bcryptjs');
 var passport = require('passport');
-var ExtractJwt = require('passport-jwt');
 
 // strategies
-var JwtStrategy = require('passport-jwt').Strategy
-var LocalStrategy = require('passport-local').Strategy
+var LocalStrategy = require('passport-local').Strategy;
 
 module.exports = function(done) {
 
     done = (typeof done === 'function') ? done : function() {};
 
-    passport.use(new LocalStrategy({
-        usernameField: 'username'
-    }, function(username, password, done) {
+    passport.use('v1-local-user', new LocalStrategy(function(username, password, done) {
 
-        username = username.toLowerCase().replace(/^[ \t]+|[ \t]+$/ig, '');
+        username.toLowerCase().replace(/^[ \t]+|[ \t]+$/ig, '');
 
-        var LoginUserModel = require(ROOT + "/app/models").user;
+        var UserModel = require(BACKEND + '/models').user;
 
-        LoginUserModel
-            .findOne({
-                where: {
-                    username: username,
-                }
+        UserModel
+            .find({
+                where: { username: username }
             })
-            .then(function(err, account) {
+            .then(function(err, user) {
 
-                if (err || !account) {
-                    done(err, false);
-                    return;
-                }
+                console.log(err);
+                console.log(user);
 
-                // var isV1Password = bcrypt.compareSync(password, account.password);
+                if (err) { return done(err); }
+                if (!user) { return done(null, false); }
 
-                // if (isV1Password) {
-
-                //     if (!account.firstLogin) {
-                //         account.firstLogin = new Date();
-                //     }
-
-                //     account.lastLogin = new Date();
-
-                //     account.save(done);
-
-                //     return;
-
-                // }
-
-                done(true, null);
-
+                done(null, user);
+                return;
             });
 
     }));
 
-    passport.use(new JwtStrategy({
-        jwtFromRequest: ExtractJwt.fromHeader('authorization'),
-        secretOrKey: JWT_SECRET
-    }, function(payload, done) {
-        try {
-
-            var User = require(ROOT + "/app/models").user;
-            var user = User.findById(payload.sub);
-
-            if (!user) {
-                return done(null, false);
-            }
-
-            done(null, user);
-        } catch (err) {
-            done(err, false);
-        }
-    }));
 
     passport.serializeUser(function(user, done) {
-
         done(null, {
-            '_id': user.user_id,
-            'accountType': user.user_tyoe,
+            '_id': user.id,
+            'accountType': user.account_type
         });
-
     });
 
     passport.deserializeUser(function(user, done) {
+        var id = user.id;
 
-        var id = user._id;
-
-        var UserModel = require(ROOT + "/app/models").user;
+        var UserModel = require(BACKEND + '/models').user;
 
         UserModel
-            .findById(id)
-            .exec(done);
-
+            .findOne({
+                where: { user_id: id }
+            })
+            .then(done);
     });
 
     done();
