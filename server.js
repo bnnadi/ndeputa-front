@@ -1,9 +1,9 @@
 #!/usr/bin/env nodejs
 
 ROOT = __dirname;
-CONFIG = ROOT + '/config';
-BACKEND = ROOT + '/app';
-FRONTEND = ROOT + '/public';
+CONFIG = __dirname + '/config';
+BACKEND = __dirname + '/app';
+FRONTEND = __dirname + '/public';
 
 // core libs
 var dotenv = require('dotenv').config();
@@ -46,6 +46,7 @@ var app = express();
 var httpPort = process.env.HTTP_PORT;
 
 if (process.env.NODE_ENV === 'development') {
+
     environmentsDev.call(app);
 } else if (process.env.NODE_ENV === 'production') {
     environmentsPro.call(app);

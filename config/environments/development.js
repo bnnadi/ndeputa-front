@@ -1,8 +1,9 @@
 var express = require('express');
+var path = require('path');
 
 module.exports = function() {
 
-    this.use(express.static(FRONTEND));
+    this.use(express.static(path.join(__dirname, 'public')));
 
     // adds additional logging information to the console
     if (process.env.LOG_LINES === 'true') {

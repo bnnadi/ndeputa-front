@@ -1,9 +1,10 @@
 // libraries
 var ejsMate = require('ejs-mate');
+var express = require('express');
 var expressBodyParser = require('body-parser');
 var expressCookieParser = require('cookie-parser');
 var expressDevice = require('express-device');
-// var expressMulter = require('multer');
+var expressMulter = require('multer');
 var expressRequestParam = require('request-param');
 var expressSession = require('express-session');
 var fs = require('fs');
@@ -28,7 +29,7 @@ var redisClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_H
     auth_pass: process.env.REDIS_PASS
 });
 
-// var upload = expressMulter();
+var upload = expressMulter();
 
 var redisStoreOptions = {
     client: redisClient,
@@ -70,7 +71,7 @@ module.exports = function() {
     // Register EJS as a template engine.
     this.engine('ejs', ejsMate);
 
-    this.locals.ENVIRONMENT = process.env.ENVIRONMENT || 'development';
+    this.locals.ENVIRONMENT = process.env.NODE_ENV || 'development';
 
 
     // configure Express middleware
@@ -106,7 +107,7 @@ module.exports = function() {
         extended: true
     }));
     this.use(expressBodyParser.json());
-
+    console.log('settting session');
     this.use(expressSession({
         secret: 'asdhwhnxxiou1mizxehdncfx3gx',
         cookie: {

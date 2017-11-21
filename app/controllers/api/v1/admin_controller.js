@@ -9,9 +9,8 @@ var Controller = require(ROOT + '/app/controllers/base_controller');
 var controller = new Controller();
 
 controller.index = function(req, res) {
-
-    res.sendfile('app.html', {
-        root: ROOT + '/public/admin/'
+    res.sendFile('app.html', {
+        root: ROOT + '/public/ndeputa-admin/'
     });
 };
 
@@ -21,28 +20,10 @@ controller.before([
     'index',
 ], function(req, res, next) {
 
-    if (req.user && req.user.accountType) {
-        var view;
-        switch (req.user.accountType) {
-            case 'admin':
-                view = '/admin';
-                break;
-            case 'sales':
-                view = '/sales';
-                break;
-            case 'factory':
-                view = '/factory';
-                break;
-            case 'security':
-                view = '/security';
-                break;
-            default:
-                break;
-        }
-        res.redirect(view);
+    if (!req.user || !req.user.accountType || req.user.accountType !== 'admin') {
+        res.redirect('/');
         return;
     }
-
     next();
 
 });

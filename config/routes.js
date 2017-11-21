@@ -19,16 +19,19 @@ module.exports = function routes() {
 
     // working sites
     this.get('/admin', v1Admin.index);
+    // this.get('/marketplace', v1Admin.index);
+    // this.get('/secure', v1Admin.index);
+    // this.get('/stock', v1Admin.index);
 
     this.get('/values/strings.js', function(req, res) {
 
         var output = {};
 
         async.each([
-            'admin',
-            'factory',
-            'sales',
-            'security'
+            'ndeputa-admin',
+            'ndeputa-factory',
+            'ndeputa-sales',
+            'ndeputa-security'
         ], function(item, next) {
 
             fs.readFile(ROOT + '/public/' + item + '/bower.json', 'utf8', function(err, data) {
@@ -62,10 +65,10 @@ module.exports = function routes() {
         var output = {};
 
         async.each([
-            'admin',
-            'factory',
-            'sales',
-            'security'
+            'ndeputa-admin',
+            'ndeputa-factory',
+            'ndeputa-sales',
+            'ndeputa-security'
         ], function(item, next) {
 
             fs.readFile(FRONTEND + '/' + item + '/bower.json', 'utf8', function(err, data) {

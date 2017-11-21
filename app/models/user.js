@@ -1,5 +1,16 @@
 "use strict";
+var _ = require("lodash");
 var bcrypt = require('bcryptjs');
+
+function hashPassword(password) {
+    return new Promise(function(resolve, reject) {
+        bcrypt.genSalt(10, function(err, salt) {
+            bcrypt.hash(password, salt, function(err, hash) {
+                return resolve(hash);
+            });
+        });
+    });
+};
 
 module.exports = function(sequelize, DataTypes) {
     var User = sequelize.define("user", {
@@ -24,12 +35,6 @@ module.exports = function(sequelize, DataTypes) {
         },
         password: {
             type: DataTypes.STRING(30),
-            set(val) {
-                if (val.legnth < 8) {
-                    this.setDataValue(null);
-                }
-                this.setDataValue('password', bcrypt.hashSync(val, bcrypt.genSaltSync()));
-            },
             vaildate: {
                 notNull: true
             }
@@ -45,19 +50,30 @@ module.exports = function(sequelize, DataTypes) {
         }
     }, {
         tableName: 'users',
-        timestamps: true,
         paranoid: true,
-        instanceMethods: {
-            isValidPassword: function(password) {
-                return bcrypt.compareSync(password, this.password);
-            },
-            fullName: function() {
-                return [this.first_name, this.last_name].join(' ');
-            }
+        classMethods: {
+
         }
     });
 
     User.associate = function(models) {};
+
+    // TODO: need to take a look at password cyrtograpthy
+    // User.beforeValidate(function(user, options) {
+    //     this.setDataValue(bcrypt.hashSync(user.password, bcrypt.genSaltSync()));
+    // });
+
+    User.prototype.isValidPassword = function(password) {
+        return bcrypt.compareSync(password, this.password);
+    };
+
+    User.prototype.getfullName = function() {
+        return [this.firstName, this.lastName].join(' ');
+    };
+
+    User.prototype.isManager = function() {
+        return (_.includes(['admin', 'pmanager', 'smanager'], this.accountType));
+    };
 
     return User;
 };

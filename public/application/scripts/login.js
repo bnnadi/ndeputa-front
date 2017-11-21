@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-    var errorResponseTemplate = _.template('<div class="g-validation g-validation-alert g-validation-form g-validation-error"><div class="g-validation-icon pull-left"><i class="fa fa-exclamation g-icon g-icon-border"></i></div><div class="g-validation-message"><%= message %></div></div>');
+    var errorResponseTemplate = _.template('<div class="alert alert-error"><div class="g-validation-icon pull-left"><i class="fa fa-exclamation g-icon g-icon-border"></i></div><div class="g-validation-message"><%= message %></div></div>');
     var errorResponseString;
 
     $('#login-form-submit').click(function(e) {
@@ -52,11 +52,11 @@ $(document).ready(function() {
                     errorResponseString = errorResponseTemplate({
                         message: window.STRINGS.LOGIN_SERVER_RESPONSE_GENRIC
                     });
-
-                    $('.response').html(errorResponseString);
-
-                    $self.html(btnText);
                 }
+
+                $('.response').html(errorResponseString);
+
+                $self.html(btnText);
             },
             success: function(response) {
                 localStorage.setItem('token', response.token);

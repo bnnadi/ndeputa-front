@@ -44,10 +44,7 @@ controller.login = function(req, res, next) {
     passport.authenticate('v1-local-user', function(err, result, info) {
 
         if (err) {
-
             errors = ['NNC-01001'];
-            console.log(err.name);
-            console.log(err.message);
             console.log(nnLine, new Date());
             res.status(500);
             res.json({
@@ -58,8 +55,7 @@ controller.login = function(req, res, next) {
         }
 
         if (!result) {
-
-            errors = ['NNC-01001'];
+            errors = ['NNC-01002'];
             console.log(nnLine, new Date());
             res.status(404);
             res.json({
@@ -68,14 +64,17 @@ controller.login = function(req, res, next) {
             return;
 
         }
-
         req.logout();
+        console.log("HELLOOOO " + result.get());
 
-        req.login(result, {}, function(err) {
+
+        req.login(result, function(err) {
+
+            console.log("HELLOOOO " + result.email);
 
             if (err) {
                 var errors = ['NNC-00002'];
-                console.log("WHAT!!!");
+                console.log(err);
                 console.log(nnLine, new Date());
                 res.status(500);
                 res.json({
@@ -85,7 +84,7 @@ controller.login = function(req, res, next) {
             }
 
             res.json({
-                user: result,
+                user: result.get(),
             });
 
         });
@@ -101,7 +100,7 @@ controller.logout = function(req, res, next) {
     req
         .session
         .destroy(function(err) {
-            res.redirect('/login');
+            res.redirect('/');
         });
 
 };
@@ -115,7 +114,6 @@ controller.createOne = function(req, res, next) {
     var record = {};
 
     record.createdById = user.user_id || 0;
-    record.username = req.body.username || "user_" + req.body.last_n;
     record.email = req.body.email;
     record.first_name = req.body.first_n;
     record.last_name = req.body.last_n;

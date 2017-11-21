@@ -15,15 +15,15 @@ module.exports = function(done) {
         username.toLowerCase().replace(/^[ \t]+|[ \t]+$/ig, '');
 
         var UserModel = require(BACKEND + '/models').user;
-
+        console.log("password check query");
         UserModel
-            .find({
-                where: { username: username }
+            .findOne({
+                where: { email: username }
             })
             .then(function(user) {
 
                 if (!user) { return done(null, false); }
-                if (!user.isValidPassword(password)) { return done(null, false); }
+                if (password !== user.password) { return done(null, false); }
 
                 done(null, user);
                 return;
@@ -36,23 +36,31 @@ module.exports = function(done) {
 
 
     passport.serializeUser(function(user, done) {
+
         done(null, {
             '_id': user.id,
-            'accountType': user.account_type
+            'accountType': user.accountType
         });
     });
 
     passport.deserializeUser(function(user, done) {
-        var id = user.id;
 
+        // done(null, false);
+
+        var id = user._id;
         var UserModel = require(BACKEND + '/models').user;
 
         UserModel
             .findOne({
-                where: { user_id: id }
+                where: { id: id }
             })
-            .then(done)
-            .catch(done);
+            .then(function(err) {
+                if (user) {
+                    done(null, user);
+                } else {
+                    done(user.errors, null);
+                }
+            });
     });
 
     done();

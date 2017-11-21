@@ -8,14 +8,7 @@ var Controller = require('./base_controller');
 // instances
 var controller = new Controller();
 
-// controller.index = function(req, res) {
-
-//     res.sendfile('app.html', {
-//         root: ROOT + '/public/main/'
-//     });
-
-// };
-
+console.log("hitting Public");
 controller.index = function(req, res) {
     res.render('public/login/index');
 };
@@ -24,11 +17,12 @@ controller.index = function(req, res) {
 
 controller.before([
     'index',
-    'login',
 ], function(req, res, next) {
-
-    if (req.user && req.user.accountType) {
-        var view;
+    console.log("Public");
+    if (req.isAuthenticated() && req.user && req.user.accountType) {
+        console.log("Controller");
+        console.log(req.user.accountType);
+        var view = '/';
         switch (req.user.accountType) {
             case 'admin':
                 view = '/admin';
