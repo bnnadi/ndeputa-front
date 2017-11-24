@@ -1,6 +1,7 @@
 var _ = require('lodash');
 var async = require('async');
 var fs = require('fs');
+var path = require('path');
 
 var public = require(BACKEND + '/controllers/public_controller');
 
@@ -10,17 +11,13 @@ var v1User = require(BACKEND + '/controllers/api/v1/user_controller');
 
 module.exports = function routes() {
 
-    this.all('/', public.index);
-
-    this.get('/forgot-password', v1PasswordReset.index);
-    // this.get('/password-verify', v1PasswordReset.verify);
-
+    this.get('/', public.index);
 
     this.post('/api/v1/login.json', v1User.login);
-    this.get('/logout', v1User.logout);
+    this.get('/api/v1/logout', v1User.logout);
 
     // working sites
-    this.get('/admin', v1Admin.index);
+    // this.get('/', v1Admin.index);
     // this.get('/marketplace', v1Admin.index);
     // this.get('/secure', v1Admin.index);
     // this.get('/stock', v1Admin.index);
@@ -30,6 +27,7 @@ module.exports = function routes() {
         var output = {};
 
         async.each([
+            'ndeputa',
             'ndeputa-admin',
             'ndeputa-factory',
             'ndeputa-sales',
@@ -67,6 +65,7 @@ module.exports = function routes() {
         var output = {};
 
         async.each([
+            'ndeputa',
             'ndeputa-admin',
             'ndeputa-factory',
             'ndeputa-sales',
@@ -110,5 +109,6 @@ module.exports = function routes() {
     this.get('/api/v1/user.json', v1User.readOne);
     // this.put('/api/v1/user.json', v1User.updateOne);
     // this.del('/api/v1/user.json', v1User.deleteOne);
+
 
 };

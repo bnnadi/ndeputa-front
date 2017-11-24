@@ -65,14 +65,13 @@ Object.defineProperty(global, 'nnFunction', {
 
 module.exports = function() {
 
-    this.set('views', 'app/views');
-    this.set('view engine', 'ejs');
+    // this.set('views', 'app/views');
+    // this.set('view engine', 'ejs');
 
-    // Register EJS as a template engine.
-    this.engine('ejs', ejsMate);
+    // // Register EJS as a template engine.
+    // this.engine('ejs', ejsMate);
 
     this.locals.ENVIRONMENT = process.env.NODE_ENV || 'development';
-
 
     // configure Express middleware
 
