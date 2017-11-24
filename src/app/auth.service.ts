@@ -12,19 +12,16 @@ export class AuthService {
 
   isLoggedIn = false;
   redirectUrl: string;
-
   private endpoint = 'login.json';
 
   constructor(private http: HttpService) {}
-//Todo: look into this 
+
   login(body: Object): Observable<User> {
     return this.http.post(this.endpoint, body)
       .map((res:Response) => {
         let response = res.json();
-        if(response.user) {
-          this.isLoggedIn = true;
-          localStorage.setItem('user', response.user);
-        }
+        localStorage.setItem('user', JSON.stringify(response.result.user));
+        localStorage.setItem('token', response.result.token);
       })
       .catch((error:any) => Observable.throw(error.json()))
   }
@@ -33,14 +30,15 @@ export class AuthService {
     
     this.http.get('logout')
         .map((res:Response) => {
-          this.isLoggedIn = false;
           localStorage.removeItem('user');
+          localStorage.removeItem('token');
         })
         .catch((error:any) => Observable.throw(error.json()));
   }
 
-  reset():Observable<boolean> {
-    return Observable.of(true).delay(1000).do(val => this.isLoggedIn = true);
+  isAuthenticated() {
+    let token = localStorage.getItem('token');
+    return (token) ? true : false;
   }
 
 }

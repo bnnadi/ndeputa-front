@@ -12,10 +12,8 @@ export class LoginComponent {
   login(form: any) {
 
     this.authService.login(form).subscribe(() => {
-
-      if(this.authService.isLoggedIn) {
+      if(this.authService.isAuthenticated) {
         let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/dashboard';
-
         this.router.navigate([redirect]);
       }
     });

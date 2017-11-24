@@ -23,7 +23,8 @@ export const routes: Routes = [
     data: {
       title: 'Home'
     },
-    // canActivateChild: [AuthGuard],
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
     children: [
       {
         path: 'dashboard',

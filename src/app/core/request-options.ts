@@ -8,8 +8,8 @@ export class CustomReqeustOptions extends BaseRequestOptions {
 
         super();
 
-            let user = JSON.parse(localStorage.getItem('user'))
-            this.token = user && user.token;
+            let token = localStorage.getItem('token');
+            this.token = token;
             this.headers.append('Content-Type', 'application/json');
             this.headers.append('Authorization', 'Bearer ' + this.token);
     }

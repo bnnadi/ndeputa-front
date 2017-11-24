@@ -18,8 +18,8 @@ export class DetailProductsComponent implements OnInit {
 
   getEmployee () {
     const id = +this.route.snapshot.paramMap.get('id');
-    this.ps.getProduct(id)
-    .subscribe(product => this.product = product);
+    // this.ps.getProduct(id)
+    // .subscribe(product => this.product = product);
   }
 
   goBack(): void {

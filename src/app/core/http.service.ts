@@ -25,13 +25,9 @@ export class HttpService extends Http {
 
     constructor( backend: XHRBackend, defaultOptions: CustomReqeustOptions, private loaderService: LoaderService) {
         super(backend, defaultOptions);
-
-        console.log('The HttpService');
-        console.log('Api route is ', this.apiUrl);
     }
 
     get(url: string, options?: RequestOptionsArgs): Observable<any> {
-        console.log('Getting data...');
 
         this.showLoader();
         return super.get(this.getFullUrl(url), this.requestOptions(options))
@@ -47,13 +43,11 @@ export class HttpService extends Http {
     }
 
     post(url: string, body: Object, options?: RequestOptionsArgs): Observable<any> {
-        console.log('Sending data...');
 
         this.showLoader();
         return super.post(this.getFullUrl(url), body, this.requestOptions(options))
                 .catch(this.onCatch)
                 .do((res: Response) => {
-                    console.log(res);
                     this.onSuccess(res);
                 }, (error: any) => {
                     this.onError(error);

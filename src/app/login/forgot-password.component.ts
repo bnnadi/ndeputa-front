@@ -10,10 +10,6 @@ export class ForgotPasswordComponent {
     constructor(public authService: AuthService, public router: Router) { }
 
     reset() {
-        this.authService.reset().subscribe(() => {
-    
-              this.router.navigate(['/login']);
-            
-          });
+      
     }
 }
