@@ -2,16 +2,6 @@
 var _ = require("lodash");
 var bcrypt = require('bcryptjs');
 
-function hashPassword(password) {
-    return new Promise(function(resolve, reject) {
-        bcrypt.genSalt(10, function(err, salt) {
-            bcrypt.hash(password, salt, function(err, hash) {
-                return resolve(hash);
-            });
-        });
-    });
-};
-
 module.exports = function(sequelize, DataTypes) {
     var User = sequelize.define("user", {
         accountType: {
@@ -34,7 +24,7 @@ module.exports = function(sequelize, DataTypes) {
             field: 'last_name'
         },
         password: {
-            type: DataTypes.STRING(30),
+            type: DataTypes.STRING(255),
             vaildate: {
                 notNull: true
             }
@@ -58,10 +48,9 @@ module.exports = function(sequelize, DataTypes) {
 
     User.associate = function(models) {};
 
-    // TODO: need to take a look at password cyrtograpthy
-    // User.beforeValidate(function(user, options) {
-    //     this.setDataValue(bcrypt.hashSync(user.password, bcrypt.genSaltSync()));
-    // });
+    User.beforeValidate(function(user, options) {
+        user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync());
+    });
 
     User.prototype.isValidPassword = function(password) {
         return bcrypt.compareSync(password, this.password);

@@ -65,12 +65,8 @@ controller.login = function(req, res, next) {
 
         }
         req.logout();
-        console.log("HELLOOOO " + result.get());
-
 
         req.login(result, function(err) {
-
-            console.log("HELLOOOO " + result.email);
 
             if (err) {
                 var errors = ['NNC-00002'];
