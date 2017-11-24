@@ -14,7 +14,7 @@ var UserModel = require(BACKEND + '/models').user;
 
 controller.login = function(req, res, next) {
 
-    var username = req.body.username.toLowerCase().replace(/^[ \t]+|[ \t]+$/ig, '');
+    var username = req.body.username;
     var password = req.body.password;
 
     // validate the parameters
@@ -45,6 +45,7 @@ controller.login = function(req, res, next) {
 
         if (err) {
             errors = ['NNC-01001'];
+            console.log(err);
             console.log(nnLine, new Date());
             res.status(500);
             res.json({
@@ -64,7 +65,7 @@ controller.login = function(req, res, next) {
             return;
 
         }
-        req.logout();
+        // req.logout();
 
         req.login(result, function(err) {
 
@@ -130,19 +131,62 @@ controller.createOne = function(req, res, next) {
         });
 };
 
-controller.readOne = function(req, res, next) {};
+controller.readOne = function(req, res, next) {
+    var user = req.user || {};
 
-controller.before([
-    'login'
-], function(req, res, next) {
+    var populate = req.body.populate || '';
 
-    if (req.user && req.user.accountType) {
-        res.status(401);
+    var id = req.query.id || user._id;
+
+    // validate the parameters
+    var schema = jsSchema({
+        id: Number,
+    });
+
+    var invalid = schema.errors({
+        id: id
+    });
+
+    if (invalid) {
+
+        var errors = ['NNC-01001'];
+        // res.nnBunyan(errors);
+        console.log(nnLine, new Date());
+        res.status(400);
         res.json({
-            errors: ['NNC-00001']
+            errors: errors,
         });
         return;
+
     }
+
+    UserModel
+        .findById(id)
+        .then(function(user) {
+            res.json({
+                result: user.get()
+            });
+            return;
+        }).catch(function(err) {
+            res.status(404);
+            res.json({
+                errors: errors,
+            });
+            return;
+        });
+};
+
+controller.before([
+    'login',
+], function(req, res, next) {
+
+    // if (req.isAuthenticated()) {
+    //     res.status(200);
+    //     res.json({
+    //         result: req.user
+    //     });
+    //     return;
+    // }
 
     next();
 
@@ -150,10 +194,11 @@ controller.before([
 
 controller.before([
     'logout',
+    'createOne',
     'readOne'
 ], function(req, res, next) {
 
-    if (!req.user || !req.user.accountType) {
+    if (!req.isAuthenticated()) {
         res.status(401);
         res.json({
             errors: ['NNC-00000']

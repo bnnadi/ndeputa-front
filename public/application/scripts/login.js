@@ -32,7 +32,7 @@ $(document).ready(function() {
         }
 
         $.ajax({
-            url: '/api/v1/user/login.json',
+            url: '/api/v1/login.json',
             type: 'POST',
             data: {
                 username: username,
@@ -59,6 +59,7 @@ $(document).ready(function() {
                 $self.html(btnText);
             },
             success: function(response) {
+                console.log(response);
                 localStorage.setItem('token', response.token);
                 localStorage.setItem('user', response.user);
                 $self.html(window.STRINGS.GLOBAL_REDIRECTING + '<i class="fa fa-cog fa-spin"></i>');

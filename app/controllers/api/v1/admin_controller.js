@@ -20,7 +20,7 @@ controller.before([
     'index',
 ], function(req, res, next) {
 
-    if (!req.user || !req.user.accountType || req.user.accountType !== 'admin') {
+    if (!req.isAuthenticated() || req.user.accountType !== 'admin') {
         res.redirect('/');
         return;
     }

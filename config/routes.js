@@ -15,6 +15,8 @@ module.exports = function routes() {
     this.get('/forgot-password', v1PasswordReset.index);
     // this.get('/password-verify', v1PasswordReset.verify);
 
+
+    this.post('/api/v1/login.json', v1User.login);
     this.get('/logout', v1User.logout);
 
     // working sites
@@ -104,8 +106,9 @@ module.exports = function routes() {
     this.put('/api/v1/passwordVerify.json', v1PasswordReset.verify);
 
     // user
-    this.post('/api/v1/user/login.json', v1User.login);
     this.post('/api/v1/user.json', v1User.createOne);
     this.get('/api/v1/user.json', v1User.readOne);
+    // this.put('/api/v1/user.json', v1User.updateOne);
+    // this.del('/api/v1/user.json', v1User.deleteOne);
 
 };

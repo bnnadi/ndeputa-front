@@ -15,7 +15,7 @@ module.exports = function(done) {
         username.toLowerCase().replace(/^[ \t]+|[ \t]+$/ig, '');
 
         var UserModel = require(BACKEND + '/models').user;
-        console.log("password check query");
+
         UserModel
             .findOne({
                 where: { email: username }
@@ -24,6 +24,8 @@ module.exports = function(done) {
 
                 if (!user) { return done(null, false); }
                 if (!user.isValidPassword(password)) { return done(null, false); }
+
+                // user.lastloginAt = new Date();
 
                 done(null, user);
                 return;

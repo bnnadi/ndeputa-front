@@ -107,7 +107,7 @@ module.exports = function() {
         extended: true
     }));
     this.use(expressBodyParser.json());
-    console.log('settting session');
+
     this.use(expressSession({
         secret: 'asdhwhnxxiou1mizxehdncfx3gx',
         cookie: {

@@ -41,8 +41,12 @@ module.exports = function(sequelize, DataTypes) {
     }, {
         tableName: 'users',
         paranoid: true,
-        classMethods: {
-
+        instanceMethods: {
+            toJSON: function() {
+                var values = Object.assign({}, this.get());
+                delete values.password;
+                return values;
+            }
         }
     });
 
