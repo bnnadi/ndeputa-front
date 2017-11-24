@@ -1,0 +1,13 @@
+<table class="table">
+    <caption *ngIf="caption">{{ caption }}</caption>
+    <thead>
+        <tr>
+            <th *ngFor="let map of columnMaps" routerLink="/login">{{ map.header }}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let record of records">
+            <td *ngFor="let map of columnMaps">{{ record[map.primaryKey] | formatCell:map.format }}</td>
+        </tr>
+    </tbody>
+</table>

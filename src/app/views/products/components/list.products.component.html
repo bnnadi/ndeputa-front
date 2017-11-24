@@ -1,0 +1,17 @@
+<div class="animated fadeIn">
+    <div class="p4">
+        <a class="btn btn-primary" routerLink="/products/add">Add</a>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10">
+                <ul class="list-group" *ngIf="products.length > 0">
+                    <li class="list-group-item list-group-item-action justify-content-between text-muted" *ngFor="let product of products" routerLink="/products/{{product.id}}">
+                        {{product.name}}
+                        <span class="badge badge-default badge-pill text-primary">{{product.company}}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

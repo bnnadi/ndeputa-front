@@ -1,0 +1,15 @@
+<div class="card card-accent-primary" routerLink="/employees/{{person.id}}">
+    <div class="card-header">
+        <i class="fa fa-building"></i>{{person.accountType}}
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-5">
+                <input [src]="/assets/img/avatars/profile-placeholder.png" with="80%" alt="{{person.email}}" </div>
+                <div class="col-sm-7">
+                    <h4>{{person.firstname}} {{person.lastname}}</h4>
+                    <p>{{person.email}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
