@@ -30,13 +30,11 @@ controller.createOne = function(req, res, next) {
     UserModel
         .findOrCreate({ where: record.email }, { defaults: record })
         .spread(function(user, created) {
-            console.log(user.get({
-                plain: true
-            }));
-            console.log(created);
+            console.log(user.get({ plain: true }));
+            console.log(user.toJSON());
 
             res.json({
-                result: user.get()
+                result: user.toJSON()
             });
 
         });
@@ -75,7 +73,7 @@ controller.readOne = function(req, res, next) {
         .findById(id)
         .then(function(user) {
             res.json({
-                result: user.get()
+                result: user.toJSON()
             });
             return;
         }).catch(function(err) {

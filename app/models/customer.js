@@ -2,7 +2,21 @@
 
 module.exports = function(sequelize, DataTypes) {
     var Customer = sequelize.define("customer", {
-        customer_name: DataTypes.STRING,
+        customerName: {
+            type: DataTypes.STRING,
+            field: 'customer_name'
+        },
+        email: {
+            type: DataTypes.STRING,
+            vaildate: {
+                notNull: true,
+                isEmail: true
+            }
+        },
+        companyName: {
+            type: DataTypes.STRING,
+            field: 'company_name'
+        },
         createdById: {
             type: DataTypes.INTEGER,
             defaultValue: 0,

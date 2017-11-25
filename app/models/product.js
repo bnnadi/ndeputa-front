@@ -4,6 +4,7 @@ module.exports = function(sequelize, DataTypes) {
     var Product = sequelize.define("product", {
         product_name: DataTypes.STRING,
         description: DataTypes.TEXT,
+        barcode: DataTypes.STRING,
         companyId: {
             type: DataTypes.INTEGER,
             field: 'company_id',
