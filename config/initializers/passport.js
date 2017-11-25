@@ -2,9 +2,12 @@
 var _ = require('lodash');
 var bcrypt = require('bcryptjs');
 var passport = require('passport');
+var passportJWT = require('passport-jwt')
 
 // strategies
 var LocalStrategy = require('passport-local').Strategy;
+var JWTStrategy = passportJWT.Strategy;
+var ExtractJwt = passportJWT.ExtractJwt;
 
 module.exports = function(done) {
 
@@ -34,6 +37,22 @@ module.exports = function(done) {
                 return done(reason);
             });
 
+    }));
+
+    passport.use(new JWTStrategy({
+        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+        secretOrKey: process.env.JSON_WEB_TOKEN_KEY,
+        ignoreExpiration: false
+    }, function(payload, done) {
+        UserModel
+            .findById(payload._id)
+            .then(function(user) {
+                if (!user) { return done(null, false); }
+                done(null, user);
+                return;
+            }).catch(function(err) {
+                done(null, err);
+            });
     }));
 
 

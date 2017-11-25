@@ -1,9 +1,7 @@
 // libraries
+var _ = require('lodash');
 var async = require('async');
 var fs = require('fs');
-var jsSchema = require('js-schema');
-var jwt = require('jwt-simple');
-var passport = require('passport');
 
 // classes
 var Controller = require(ROOT + '/app/controllers/base_controller');
@@ -11,34 +9,31 @@ var Controller = require(ROOT + '/app/controllers/base_controller');
 // instances
 var controller = new Controller();
 
-var UserModel = require(BACKEND + '/models').user;
+var ProductModel = require(BACKEND + '/models').product;
 
 controller.createOne = function(req, res, next) {
-
     var user = req.user || {};
 
-    var populate = req.body.populate || '';
-
     var record = {};
-
     record.createdById = user.user_id || user._id;
-    record.email = req.body.email;
-    record.first_name = req.body.first_n;
-    record.last_name = req.body.last_n;
-    record.user_type = req.body.user_type;
+    record.companyId = req.body.company_id;
+    record.description = req.body.description;
+    record.qty = req.body.qty;
 
-    UserModel
-        .findOrCreate({ where: record.email }, { defaults: record })
-        .spread(function(user, created) {
-            console.log(user.get({
-                plain: true
-            }));
-            console.log(created);
-
+    ProductModel
+        .create(record)
+        .then(function(product) {
             res.json({
-                result: user.get()
+                result: product
             });
-
+            return;
+        })
+        .catch(function(err) {
+            res.status(404);
+            res.json({
+                error: err
+            });
+            return;
         });
 };
 
@@ -47,7 +42,7 @@ controller.readOne = function(req, res, next) {
 
     var populate = req.body.populate || '';
 
-    var id = req.query.id || user._id;
+    var id = req.query.id;
 
     // validate the parameters
     var schema = jsSchema({
@@ -71,11 +66,11 @@ controller.readOne = function(req, res, next) {
 
     }
 
-    UserModel
+    ProductModel
         .findById(id)
-        .then(function(user) {
+        .then(function(product) {
             res.json({
-                result: user.get()
+                result: product
             });
             return;
         }).catch(function(err) {
@@ -93,12 +88,12 @@ controller.readMany = function(req, res, next) {
 
     var populate = req.body.populate || '';
 
-
-    UserModel
+    ProductModel
         .findAndCountAll()
-        .then(function(users) {
+        .then(function(products) {
+            console.log(products);
             res.json({
-                result: users
+                result: products
             });
             return;
         }).catch(function(err) {
@@ -110,44 +105,33 @@ controller.readMany = function(req, res, next) {
         });
 };
 
-controller.updateOne = function(req, res, next) {};
+controller.updateOne = function(req, res, next) {
+    var user = req.user || {};
+
+    var populate = req.body.populate || '';
+
+};
 
 controller.deleteOne = function(req, res, next) {};
 
 controller.generateBarcode = function(req, res, next) {};
 
-controller.before([
-    'login',
-], function(req, res, next) {
 
-    // if (req.isAuthenticated()) {
-    //     res.status(200);
-    //     res.json({
-    //         result: req.user
-    //     });
-    //     return;
-    // }
-
-    next();
-
-});
 
 controller.before([
-    'logout',
-    'createOne',
-    'readOne'
+    'deleteOne',
 ], function(req, res, next) {
 
-    if (!req.isAuthenticated()) {
-        res.status(401);
+    if (!req.isAuthenticated() || req.user.accountType !== 'admin') {
         res.json({
-            errors: ['NNC-00000']
+            result: "you don't have access"
         });
         return;
     }
-
     next();
 
 });
+
+
 
 module.exports = controller;

@@ -6,21 +6,52 @@ var path = require('path');
 var public = require(BACKEND + '/controllers/public_controller');
 
 var v1Admin = require(BACKEND + '/controllers/api/v1/admin_controller');
+var v1Customer = require(BACKEND + '/controllers/api/v1/customer_controller');
+var v1Company = require(BACKEND + '/controllers/api/v1/company_controller');
+var v1Order = require(BACKEND + '/controllers/api/v1/order_controller');
 var v1PasswordReset = require(BACKEND + '/controllers/api/v1/password_reset_controller');
+var v1Product = require(BACKEND + '/controllers/api/v1/product_controller');
 var v1User = require(BACKEND + '/controllers/api/v1/user_controller');
 
 module.exports = function routes() {
 
-    this.get('/', public.index);
+    // access
+    this.post('/api/v1/login.json', public.login);
+    this.get('/api/v1/logout', public.logout);
 
-    this.post('/api/v1/login.json', v1User.login);
-    this.get('/api/v1/logout', v1User.logout);
+    this.get('/api/v1/companies.json', v1Company.readMany);
 
-    // working sites
-    // this.get('/', v1Admin.index);
-    // this.get('/marketplace', v1Admin.index);
-    // this.get('/secure', v1Admin.index);
-    // this.get('/stock', v1Admin.index);
+    // customers
+    this.post('/api/v1/customer.json', v1Customer.createOne);
+    this.get('/api/v1/customer.json', v1Customer.readOne);
+    this.get('/api/v1/customers.json', v1Customer.readMany);
+    this.put('/api/v1/customer.json', v1Customer.updateOne);
+    this.delete('/api/v1/customer/:id.json', v1Customer.deleteOne);
+
+    // orders
+    this.post('/api/v1/order.json', v1Order.createOne);
+    this.get('/api/v1/order.json', v1Order.readOne);
+    this.get('/api/v1/orders.json', v1Order.readMany);
+    this.put('/api/v1/order.json', v1Order.updateOne);
+    this.delete('/api/v1/order/:id.json', v1Order.deleteOne);
+
+    // products
+    this.post('/api/v1/product.json', v1Product.createOne);
+    this.get('/api/v1/product.json', v1Product.readOne);
+    this.get('/api/v1/products.json', v1Product.readMany);
+    this.put('/api/v1/product.json', v1Product.updateOne);
+    this.delete('/api/v1/product/:id.json', v1Product.deleteOne);
+
+    // password reset
+    this.post('/api/v1/passwordReset.json', v1PasswordReset.start);
+    this.put('/api/v1/passwordVerify.json', v1PasswordReset.verify);
+
+    // user
+    this.post('/api/v1/user.json', v1User.createOne);
+    this.get('/api/v1/user.json', v1User.readOne);
+    this.get('/api/v1/users.json', v1User.readMany);
+    // this.put('/api/v1/user.json', v1User.updateOne);
+    // this.delete('/api/v1/user/:id.json', v1User.deleteOne);
 
     this.get('/values/strings.js', function(req, res) {
 
@@ -100,15 +131,6 @@ module.exports = function routes() {
         });
     });
 
-    // password reset
-    this.post('/api/v1/passwordReset.json', v1PasswordReset.start);
-    this.put('/api/v1/passwordVerify.json', v1PasswordReset.verify);
-
-    // user
-    this.post('/api/v1/user.json', v1User.createOne);
-    this.get('/api/v1/user.json', v1User.readOne);
-    // this.put('/api/v1/user.json', v1User.updateOne);
-    // this.del('/api/v1/user.json', v1User.deleteOne);
-
+    this.get('*', public.index);
 
 };

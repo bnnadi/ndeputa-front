@@ -30,6 +30,26 @@ gulp.task('v1-test-db', function() {
     return db.sequelize.sync({ force: true, match: /_test$/ }).catch();
 });
 
+gulp.task('v1-create-company', function() {
+    var Company = db.company;
+    var companies = [{
+            companyName: "Yana"
+        },
+        {
+            companyName: "Willow"
+        }
+    ];
+
+    return Company
+        .bulkCreate(companies)
+        .then(function(result) {
+            console.log(result);
+        })
+        .catch(function(err) {
+            console.log(err);
+        });
+});
+
 gulp.task('v1-create-admin', function() {
     var User = db.user;
     var Address = db.user_address;

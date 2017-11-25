@@ -3,6 +3,19 @@
 module.exports = function(sequelize, DataTypes) {
     var Product = sequelize.define("product", {
         product_name: DataTypes.STRING,
+        description: DataTypes.TEXT,
+        companyId: {
+            type: DataTypes.INTEGER,
+            field: 'company_id',
+            allowNull: false
+        },
+        qty: {
+            type: DataTypes.INTEGER,
+            defaultValue: 1,
+            validate: {
+                min: 1
+            }
+        },
         createdById: {
             type: DataTypes.INTEGER,
             defaultValue: 0,

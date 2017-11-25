@@ -7,6 +7,7 @@ var expressDevice = require('express-device');
 var expressMulter = require('multer');
 var expressRequestParam = require('request-param');
 var expressSession = require('express-session');
+var expressJWT = require('express-jwt');
 var fs = require('fs');
 // var maxmind = require('maxmind');
 var os = require('os');
