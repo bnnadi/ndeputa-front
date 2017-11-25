@@ -4,6 +4,7 @@ export class Product {
     company: String;
     name: String;
     description: String;
+    qty: number;
     // createdAt: Date;
     // updatedAt: Date;
     // deleteAt: Date;
