@@ -12,12 +12,11 @@ export class AuthService {
 
   isLoggedIn = false;
   redirectUrl: string;
-  private endpoint = 'login.json';
 
   constructor(private http: HttpService) {}
 
   login(body: Object): Observable<User> {
-    return this.http.post(this.endpoint, body)
+    return this.http.post('login.json', body)
       .map((res:Response) => {
         let response = res.json();
         localStorage.setItem('user', JSON.stringify(response.result.user));

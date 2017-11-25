@@ -7,7 +7,7 @@ import { AddProductsComponent, DetailProductsComponent, ListProductsComponent } 
 import { ProductsComponent } from './products.component';
 
 import { ProductsRoutingModule } from './products-routing.module';
-import { ProductService } from 'app/services';
+import { CompanyService, ProductService } from 'app/services';
 import { SharedModule } from 'app/shared/shared.module';
 
 @NgModule({
@@ -18,7 +18,7 @@ import { SharedModule } from 'app/shared/shared.module';
     SharedModule
   ],
   declarations: [ ProductsComponent, AddProductsComponent, DetailProductsComponent, ListProductsComponent ],
-  providers: [ProductService, FormBuilder]
+  providers: [ProductService, FormBuilder, CompanyService]
 })
 
 export class ProductsModule { }

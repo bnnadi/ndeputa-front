@@ -14,7 +14,7 @@ export class CustomerService {
     
     constructor(private http: HttpService) {}
 
-    getCustomers() : Observable<Customer[]> {
+    getCustomers() : Observable<any> {
         return of (CUSTOMER);
     }
 
@@ -27,7 +27,7 @@ export class CustomerService {
 
         return this.http.post(this.endpoint, body)
             .map((res:Response) => res.json())
-            .catch((error:any) => Observable.throw(error.json()));
+            .catch((error:any) => Observable.throw(error));
     }
 
 

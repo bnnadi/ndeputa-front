@@ -15,7 +15,7 @@ export class EmployeesService {
 
     constructor(http: HttpService) {}
 
-    getEmployees() : Observable<User[]> {
+    getEmployees() : Observable<any> {
         return of (EMPLOYEES);
     }
 

@@ -33,7 +33,7 @@ export class HttpService extends Http {
         return super.get(this.getFullUrl(url), this.requestOptions(options))
                 .catch(this.onCatch)
                 .do((res: Response) => {
-                    this.onSuccess(res);
+                    this.onSuccess(res.json());
                 }, (error: any) => {
                     this.onError(error);
                 })
@@ -48,7 +48,7 @@ export class HttpService extends Http {
         return super.post(this.getFullUrl(url), body, this.requestOptions(options))
                 .catch(this.onCatch)
                 .do((res: Response) => {
-                    this.onSuccess(res);
+                    this.onSuccess(res.json());
                 }, (error: any) => {
                     this.onError(error);
                 })

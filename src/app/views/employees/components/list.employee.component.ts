@@ -8,20 +8,20 @@ import { User } from 'app/models';
 })
 export class ListEmployeeComponent implements OnInit {
   
-  employees: User[];
+  employees: any = {count: Number, rows: Array};
   totalEmployees: number
 
   constructor(private es:EmployeesService, private router:Router, private route:ActivatedRoute,) {}
 
   ngOnInit() {
    this.getEmployees();
+   
   }
 
   getEmployees() {
     this.es.getEmployees()
         .subscribe(employees => this.employees = employees);
-
-    this.totalEmployees = this.employees.length;
+    this.totalEmployees = this.employees.count;
   }
 
 }

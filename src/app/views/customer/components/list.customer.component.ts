@@ -9,7 +9,7 @@ import { Customer } from 'app/models/customer.model';
 })
 export class ListCustomerComponent implements OnInit {
 
-    customers: Customer[];
+    customers: any = {count: Number, rows: Array};
 
     constructor(private cs:CustomerService, private router:Router) {}
 

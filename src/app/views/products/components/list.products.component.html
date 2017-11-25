@@ -5,8 +5,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-10">
-                <ul class="list-group" *ngIf="products.length > 0">
-                    <li class="list-group-item list-group-item-action justify-content-between text-muted" *ngFor="let product of products" routerLink="/products/{{product.id}}">
+                <ul class="list-group" *ngIf="products.count > 0">
+                    <li class="list-group-item list-group-item-action justify-content-between text-muted" *ngFor="let product of products.rows" routerLink="/products/{{product.id}}">
                         {{product.name}}
                         <span class="badge badge-default badge-pill text-primary">{{product.company}}</span>
                     </li>

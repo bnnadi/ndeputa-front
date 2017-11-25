@@ -7,7 +7,7 @@ import { Product } from 'app/models';
   templateUrl: 'list.products.component.html'
 })
 export class ListProductsComponent implements OnInit {
-  products: Product[];
+  products: any = {count: Number, rows: Array};
 
   constructor(private ps: ProductService ) { }
 
@@ -17,7 +17,9 @@ export class ListProductsComponent implements OnInit {
 
   getProducts() {
     this.ps.getProducts()
-      .subscribe(products => this.products = products);
+      .subscribe(products => {
+        this.products = products.result;
+      });
   }
 
 }
