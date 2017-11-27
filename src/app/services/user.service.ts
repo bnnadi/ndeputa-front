@@ -19,7 +19,7 @@ export class UserService {
             .catch((error:any) => Observable.throw(error));
     }
         
-    updateUser(body : Object): Observable<User[]> {
+    updateUser(body : Object): Observable<User> {
         let bodyString = JSON.stringify(body);
                 
         return this.http.put(this.endpointUser, body)
@@ -27,7 +27,7 @@ export class UserService {
             .catch((error:any) => Observable.throw(error));
     }
 
-    updateAddress(body : Object): Observable<User[]> {
+    updateAddress(body : Object): Observable<User> {
         let bodyString = JSON.stringify(body);
                 
         return this.http.put(this.endpointUser, body)
@@ -35,7 +35,7 @@ export class UserService {
             .catch((error:any) => Observable.throw(error));
     }
 
-    updatePhone(body : Object): Observable<User[]> {
+    updatePhone(body : Object): Observable<User> {
         let bodyString = JSON.stringify(body);
                 
         return this.http.put(this.endpointUser, body)

@@ -36,7 +36,7 @@ export class ProductService {
             .catch((error:any) => Observable.throw(error));
     }
 
-    updateProduct(body : Object): Observable<Product[]> {
+    updateProduct(body : Object): Observable<Product> {
         let bodyString = JSON.stringify(body);
         
         return this.http.put(this.endpoint, body)
@@ -44,7 +44,7 @@ export class ProductService {
             .catch((error:any) => Observable.throw(error));
     }
 
-    removeProduct(id:string): Observable<Product[]> {
+    removeProduct(id:string): Observable<Product> {
         return this.http.delete(`${this.endpoint}/${id}.json`)
             .map((res:Response) => res.json())
             .catch((error:any) => Observable.throw(error));

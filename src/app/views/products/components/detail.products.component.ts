@@ -13,10 +13,10 @@ export class DetailProductsComponent implements OnInit {
   constructor(private ps:ProductService, private route:ActivatedRoute, private location: Location) { }
 
   ngOnInit() {
-    this.getEmployee();
+    this.getProduct();
   }
 
-  getEmployee () {
+  getProduct () {
     const id = +this.route.snapshot.paramMap.get('id');
     // this.ps.getProduct(id)
     // .subscribe(product => this.product = product);

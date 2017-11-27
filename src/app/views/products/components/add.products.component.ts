@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CompanyService, ProductService } from 'app/services';
-import { Company } from 'app/models/company.model';
+import { Company, Product } from 'app/models';
 
 @Component({
   templateUrl: 'add.products.component.html',
@@ -9,7 +9,9 @@ import { Company } from 'app/models/company.model';
 })
 export class AddProductsComponent {
   companies: any;
+  product: Product
   url: string;
+  detailUrl: string;
 
   constructor(ps: ProductService, private cs: CompanyService ) { 
     this.getCompanies();
@@ -24,6 +26,12 @@ export class AddProductsComponent {
 
   addProduct(form: any) {
     console.log(form);
+    this.ps.addProduct()
+      .subscribe(product => {
+        this.product = product;
+        this.detailUrl = '/products/' + this.product.id;
+      });
+
   }
 
   fileChange(event:any) {

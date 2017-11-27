@@ -11,7 +11,7 @@ export class CustomReqeustOptions extends BaseRequestOptions {
             let token = localStorage.getItem('token');
             this.token = token;
             this.headers.append('Content-Type', 'application/json');
-            this.headers.append('Authorization', 'Bearer ' + this.token);
+            this.headers.append('Authorization', 'JWT ' + this.token);
     }
 
 }

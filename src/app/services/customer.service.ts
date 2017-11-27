@@ -22,10 +22,24 @@ export class CustomerService {
         return of(CUSTOMER.find(customer => customer.id === id));
     }
 
-    addCustomer(body : Object): Observable<Customer[]> {
+    addCustomer(body : Object): Observable<Customer> {
         let bodyString = JSON.stringify(body);
 
         return this.http.post(this.endpoint, body)
+            .map((res:Response) => res.json())
+            .catch((error:any) => Observable.throw(error));
+    }
+
+    updateCustomer(body : Object): Observable<Customer> {
+        let bodyString = JSON.stringify(body);
+        
+        return this.http.put(this.endpoint, body)
+            .map((res:Response) => res.json())
+            .catch((error:any) => Observable.throw(error));
+    }
+
+    removeCustomer(id:string): Observable<Customer> {
+        return this.http.delete(`${this.endpoint}/${id}.json`)
             .map((res:Response) => res.json())
             .catch((error:any) => Observable.throw(error));
     }

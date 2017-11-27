@@ -22,4 +22,27 @@ export class EmployeesService {
     getEmployee(id: number) : Observable<User> {
         return of(EMPLOYEES.find(employee => employee.id === id));
     }
+
+
+    addEmployee(body : Object): Observable<User> {
+        let bodyString = JSON.stringify(body);
+
+        return this.http.post(this.endpoint, body)
+            .map((res:Response) => res.json())
+            .catch((error:any) => Observable.throw(error));
+    }
+
+    updateEmployee(body : Object): Observable<User> {
+        let bodyString = JSON.stringify(body);
+        
+        return this.http.put(this.endpoint, body)
+            .map((res:Response) => res.json())
+            .catch((error:any) => Observable.throw(error));
+    }
+
+    removeEmployee(id:string): Observable<User> {
+        return this.http.delete(`${this.endpoint}/${id}.json`)
+            .map((res:Response) => res.json())
+            .catch((error:any) => Observable.throw(error));
+    }
 }

@@ -6,6 +6,7 @@ import { TableLayoutComponent } from './table-layout/table-layout.component';
 import { FormatCellPipe } from './format-cell.pipe';
 import { EmployeeCardComponent } from './employee-card/employee-card.component';
 import { ListLayoutComponent } from './list-layout/list-layout.component';
+import { AddAlertComponent } from './add-alert/add-alert.component';
 
 @NgModule({
     imports: [
@@ -16,6 +17,7 @@ import { ListLayoutComponent } from './list-layout/list-layout.component';
         EmployeeCardComponent,
         TableLayoutComponent,
         ListLayoutComponent,
+        AddAlertComponent,
         // TabLayoutComponent, 
         FormatCellPipe
     ],
@@ -23,7 +25,8 @@ import { ListLayoutComponent } from './list-layout/list-layout.component';
         CommonModule,
         EmployeeCardComponent,
         TableLayoutComponent,
-        ListLayoutComponent
+        ListLayoutComponent,
+        AddAlertComponent,
         // TabLayoutComponent
     ],
     providers: [CurrencyPipe]
