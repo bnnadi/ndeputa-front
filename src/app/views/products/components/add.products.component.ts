@@ -5,7 +5,7 @@ import { Company, Product } from 'app/models';
 
 @Component({
   templateUrl: 'add.products.component.html',
-  providers: []
+  styleUrls: ['products.component.css']
 })
 export class AddProductsComponent {
   companies: any;
@@ -13,7 +13,7 @@ export class AddProductsComponent {
   url: string;
   detailUrl: string;
 
-  constructor(ps: ProductService, private cs: CompanyService ) { 
+  constructor(private ps: ProductService, private cs: CompanyService ) { 
     this.getCompanies();
   }
 
@@ -26,7 +26,7 @@ export class AddProductsComponent {
 
   addProduct(form: any) {
     console.log(form);
-    this.ps.addProduct()
+    this.ps.addProduct(form)
       .subscribe(product => {
         this.product = product;
         this.detailUrl = '/products/' + this.product.id;

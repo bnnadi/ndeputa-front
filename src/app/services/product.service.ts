@@ -3,7 +3,7 @@ import { Response } from '@angular/http';
 import { Product } from '../models/product.model';
 
 
-import { HttpService } from '../core/http.service';
+import { HttpService } from 'app/core/http.service';
 import { DropdownQuestion, TextboxQuestion, QuestionBase } from 'app/app-dynamic-form/core';
 import { Observable } from 'rxjs/Rx';
 import { PRODUCTS } from '../fake/mock-products';

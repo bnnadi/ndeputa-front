@@ -49,6 +49,14 @@ export const routes: Routes = [
       {
         path: 'timesheet',
         loadChildren: './views/timesheet/timesheet.module#TimesheetModule'
+      },
+      {
+        path: 'profile',
+        loadChildren: './views/profile/profile.module#ProfileModule'
+      },
+      {
+        path: 'settings',
+        loadChildren: './views/setting/setting.module#SettingModule'
       }
     ]
   },

@@ -2,18 +2,18 @@ import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
-import { HttpService } from '../core/http.service';
+import { HttpService } from 'app/core/http.service';
 import { of } from 'rxjs/observable/of';
 
 import { User } from '../models';
-import { EMPLOYEES } from '../fake/mock-employee';
+import { EMPLOYEES } from 'app/fake/mock-employee';
 
 @Injectable()
 export class EmployeesService {
 
     private endpoint = 'employees.json'
 
-    constructor(http: HttpService) {}
+    constructor(private http: HttpService) {}
 
     getEmployees() : Observable<any> {
         return of (EMPLOYEES);

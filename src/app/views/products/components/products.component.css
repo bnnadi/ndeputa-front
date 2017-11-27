@@ -1,0 +1,18 @@
+.custom-file-control:lang(en)::after {
+    content: "Select file...";
+}
+
+.custom-file-control:lang(en)::before {
+    content: "Browse";
+}
+
+
+/*when a value is selected, this class removes the content */
+
+.custom-file-control.selected:lang(en)::after {
+    content: "" !important;
+}
+
+.custom-file-control {
+    white-space: nowrap;
+}

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { TabsModule } from 'ngx-bootstrap';
 
-import { TableOrdersComponent } from './components';
+import { AddOrdersComponent, DetailOrdersComponent, TableOrdersComponent } from './components';
 import { OrdersComponent } from './orders.component';
 
 import { OrdersRoutingModule } from './orders-routing.module';
@@ -15,7 +15,7 @@ import { SharedModule } from 'app/shared/shared.module';
     TabsModule,
     SharedModule
   ],
-  declarations: [ OrdersComponent, TableOrdersComponent ],
+  declarations: [ OrdersComponent, AddOrdersComponent, DetailOrdersComponent, TableOrdersComponent ],
   providers: []
 })
 export class OrdersModule { }

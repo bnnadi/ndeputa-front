@@ -8,9 +8,13 @@ import { User } from '../../models/user.model';
 
 export class EmployeeCardComponent implements OnChanges {
   @Input() person: any;
+  imgUrl: string;
 
-  ngOnChanges() {
-    
+  constructor() {
+    this.imgUrl = 'assets/img/avatars/profile-placeholder.png';
   }
+
+  ngOnChanges() {}
+
 
  }

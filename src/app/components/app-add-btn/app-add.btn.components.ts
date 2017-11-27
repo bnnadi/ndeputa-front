@@ -12,27 +12,23 @@ import { NavBarService } from 'app/services/navbar.service';
     providers: [NavBarService]
 })
 export class AppAddBtnComponent {
-    show = false;
     addPath: string;
-    blackListed: string[] = ['dashbord', 'anayltics'];
+    whiteListed: string[] = ['/products', '/customers', '/orders', '/employees'];
 
     constructor(
         private router: Router,
         private route: ActivatedRoute,
         public nav: NavBarService
     ){
-        this.router.events.filter(event => event instanceof NavigationEnd).subscribe((event) => {
-            let currentRoute = this.route.root,
-            url = '';;
-            do {
 
-            console.log(currentRoute.snapshot)
-              const childrenRoutes = currentRoute.children;
-              currentRoute = null;
-              childrenRoutes.forEach(route => {
-               
-              });
-            } while (currentRoute);
-        })
+        this.router.events.filter(event => event instanceof NavigationEnd).subscribe((url:any) => {
+            if(url.url && this.whiteListed.find(x => x === url.url)) {
+                this.nav.show();
+                this.addPath = url.url + '/add';
+            } else {
+                this.nav.hide();
+            }
+        });
+       
     }
 }
