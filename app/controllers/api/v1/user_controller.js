@@ -117,22 +117,6 @@ controller.deleteOne = function(req, res, next) {};
 controller.generateBarcode = function(req, res, next) {};
 
 controller.before([
-    'login',
-], function(req, res, next) {
-
-    if (req.isAuthenticated()) {
-        res.status(200);
-        res.json({
-            result: req.user
-        });
-        return;
-    }
-
-    next();
-
-});
-
-controller.before([
     'logout',
     'createOne',
     'readOne'

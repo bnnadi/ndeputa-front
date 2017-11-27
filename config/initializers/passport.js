@@ -30,8 +30,7 @@ module.exports = function(done) {
 
                 // user.lastloginAt = new Date();
 
-                done(null, user);
-                return;
+                return done(null, user);
             })
             .catch(function(reason) {
                 return done(reason);
@@ -49,11 +48,9 @@ module.exports = function(done) {
             .findById(payload.id)
             .then(function(user) {
                 if (!user) { return done(null, false); }
-                done(null, user);
-                return;
+                return done(null, user);
             }).catch(function(err) {
-                done(null, err);
-                return;
+                return done(null, err);
             });
     }));
 
@@ -61,7 +58,7 @@ module.exports = function(done) {
     passport.serializeUser(function(user, done) {
 
         done(null, {
-            '_id': user.id,
+            'id': user.id,
             'accountType': user.accountType
         });
     });

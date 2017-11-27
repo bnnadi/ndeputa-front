@@ -111,17 +111,29 @@ controller.logout = function(req, res, next) {
 
 };
 
+controller.before([
+    'login',
+], function(req, res, next) {
 
+    if (req.isAuthenticated()) {
+        res.status(200);
+        res.json({
+            result: req.user
+        });
+        return;
+    }
+
+    next();
+
+});
 
 controller.before([
     'index',
 ], function(req, res, next) {
 
-    if (req.isAuthenticated() && req.user && req.user.accountType) {
+    if (req.isAuthenticated()) {
 
-        console.log(req.user.accountType);
-        var view = '/';
-        res.redirect(view);
+        res.redirect('/');
         return;
     }
 
