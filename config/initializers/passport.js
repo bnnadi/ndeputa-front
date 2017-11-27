@@ -40,18 +40,20 @@ module.exports = function(done) {
     }));
 
     passport.use(new JWTStrategy({
-        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+        jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('jwt'),
         secretOrKey: process.env.JSON_WEB_TOKEN_KEY,
         ignoreExpiration: false
     }, function(payload, done) {
+        var UserModel = require(BACKEND + '/models').user;
         UserModel
-            .findById(payload._id)
+            .findById(payload.id)
             .then(function(user) {
                 if (!user) { return done(null, false); }
                 done(null, user);
                 return;
             }).catch(function(err) {
                 done(null, err);
+                return;
             });
     }));
 

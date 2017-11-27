@@ -86,7 +86,7 @@ controller.login = function(req, res, next) {
                 return;
             }
 
-            token = jwt.encode({ id: result.id }, process.env.JSON_WEB_TOKEN_KEY)
+            token = jwt.encode({ id: result.id }, process.env.JSON_WEB_TOKEN_KEY);
 
             res.json({
                 result: { user: { '_id': result.id, 'accountType': result.accountType }, token: token }

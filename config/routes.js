@@ -2,6 +2,7 @@ var _ = require('lodash');
 var async = require('async');
 var fs = require('fs');
 var path = require('path');
+var passport = require('passport');
 
 var public = require(BACKEND + '/controllers/public_controller');
 
@@ -16,40 +17,40 @@ var v1User = require(BACKEND + '/controllers/api/v1/user_controller');
 module.exports = function routes() {
 
     // access
-    this.post('/api/v1/login.json', public.login);
-    this.get('/api/v1/logout', public.logout);
+    this.post('/api/v1/login.json', passport.authenticate('jwt', { session: false }), public.login);
+    this.get('/api/v1/logout', passport.authenticate('jwt', { session: false }), public.logout);
 
-    this.get('/api/v1/companies.json', v1Company.readMany);
+    this.get('/api/v1/companies.json', passport.authenticate('jwt', { session: false }), v1Company.readMany);
 
     // customers
-    this.post('/api/v1/customer.json', v1Customer.createOne);
-    this.get('/api/v1/customer.json', v1Customer.readOne);
-    this.get('/api/v1/customers.json', v1Customer.readMany);
-    this.put('/api/v1/customer.json', v1Customer.updateOne);
-    this.delete('/api/v1/customer/:id.json', v1Customer.deleteOne);
+    this.post('/api/v1/customer.json', passport.authenticate('jwt', { session: false }), v1Customer.createOne);
+    this.get('/api/v1/customer.json', passport.authenticate('jwt', { session: false }), v1Customer.readOne);
+    this.get('/api/v1/customers.json', passport.authenticate('jwt', { session: false }), v1Customer.readMany);
+    this.put('/api/v1/customer.json', passport.authenticate('jwt', { session: false }), v1Customer.updateOne);
+    this.delete('/api/v1/customer/:id.json', passport.authenticate('jwt', { session: false }), v1Customer.deleteOne);
 
     // orders
-    this.post('/api/v1/order.json', v1Order.createOne);
-    this.get('/api/v1/order.json', v1Order.readOne);
-    this.get('/api/v1/orders.json', v1Order.readMany);
-    this.put('/api/v1/order.json', v1Order.updateOne);
-    this.delete('/api/v1/order/:id.json', v1Order.deleteOne);
+    this.post('/api/v1/order.json', passport.authenticate('jwt', { session: false }), v1Order.createOne);
+    this.get('/api/v1/order.json', passport.authenticate('jwt', { session: false }), v1Order.readOne);
+    this.get('/api/v1/orders.json', passport.authenticate('jwt', { session: false }), v1Order.readMany);
+    this.put('/api/v1/order.json', passport.authenticate('jwt', { session: false }), v1Order.updateOne);
+    this.delete('/api/v1/order/:id.json', passport.authenticate('jwt', { session: false }), v1Order.deleteOne);
 
     // products
-    this.post('/api/v1/product.json', v1Product.createOne);
-    this.get('/api/v1/product.json', v1Product.readOne);
-    this.get('/api/v1/products.json', v1Product.readMany);
-    this.put('/api/v1/product.json', v1Product.updateOne);
-    this.delete('/api/v1/product/:id.json', v1Product.deleteOne);
+    this.post('/api/v1/product.json', passport.authenticate('jwt', { session: false }), v1Product.createOne);
+    this.get('/api/v1/product.json', passport.authenticate('jwt', { session: false }), v1Product.readOne);
+    this.get('/api/v1/products.json', passport.authenticate('jwt', { session: false }), v1Product.readMany);
+    this.put('/api/v1/product.json', passport.authenticate('jwt', { session: false }), v1Product.updateOne);
+    this.delete('/api/v1/product/:id.json', passport.authenticate('jwt', { session: false }), v1Product.deleteOne);
 
     // password reset
-    this.post('/api/v1/passwordReset.json', v1PasswordReset.start);
-    this.put('/api/v1/passwordVerify.json', v1PasswordReset.verify);
+    this.post('/api/v1/passwordReset.json', passport.authenticate('jwt', { session: false }), v1PasswordReset.start);
+    this.put('/api/v1/passwordVerify.json', passport.authenticate('jwt', { session: false }), v1PasswordReset.verify);
 
     // user
-    this.post('/api/v1/user.json', v1User.createOne);
-    this.get('/api/v1/user.json', v1User.readOne);
-    this.get('/api/v1/users.json', v1User.readMany);
+    this.post('/api/v1/user.json', passport.authenticate('jwt', { session: false }), v1User.createOne);
+    this.get('/api/v1/user.json', passport.authenticate('jwt', { session: false }), v1User.readOne);
+    this.get('/api/v1/users.json', passport.authenticate('jwt', { session: false }), v1User.readMany);
     // this.put('/api/v1/user.json', v1User.updateOne);
     // this.delete('/api/v1/user/:id.json', v1User.deleteOne);
 

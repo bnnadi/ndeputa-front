@@ -3,6 +3,7 @@ var async = require('async');
 var fs = require('fs');
 var jsSchema = require('js-schema');
 var jwt = require('jwt-simple');
+var generatePsswrd = require('password-generator');
 var passport = require('passport');
 
 // classes
@@ -21,14 +22,15 @@ controller.createOne = function(req, res, next) {
 
     var record = {};
 
-    record.createdById = user.user_id || user._id;
+    record.createdById = user.user_id || user.id;
     record.email = req.body.email;
     record.first_name = req.body.first_n;
     record.last_name = req.body.last_n;
     record.user_type = req.body.user_type;
+    record.password = generatePsswrd();
 
     UserModel
-        .findOrCreate({ where: record.email }, { defaults: record })
+        .findOrCreate({ where: { email: record.email }, defaults: record })
         .spread(function(user, created) {
             console.log(user.get({ plain: true }));
             console.log(user.toJSON());
@@ -45,7 +47,7 @@ controller.readOne = function(req, res, next) {
 
     var populate = req.body.populate || '';
 
-    var id = req.query.id || user._id;
+    var id = req.query.id || user.id;
 
     // validate the parameters
     var schema = jsSchema({
@@ -63,7 +65,7 @@ controller.readOne = function(req, res, next) {
         console.log(nnLine, new Date());
         res.status(400);
         res.json({
-            errors: errors,
+            errors: invalid,
         });
         return;
 
@@ -79,7 +81,7 @@ controller.readOne = function(req, res, next) {
         }).catch(function(err) {
             res.status(404);
             res.json({
-                errors: errors,
+                errors: err,
             });
             return;
         });
@@ -118,13 +120,13 @@ controller.before([
     'login',
 ], function(req, res, next) {
 
-    // if (req.isAuthenticated()) {
-    //     res.status(200);
-    //     res.json({
-    //         result: req.user
-    //     });
-    //     return;
-    // }
+    if (req.isAuthenticated()) {
+        res.status(200);
+        res.json({
+            result: req.user
+        });
+        return;
+    }
 
     next();
 

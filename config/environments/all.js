@@ -108,15 +108,15 @@ module.exports = function() {
     }));
     this.use(expressBodyParser.json());
 
-    this.use(expressSession({
-        secret: 'asdhwhnxxiou1mizxehdncfx3gx',
-        cookie: {
-            maxAge: 3 * 24 * 60 * 60 * 1000
-        },
-        resave: true,
-        saveUninitialized: true,
-        store: new RedisStore(redisStoreOptions)
-    }));
+    // this.use(expressSession({
+    //     secret: 'asdhwhnxxiou1mizxehdncfx3gx',
+    //     cookie: {
+    //         maxAge: 3 * 24 * 60 * 60 * 1000
+    //     },
+    //     resave: true,
+    //     saveUninitialized: true,
+    //     store: new RedisStore(redisStoreOptions)
+    // }));
 
     this.use(passport.initialize());
     this.use(passport.session());
