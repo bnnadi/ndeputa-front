@@ -91,7 +91,6 @@ controller.readMany = function(req, res, next) {
     ProductModel
         .findAndCountAll()
         .then(function(products) {
-            console.log(products);
             res.json({
                 result: products
             });
