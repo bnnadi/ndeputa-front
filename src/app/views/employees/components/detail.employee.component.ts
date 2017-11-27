@@ -4,7 +4,6 @@ import { Location } from '@angular/common';
 
 import { User } from 'app/models';
 import { EmployeesService } from 'app/services';
-import { Observable } from 'rxjs/Observable';
 
 @Component({
   templateUrl: 'detail.employee.component.html'
@@ -15,7 +14,7 @@ export class DetailEmployeeComponent implements OnInit {
   constructor(private route:ActivatedRoute, 
     private router:Router, 
     private location: Location,
-    private employeeService:EmployeesService) { 
+    private es:EmployeesService) { 
 
   }
 
@@ -25,7 +24,7 @@ export class DetailEmployeeComponent implements OnInit {
 
   getEmployee () {
     const id = +this.route.snapshot.paramMap.get('id');
-    this.employeeService.getEmployee(id)
+    this.es.getEmployee(id)
     .subscribe(employee => this.employee = employee);
   }
 

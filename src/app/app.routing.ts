@@ -56,7 +56,7 @@ export const routes: Routes = [
       },
       {
         path: 'settings',
-        loadChildren: './views/setting/setting.module#SettingModule'
+        loadChildren: './views/settings/settings.module#SettingsModule'
       }
     ]
   },

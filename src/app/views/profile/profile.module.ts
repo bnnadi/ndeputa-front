@@ -10,11 +10,11 @@ import { SharedModule } from 'app/shared/shared.module';
 
 @NgModule({
     imports: [
-        TimesheetRoutingModule,
+        ProfileRoutingModule,
         ChartsModule,
         TabsModule
     ],
     declarations: [ProfileComponent, DetailProfileComponent],
     providers: []
 })
-export class TimesheetModule {}
+export class ProfileModule {}

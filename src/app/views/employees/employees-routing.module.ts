@@ -21,22 +21,21 @@ const routes: Routes = [
       title: 'Employee'
     },
     children: [
-      {
-        path: ':id',
-        component: DetailEmployeeComponent,
-        data: {
-          title: 'Information'
-        },
-        pathMatch: 'full'
-      },
+
       {
         path: 'add',
         component: AddEmployeeComponent,
         canDeactivate: [CanDeactivateGuard],
         data: {
           title: 'Add'
-        },
-        pathMatch: 'full'
+        }
+      },
+      {
+        path: ':id',
+        component: DetailEmployeeComponent,
+        data: {
+          title: 'Information'
+        }
       }
     ]
   }

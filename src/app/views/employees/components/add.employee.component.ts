@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { EmployeesService } from 'app/services';
-import { User } from '../../../models';
+import { EmployeesService, CompanyService } from 'app/services';
+import { User, Company } from 'app/models';
 
 @Component({
   templateUrl: 'add.employee.component.html'
@@ -9,10 +9,21 @@ import { User } from '../../../models';
 export class AddEmployeeComponent {
   
   employee: User;
+  companies: any;
 
-  constructor(private employeeService:EmployeesService) { 
-
+  constructor(private es:EmployeesService, private cs:CompanyService) {
+    this.getCompanies();
   }
 
+  getCompanies() {
+    this.cs.getCompanies()
+      .subscribe(companies => {
+        this.companies = companies.result.rows;
+      });
+  }
+
+  addEmployee(from) {
+    console.log(from);
+  }
 
 }

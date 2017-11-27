@@ -9,7 +9,7 @@
                     <div class="card-body">
                         <form #productForm="ngForm" (ngSubmit)="addProduct(productForm.value)">
                             <div class=" form-group">
-                                <label for="company ">Company</label>
+                                <label for="company ">Company </label>
                                 <select class="custom-select" [(ngModel)]="company_id " name="company_id">
                                     <option value="null" disabled="true" [selected]="true">Select Company..</option>
                                     <option *ngFor="let c of companies" [value]="c.id">{{c.companyName}}</option>

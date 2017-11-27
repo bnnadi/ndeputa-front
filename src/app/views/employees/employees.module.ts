@@ -6,12 +6,12 @@ import { AddEmployeeComponent, DetailEmployeeComponent, ListEmployeeComponent } 
 import { EmployeeComponent } from './employees.component';
 
 import { EmployeesRoutingModule } from './employees-routing.module';
-import { EmployeesService } from '../../services/employees.service';
+import { CompanyService, EmployeesService } from 'app/services';
 
 
 @NgModule({
   imports: [
-    ReactiveFormsModule,
+    FormsModule,
     SharedModule,
     EmployeesRoutingModule
   ],
@@ -21,6 +21,6 @@ import { EmployeesService } from '../../services/employees.service';
     DetailEmployeeComponent,
     ListEmployeeComponent
   ],
-  providers: [EmployeesService, FormBuilder]
+  providers: [CompanyService, EmployeesService, FormBuilder]
 })
 export class EmployeesModule { }
