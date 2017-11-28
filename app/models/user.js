@@ -29,6 +29,11 @@ module.exports = function(sequelize, DataTypes) {
                 notNull: true
             }
         },
+        companyId: {
+            type: DataTypes.INTEGER,
+            field: 'company_id',
+            allowNull: false
+        },
         lastloginAt: {
             type: DataTypes.DATE,
             defaultValue: null
@@ -55,8 +60,11 @@ module.exports = function(sequelize, DataTypes) {
     };
 
     var Address = sequelize.models.address;
+    var Company = sequelize.models.company;
     var Phone = sequelize.models.phone_number;
+
     User.Address = User.hasMany(Address, { foreignKey: 'userId', sourceKey: 'id' });
+    User.Company = User.hasOne(Company);
     User.Phone = User.hasMany(Phone, { foreignKey: 'userId', sourceKey: 'id' });
 
     User.beforeValidate(function(user, options) {

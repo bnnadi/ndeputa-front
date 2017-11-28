@@ -30,6 +30,18 @@ gulp.task('v1-test-db', function() {
     return db.sequelize.sync({ force: true, match: /_test$/ }).catch();
 });
 
+gulp.task('v1-generate-api-key', function() {
+    var ApiKey = db.api_key;
+    return ApiKey
+        .create()
+        .then(function(instance) {
+            console.log(instance);
+        })
+        .catch(function(err) {
+            console.log(err);
+        });
+});
+
 gulp.task('v1-create-company', function() {
     var Company = db.company;
     var companies = [{
@@ -64,13 +76,12 @@ gulp.task('v1-create-admin', function() {
     };
 
 
-    User
+    return User
         .create(admin)
         .then(function(user) {
-            return user;
+            console.log(user);
         })
         .catch(function(err) {
             console.log(err);
         });
-    return;
 });

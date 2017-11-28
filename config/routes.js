@@ -12,6 +12,7 @@ var v1Company = require(BACKEND + '/controllers/api/v1/company_controller');
 var v1Order = require(BACKEND + '/controllers/api/v1/order_controller');
 var v1PasswordReset = require(BACKEND + '/controllers/api/v1/password_reset_controller');
 var v1Product = require(BACKEND + '/controllers/api/v1/product_controller');
+var v1Time = require(BACKEND + '/controllers/api/v1/timesheet_controller');
 var v1User = require(BACKEND + '/controllers/api/v1/user_controller');
 
 module.exports = function routes() {
@@ -22,6 +23,9 @@ module.exports = function routes() {
     // reset
     this.post('/api/v1/passwordReset.json', v1PasswordReset.start);
     this.put('/api/v1/passwordVerify.json', v1PasswordReset.verify);
+
+    // timesheet
+    this.post('/api/v1/clockInOut', v1Time.clockInOut);
 
     // company
     this.get('/api/v1/companies.json', passport.authenticate('jwt', { session: false }), v1Company.readMany);
@@ -53,6 +57,10 @@ module.exports = function routes() {
     this.put('/api/v1/product.json', passport.authenticate('jwt', { session: false }), v1Product.updateOne);
     this.get('/api/v1/product/generateBarcode', passport.authenticate('jwt', { session: false }), v1Product.generateBarcode);
     this.delete('/api/v1/product/:id.json', passport.authenticate('jwt', { session: false }), v1Product.deleteOne);
+
+    // timesheet
+    this.get('/api/v1/clockInOut', passport.authenticate('jwt', { session: false }), v1Time.Read);
+    this.get('/api/v1/clockInOut', passport.authenticate('jwt', { session: false }), v1Time.ReadMany);
 
     // user
     this.post('/api/v1/user.json', passport.authenticate('jwt', { session: false }), v1User.createOne);

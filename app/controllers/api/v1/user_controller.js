@@ -2,9 +2,7 @@
 var async = require('async');
 var fs = require('fs');
 var jsSchema = require('js-schema');
-var jwt = require('jwt-simple');
 var generatePsswrd = require('password-generator');
-var passport = require('passport');
 
 // classes
 var Controller = require(ROOT + '/app/controllers/base_controller');
@@ -176,12 +174,10 @@ controller.deleteOne = function(req, res, next) {
 
     var id = req.params.id;
 
-    console.log(id);
-
-    // UserModel
-    //     .destory({where: {id: id}})
-    //     .then()
-    //     .catch();
+    UserModel
+        .destory({ where: { id: id } })
+        .then()
+        .catch();
 };
 
 controller.generateQRCode = function(req, res, next) {
@@ -203,7 +199,7 @@ controller.generateQRCode = function(req, res, next) {
                 return;
             }
 
-            // add QR Code logic here
+            // TODO: add QR Code logic here
         })
         .catch(function(err) {
             res.status(404);
