@@ -112,14 +112,46 @@ controller.readMany = function(req, res, next) {
 
 controller.updateOne = function(req, res, next) {};
 
+controller.addAddress = function(req, res, next) {};
+
+controller.addPhoneNumber = function(req, res, next) {};
+
+controller.updateAddress = function(req, res, next) {};
+
+controller.updatePhoneNumber = function(req, res, next) {};
+
+controller.generateQRCode = function(req, res, next) {
+
+    var user = req.user || {};
+
+    var populate = req.body.populate || '';
+
+    var id = req.body.id;
+
+    UserModel
+        .findById(id)
+        .then(function(user) {
+            if (!user) {
+                res.status(404);
+                res.json({
+                    errors: 'Record not Found',
+                });
+                return;
+            }
+        })
+        .catch(function(err) {
+            res.status(404);
+            res.json({
+                errors: err,
+            });
+            return;
+        });
+};
+
 controller.deleteOne = function(req, res, next) {};
 
-controller.generateBarcode = function(req, res, next) {};
-
 controller.before([
-    'logout',
-    'createOne',
-    'readOne'
+    '*'
 ], function(req, res, next) {
 
     if (!req.isAuthenticated()) {
@@ -133,5 +165,7 @@ controller.before([
     next();
 
 });
+
+controller.before(['deleteOne'], function(req, res, next) {});
 
 module.exports = controller;

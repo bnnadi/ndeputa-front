@@ -19,6 +19,14 @@ controller.readMany = function(req, res, next) {};
 
 controller.updateOne = function(req, res, next) {};
 
+controller.addAddress = function(req, res, next) {};
+
+controller.addPhoneNumber = function(req, res, next) {};
+
+controller.updateAddress = function(req, res, next) {};
+
+controller.updatePhoneNumber = function(req, res, next) {};
+
 controller.deleteOne = function(req, res, next) {};
 
 controller.before([

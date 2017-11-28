@@ -27,6 +27,10 @@ module.exports = function routes() {
     this.get('/api/v1/customer.json', passport.authenticate('jwt', { session: false }), v1Customer.readOne);
     this.get('/api/v1/customers.json', passport.authenticate('jwt', { session: false }), v1Customer.readMany);
     this.put('/api/v1/customer.json', passport.authenticate('jwt', { session: false }), v1Customer.updateOne);
+    this.post('/api/v1/customer/addAddress.json', passport.authenticate('jwt', { session: false }), v1Customer.addAddress);
+    this.post('/api/v1/customer/addPhoneNumber.json', passport.authenticate('jwt', { session: false }), v1Customer.addPhoneNumber);
+    this.put('/api/v1/customer/updateAddress.json', passport.authenticate('jwt', { session: false }), v1Customer.updateAddress);
+    this.put('/api/v1/customer/updatePhoneNumber.json', passport.authenticate('jwt', { session: false }), v1Customer.updatePhoneNumber);
     this.delete('/api/v1/customer/:id.json', passport.authenticate('jwt', { session: false }), v1Customer.deleteOne);
 
     // orders
@@ -41,6 +45,7 @@ module.exports = function routes() {
     this.get('/api/v1/product.json', passport.authenticate('jwt', { session: false }), v1Product.readOne);
     this.get('/api/v1/products.json', passport.authenticate('jwt', { session: false }), v1Product.readMany);
     this.put('/api/v1/product.json', passport.authenticate('jwt', { session: false }), v1Product.updateOne);
+    this.get('/api/v1/product/generateBarcode', passport.authenticate('jwt', { session: false }), v1Product.generateBarcode);
     this.delete('/api/v1/product/:id.json', passport.authenticate('jwt', { session: false }), v1Product.deleteOne);
 
     // password reset
@@ -51,6 +56,11 @@ module.exports = function routes() {
     this.post('/api/v1/user.json', passport.authenticate('jwt', { session: false }), v1User.createOne);
     this.get('/api/v1/user.json', passport.authenticate('jwt', { session: false }), v1User.readOne);
     this.get('/api/v1/users.json', passport.authenticate('jwt', { session: false }), v1User.readMany);
+    this.post('/api/v1/user/addAddress.json', passport.authenticate('jwt', { session: false }), v1User.addAddress);
+    this.post('/api/v1/user/addPhoneNumber.json', passport.authenticate('jwt', { session: false }), v1User.addPhoneNumber);
+    this.put('/api/v1/user/updateAddress.json', passport.authenticate('jwt', { session: false }), v1User.updateAddress);
+    this.put('/api/v1/user/updatePhoneNumber.json', passport.authenticate('jwt', { session: false }), v1User.updatePhoneNumber);
+    this.get('/api/v1/user/generateQRCode', passport.authenticate('jwt', { session: false }), v1User.generateQRCode);
     // this.put('/api/v1/user.json', v1User.updateOne);
     // this.delete('/api/v1/user/:id.json', v1User.deleteOne);
 

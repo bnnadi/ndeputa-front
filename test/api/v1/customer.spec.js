@@ -6,9 +6,13 @@ var expect = require('expect.js');
 var request = require('superagent');
 
 var Sequelize = require("sequelize");
+var Chance = require('chance');
 
+var DummyCustomer = require(ROOT + '/test/data/customer');
 var DummyUser = require(ROOT + '/test/data/user');
 
+var chance = new Chance();
+var dummyCustomer = new DummyCustomer();
 var dummyUserAdmin = new DummyUser();
 
 var config = {
@@ -48,6 +52,116 @@ describe('Customer V1 API', function() {
             .end(function(err, res) {
 
                 adminToken = res.body.result.token;
+
+                done();
+            });
+    });
+
+    it('Create Customer', function(done) {
+
+        request
+            .post(process.env.APP_URL + '/api/v1/customer.json')
+            .set('Token', adminToken)
+            .send(dummyCustomer)
+            .end(function(err, res) {
+
+                done();
+            });
+    });
+
+    it('Read Customer', function(done) {
+
+        request
+            .get(process.env.APP_URL + '/api/v1/customer.json')
+            .set('Token', adminToken)
+            .query({
+                id: ,
+            })
+            .end(function(err, res) {
+
+                done();
+            });
+    });
+
+    it('Read Many Customers', function(done) {
+
+        request
+            .get(process.env.APP_URL + '/api/v1/customers.json')
+            .set('Token', adminToken)
+            .end(function(err, res) {
+
+                done();
+            });
+    });
+
+    it('Add Customer phone number', function(done) {
+
+        request
+            .post(process.env.APP_URL + '/api/v1/customer/addPhoneNumber.json')
+            .set('Token', adminToken)
+            .send(dummyCustomer)
+            .end(function(err, res) {
+
+                done();
+            });
+    });
+
+    it('Add Customer Address', function(done) {
+
+        request
+            .post(process.env.APP_URL + '/api/v1/customer/addAddress.json')
+            .set('Token', adminToken)
+            .send(dummyCustomer)
+            .end(function(err, res) {
+
+                done();
+            });
+    });
+
+    it('Update Customer Phone Number', function(done) {
+
+        request
+            .post(process.env.APP_URL + '/api/v1/customer/updatePhoneNumber.json')
+            .set('Token', adminToken)
+            .send(dummyCustomer)
+            .end(function(err, res) {
+
+                done();
+            });
+    });
+
+    it('Update Customer Address', function(done) {
+
+        request
+            .post(process.env.APP_URL + '/api/v1/customer/updateAddress.json')
+            .set('Token', adminToken)
+            .send(dummyCustomer)
+            .end(function(err, res) {
+
+                done();
+            });
+    });
+
+    it('Update Customer', function(done) {
+
+        request
+            .put(process.env.APP_URL + '/api/v1/customer.json')
+            .set('Token', adminToken)
+            .send({
+                email: chance.email()
+            })
+            .end(function(err, res) {
+
+                done();
+            });
+    });
+
+    it.skip('Delete Customer', function(done) {
+
+        request
+            .delete(process.env.APP_URL + '/api/v1/customer/' + +'.json')
+            .set('Token', adminToken)
+            .end(function(err, res) {
 
                 done();
             });

@@ -1,6 +1,7 @@
 // libraries
 var _ = require('lodash');
 var async = require('async');
+var bwipjs = require('bwip-js');
 var fs = require('fs');
 
 // classes
@@ -109,13 +110,62 @@ controller.updateOne = function(req, res, next) {
 
     var populate = req.body.populate || '';
 
+    var id = req.body.id;
+
+    ProductModel
+        .findById(id)
+        .then()
+        .catch();
+
 };
 
 controller.deleteOne = function(req, res, next) {};
 
-controller.generateBarcode = function(req, res, next) {};
+controller.generateBarcode = function(req, res, next) {
+    var user = req.user || {};
 
+    var populate = req.body.populate || '';
 
+    var id = req.body.id;
+
+    ProductModel
+        .findById(id)
+        .then(function(product) {
+
+            if (!product) {
+                res.status(404);
+                res.json({
+                    errors: 'Record not Found',
+                });
+                return;
+            }
+
+            bwipjs.toBuffer({
+                bcid: 'code128',
+                text: product.barcode,
+                height: 10,
+                includetext: false,
+            }, function(err, png) {
+                if (err) {
+                    res.status(404);
+                    res.json({
+                        errors: err,
+                    });
+                    return;
+                } else {
+                    res.send(png);
+                    return;
+                }
+            });
+        })
+        .catch(function(err) {
+            res.status(404);
+            res.json({
+                errors: err,
+            });
+            return;
+        });
+};
 
 controller.before([
     'deleteOne',
