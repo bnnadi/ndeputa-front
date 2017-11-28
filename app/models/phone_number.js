@@ -1,11 +1,15 @@
 "use strict";
 
 module.exports = function(sequelize, DataTypes) {
-    var UserPhoneNumber = sequelize.define("user_phone_number", {
+    var PhoneNumber = sequelize.define("phone_number", {
         userId: {
             type: DataTypes.INTEGER,
             allowNull: false,
             field: 'user_id'
+        },
+        type: {
+            type: DataTypes.ENUM,
+            values: ['customer', 'employye']
         },
         number: {
             type: DataTypes.STRING,
@@ -21,17 +25,17 @@ module.exports = function(sequelize, DataTypes) {
             field: 'createdBy_id'
         }
     }, {
-        tableName: 'users_phone_numbers',
+        tableName: 'phone_numbers',
         timestamps: true,
         paranoid: true
     });
 
-    UserPhoneNumber.associate = function(models) {};
+    PhoneNumber.associate = function(models) {};
 
     var User = sequelize.models.User;
-    UserPhoneNumber.belongsTo(User, { foreignKey: 'userId', targetKey: 'id' });
+    PhoneNumber.belongsTo(User, { foreignKey: 'userId', targetKey: 'id' });
 
-    // UserPhoneNumber.beforeSave(function(instance, options) {});
+    // PhoneNumber.beforeSave(function(instance, options) {});
 
-    return UserPhoneNumber;
+    return PhoneNumber;
 };

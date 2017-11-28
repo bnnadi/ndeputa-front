@@ -54,8 +54,8 @@ module.exports = function(sequelize, DataTypes) {
 
     };
 
-    var Address = sequelize.models.user_address;
-    var Phone = sequelize.models.user_phone_number;
+    var Address = sequelize.models.address;
+    var Phone = sequelize.models.phone_number;
     User.Address = User.hasMany(Address, { foreignKey: 'userId', sourceKey: 'id' });
     User.Phone = User.hasMany(Phone, { foreignKey: 'userId', sourceKey: 'id' });
 

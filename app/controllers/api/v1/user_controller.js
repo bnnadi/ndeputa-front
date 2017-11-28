@@ -12,7 +12,11 @@ var Controller = require(ROOT + '/app/controllers/base_controller');
 // instances
 var controller = new Controller();
 
-var UserModel = require(BACKEND + '/models').user;
+var db = require(BACKEND + '/models');
+
+var UserModel = db.user;
+var AddressModel = db.address;
+var PhoneModel = db.phone_number;
 
 controller.createOne = function(req, res, next) {
 

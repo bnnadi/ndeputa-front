@@ -1,11 +1,15 @@
 "use strict";
 
 module.exports = function(sequelize, DataTypes) {
-    var CustomerAddress = sequelize.define("customer_address", {
-        customerId: {
+    var Address = sequelize.define("address", {
+        userId: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            field: 'customer_id'
+            field: 'user_id'
+        },
+        type: {
+            type: DataTypes.ENUM,
+            values: ['customer', 'employee']
         },
         address: {
             type: DataTypes.STRING,
@@ -24,9 +28,10 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: false,
         },
         zip: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+            defaultValue: null
         },
-        isPrimary: {
+        isPrimray: {
             type: DataTypes.BOOLEAN,
             allowNull: false
         },
@@ -36,15 +41,15 @@ module.exports = function(sequelize, DataTypes) {
             field: 'createdBy_id'
         }
     }, {
-        tableName: 'customers_addresses',
+        tableName: 'addresses',
         timestamps: true,
         paranoid: true
     });
 
-    CustomerAddress.associate = function(models) {};
+    Address.associate = function(models) {};
 
-    var Customer = sequelize.models.customer;
-    CustomerAddress.belongsTo(Customer, { foreignKey: 'customerId', targetKey: 'id' });
+    var User = sequelize.models.User;
+    Address.belongsTo(User, { foreignKey: 'userId', targetKey: 'id' });
 
-    return CustomerAddress;
+    return Address;
 };

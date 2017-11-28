@@ -9,8 +9,8 @@ var Controller = require(ROOT + '/app/controllers/base_controller');
 var db = require(BACKEND + '/models');
 
 var CustomerModel = db.customer;
-var CAddressModel = db.customer_address;
-var CPhoneModel = db.customer_phone_number;
+var AddressModel = db.address;
+var PhoneModel = db.phone_number;
 
 // instances
 var controller = new Controller();
