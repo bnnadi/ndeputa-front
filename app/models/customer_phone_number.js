@@ -24,5 +24,8 @@ module.exports = function(sequelize, DataTypes) {
 
     CustomerPhoneNumber.associate = function(models) {};
 
+    var Customer = sequelize.models.customer;
+    CustomerPhoneNumber.belongsTo(Customer, { foreignKey: 'customerId', targetKey: 'id' });
+
     return CustomerPhoneNumber;
 };

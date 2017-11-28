@@ -6,18 +6,138 @@ var fs = require('fs');
 // classes
 var Controller = require(ROOT + '/app/controllers/base_controller');
 
+var db = require(BACKEND + '/models');
+
+var CustomerModel = db.customer;
+var CAddressModel = db.customer_address;
+var CPhoneModel = db.customer_phone_number;
+
 // instances
 var controller = new Controller();
 
-var CustomerModel = require(BACKEND + '/models').customer;
+controller.createOne = function(req, res, next) {
+    var user = req.user || {};
 
-controller.createOne = function(req, res, next) {};
+    var record = {};
+    record.companyName = res.body.company_name;
+    record.customerName = res.body.customer_name;
+    record.email = res.body.email;
+    record.createdById = user.id;
 
-controller.readOne = function(req, res, next) {};
+    // phone number
+    if (res.body.phone_number) {
+        record.number = res.body.phone_number;
+    }
 
-controller.readMany = function(req, res, next) {};
+    // address
+    if (res.body.address) {
+        record.address = res.body.address;
+        record.city = res.body.city;
+        record.state = res.body.state;
+        record.country = res.body.country;
+        record.zip = res.body.zip || null;
+    }
 
-controller.updateOne = function(req, res, next) {};
+    CustomerModel
+        .findOrCreate({
+            where: { email: record.email },
+            defaults: record,
+            includes: [Customer.Address, Customer.Phone]
+        })
+        .spread(function(customer, created) {
+            res.json({
+                result: customer.toJSON()
+            });
+        });
+};
+
+controller.readOne = function(req, res, next) {
+
+    var user = req.user || {};
+
+    var populate = req.body.populate || '';
+
+    var id = req.query.id;
+
+    // validate the parameters
+    var schema = jsSchema({
+        id: Number,
+    });
+
+    var invalid = schema.errors({
+        id: id
+    });
+
+    if (invalid) {
+
+        var errors = ['NNC-01001'];
+        // res.nnBunyan(errors);
+        console.log(nnLine, new Date());
+        res.status(400);
+        res.json({
+            errors: invalid,
+        });
+        return;
+
+    }
+
+    CustomerModel
+        .findById(id)
+        .then(function(user) {
+            res.json({
+                result: user.toJSON()
+            });
+            return;
+        }).catch(function(err) {
+            res.status(404);
+            res.json({
+                errors: err,
+            });
+            return;
+        });
+};
+
+controller.readMany = function(req, res, next) {
+
+    var user = req.user || {};
+
+    var populate = req.body.populate || '';
+
+    CustomerModel
+        .findAndCountAll()
+        .then(function(users) {
+            res.json({
+                result: users
+            });
+            return;
+        }).catch(function(err) {
+            res.status(404);
+            res.json({
+                errors: errors,
+            });
+            return;
+        });
+
+};
+
+controller.updateOne = function(req, res, next) {
+
+    var user = req.user || {};
+
+    var populate = req.body.populate || '';
+
+    CustomerModel
+        .update({}, {
+            where: {
+                id: id,
+                deletedAt: {
+                    [Op.ne]: null
+                }
+            }
+        })
+        .then()
+        .catch();
+};
 
 controller.addAddress = function(req, res, next) {};
 
@@ -42,7 +162,5 @@ controller.before([
     next();
 
 });
-
-
 
 module.exports = controller;

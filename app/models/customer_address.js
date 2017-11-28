@@ -39,5 +39,8 @@ module.exports = function(sequelize, DataTypes) {
 
     CustomerAddress.associate = function(models) {};
 
+    var Customer = sequelize.models.customer;
+    CustomerAddress.belongsTo(Customer, { foreignKey: 'customerId', targetKey: 'id' });
+
     return CustomerAddress;
 };

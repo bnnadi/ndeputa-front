@@ -30,5 +30,10 @@ module.exports = function(sequelize, DataTypes) {
 
     Customer.associate = function(models) {};
 
+    var Address = sequelize.models.customer_address;
+    var Phone = sequelize.models.customer_phone_number;
+    Customer.Address = Customer.hasMany(Address, { foreignKey: 'customerId', sourceKey: 'id' });
+    Customer.Phone = Customer.hasMany(Phone, { foreignKey: 'customerId', sourceKey: 'id' });
+
     return Customer;
 };

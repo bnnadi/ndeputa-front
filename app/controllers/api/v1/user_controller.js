@@ -22,27 +22,43 @@ controller.createOne = function(req, res, next) {
 
     var record = {};
 
-    record.createdById = user.user_id || user.id;
+    record.createdById = user.id;
     record.email = req.body.email;
     record.first_name = req.body.first_n;
     record.last_name = req.body.last_n;
     record.user_type = req.body.user_type;
     record.password = generatePsswrd();
 
-    UserModel
-        .findOrCreate({ where: { email: record.email }, defaults: record })
-        .spread(function(user, created) {
-            console.log(user.get({ plain: true }));
-            console.log(user.toJSON());
+    // phone number
+    if (res.body.phone_number) {
+        record.number = res.body.phone_number;
+    }
 
+    // address
+    if (res.body.address) {
+        record.address = res.body.address;
+        record.city = res.body.city;
+        record.state = res.body.state;
+        record.country = res.body.country;
+        record.zip = res.body.zip || null;
+    }
+
+    UserModel
+        .findOrCreate({
+            where: { email: record.email },
+            defaults: record,
+            attributes: ['id', 'email', 'user_type', 'last_name', 'first_name', 'createdAt'],
+            include: [User.Address, User.Phone]
+        })
+        .spread(function(user, created) {
             res.json({
                 result: user.toJSON()
             });
-
         });
 };
 
 controller.readOne = function(req, res, next) {
+
     var user = req.user || {};
 
     var populate = req.body.populate || '';

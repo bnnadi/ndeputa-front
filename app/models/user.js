@@ -50,11 +50,20 @@ module.exports = function(sequelize, DataTypes) {
         }
     });
 
-    User.associate = function(models) {};
+    User.associate = function(models) {
+
+    };
+
+    var Address = sequelize.models.user_address;
+    var Phone = sequelize.models.user_phone_number;
+    User.Address = User.hasMany(Address, { foreignKey: 'userId', sourceKey: 'id' });
+    User.Phone = User.hasMany(Phone, { foreignKey: 'userId', sourceKey: 'id' });
 
     User.beforeValidate(function(user, options) {
         user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync());
     });
+
+    // User.beforeFind(function() {});
 
     User.prototype.isValidPassword = function(password) {
         return bcrypt.compareSync(password, this.password);

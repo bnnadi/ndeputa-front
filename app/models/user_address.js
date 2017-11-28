@@ -40,5 +40,8 @@ module.exports = function(sequelize, DataTypes) {
 
     UserAddress.associate = function(models) {};
 
+    var User = sequelize.models.User;
+    UserAddress.belongsTo(User, { foreignKey: 'userId', targetKey: 'id' });
+
     return UserAddress;
 };
