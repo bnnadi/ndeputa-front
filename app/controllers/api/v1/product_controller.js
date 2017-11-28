@@ -89,6 +89,8 @@ controller.readMany = function(req, res, next) {
 
     var populate = req.body.populate || '';
 
+    var limit, orderBy;
+
     ProductModel
         .findAndCountAll()
         .then(function(products) {
@@ -119,7 +121,13 @@ controller.updateOne = function(req, res, next) {
 
 };
 
-controller.deleteOne = function(req, res, next) {};
+controller.deleteOne = function(req, res, next) {
+
+    var user = req.user || {};
+
+    var id = req.params.id;
+
+};
 
 controller.generateBarcode = function(req, res, next) {
     var user = req.user || {};
@@ -168,17 +176,32 @@ controller.generateBarcode = function(req, res, next) {
 };
 
 controller.before([
-    'deleteOne',
+    '*'
 ], function(req, res, next) {
 
-    if (!req.isAuthenticated() || req.user.accountType !== 'admin') {
+    if (!req.isAuthenticated()) {
+        res.status(401);
         res.json({
-            result: "you don't have access"
+            errors: 'UNAUTHORIZED'
         });
         return;
     }
+
     next();
 
+});
+
+controller.before(['deleteOne'], function(req, res, next) {
+
+    if (req.user.canDelete()) {
+        res.status(401);
+        res.json({
+            errors: 'UNAUTHORIZED'
+        });
+        return;
+    }
+
+    next();
 });
 
 

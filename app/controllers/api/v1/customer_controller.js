@@ -103,6 +103,8 @@ controller.readMany = function(req, res, next) {
 
     var populate = req.body.populate || '';
 
+    var limit, orderBy;
+
     CustomerModel
         .findAndCountAll()
         .then(function(users) {
@@ -139,28 +141,80 @@ controller.updateOne = function(req, res, next) {
         .catch();
 };
 
-controller.addAddress = function(req, res, next) {};
+controller.addAddress = function(req, res, next) {
 
-controller.addPhoneNumber = function(req, res, next) {};
+    var user = req.user || {};
 
-controller.updateAddress = function(req, res, next) {};
+};
 
-controller.updatePhoneNumber = function(req, res, next) {};
+controller.addPhoneNumber = function(req, res, next) {
 
-controller.deleteOne = function(req, res, next) {};
+    var user = req.user || {};
+
+};
+
+controller.updateAddress = function(req, res, next) {
+
+    var user = req.user || {};
+
+};
+
+controller.updatePhoneNumber = function(req, res, next) {
+
+    var user = req.user || {};
+
+};
+
+controller.removeAddress = function(req, res, next) {
+
+    var user = req.user || {};
+};
+
+controller.removePhoneNumber = function(req, res, next) {
+
+    var user = req.user || {};
+};
+
+controller.deleteOne = function(req, res, next) {
+
+    var user = req.user || {};
+
+    var id = req.params.id;
+
+    CustomerModel
+        .destory()
+        .then()
+        .catch();
+
+};
 
 controller.before([
-    'deleteOne',
+    '*'
 ], function(req, res, next) {
 
-    if (!req.isAuthenticated() || req.user.accountType !== 'admin') {
+    if (!req.isAuthenticated()) {
+        res.status(401);
         res.json({
-            result: "you don't have access"
+            errors: 'UNAUTHORIZED'
         });
         return;
     }
+
     next();
 
+});
+
+controller.before(['deleteOne'], function(req, res, next) {
+
+    if (req.user.canDelete()) {
+        res.status(401);
+        res.json({
+            errors: 'UNAUTHORIZED'
+        });
+        return;
+    }
+
+    next();
 });
 
 module.exports = controller;

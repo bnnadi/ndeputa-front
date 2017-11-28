@@ -19,7 +19,11 @@ module.exports = function routes() {
     // access
     this.post('/api/v1/login.json', passport.authenticate('jwt', { session: false }), public.login);
     this.get('/api/v1/logout', passport.authenticate('jwt', { session: false }), public.logout);
+    // reset
+    this.post('/api/v1/passwordReset.json', v1PasswordReset.start);
+    this.put('/api/v1/passwordVerify.json', v1PasswordReset.verify);
 
+    // company
     this.get('/api/v1/companies.json', passport.authenticate('jwt', { session: false }), v1Company.readMany);
 
     // customers
@@ -31,6 +35,8 @@ module.exports = function routes() {
     this.post('/api/v1/customer/addPhoneNumber.json', passport.authenticate('jwt', { session: false }), v1Customer.addPhoneNumber);
     this.put('/api/v1/customer/updateAddress.json', passport.authenticate('jwt', { session: false }), v1Customer.updateAddress);
     this.put('/api/v1/customer/updatePhoneNumber.json', passport.authenticate('jwt', { session: false }), v1Customer.updatePhoneNumber);
+    this.put('/api/v1/user/removeAddress.json', passport.authenticate('jwt', { session: false }), v1Customer.removeAddress);
+    this.put('/api/v1/user/removePhoneNumber.json', passport.authenticate('jwt', { session: false }), v1Customer.removePhoneNumber);
     this.delete('/api/v1/customer/:id.json', passport.authenticate('jwt', { session: false }), v1Customer.deleteOne);
 
     // orders
@@ -48,10 +54,6 @@ module.exports = function routes() {
     this.get('/api/v1/product/generateBarcode', passport.authenticate('jwt', { session: false }), v1Product.generateBarcode);
     this.delete('/api/v1/product/:id.json', passport.authenticate('jwt', { session: false }), v1Product.deleteOne);
 
-    // password reset
-    this.post('/api/v1/passwordReset.json', passport.authenticate('jwt', { session: false }), v1PasswordReset.start);
-    this.put('/api/v1/passwordVerify.json', passport.authenticate('jwt', { session: false }), v1PasswordReset.verify);
-
     // user
     this.post('/api/v1/user.json', passport.authenticate('jwt', { session: false }), v1User.createOne);
     this.get('/api/v1/user.json', passport.authenticate('jwt', { session: false }), v1User.readOne);
@@ -60,20 +62,18 @@ module.exports = function routes() {
     this.post('/api/v1/user/addPhoneNumber.json', passport.authenticate('jwt', { session: false }), v1User.addPhoneNumber);
     this.put('/api/v1/user/updateAddress.json', passport.authenticate('jwt', { session: false }), v1User.updateAddress);
     this.put('/api/v1/user/updatePhoneNumber.json', passport.authenticate('jwt', { session: false }), v1User.updatePhoneNumber);
+    this.put('/api/v1/user/removeAddress.json', passport.authenticate('jwt', { session: false }), v1User.removeAddress);
+    this.put('/api/v1/user/removePhoneNumber.json', passport.authenticate('jwt', { session: false }), v1User.removePhoneNumber);
     this.get('/api/v1/user/generateQRCode', passport.authenticate('jwt', { session: false }), v1User.generateQRCode);
-    // this.put('/api/v1/user.json', v1User.updateOne);
-    // this.delete('/api/v1/user/:id.json', v1User.deleteOne);
+    // this.put('/api/v1/user.json', passport.authenticate('jwt', { session: false }),  v1User.updateOne);
+    // this.delete('/api/v1/user/:id.json', passport.authenticate('jwt', { session: false }),  v1User.deleteOne);
 
     this.get('/values/strings.js', function(req, res) {
 
         var output = {};
 
         async.each([
-            'ndeputa',
-            'ndeputa-admin',
-            'ndeputa-factory',
-            'ndeputa-sales',
-            'ndeputa-security'
+            'ndeputa'
         ], function(item, next) {
 
             fs.readFile(ROOT + '/public/' + item + '/bower.json', 'utf8', function(err, data) {
@@ -107,11 +107,7 @@ module.exports = function routes() {
         var output = {};
 
         async.each([
-            'ndeputa',
-            'ndeputa-admin',
-            'ndeputa-factory',
-            'ndeputa-sales',
-            'ndeputa-security'
+            'ndeputa'
         ], function(item, next) {
 
             fs.readFile(FRONTEND + '/' + item + '/bower.json', 'utf8', function(err, data) {

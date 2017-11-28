@@ -31,16 +31,20 @@ controller.createOne = function(req, res, next) {
 
     // phone number
     if (res.body.phone_number) {
-        record.number = res.body.phone_number;
+        record.phone_numbers = [{
+            number: res.body.phone_number
+        }];
     }
 
     // address
     if (res.body.address) {
-        record.address = res.body.address;
-        record.city = res.body.city;
-        record.state = res.body.state;
-        record.country = res.body.country;
-        record.zip = res.body.zip || null;
+        record.addresses = [{
+            address: res.body.address,
+            city: res.body.city,
+            state: res.body.state,
+            country: res.body.country,
+            zip: res.body.zip || null
+        }];
     }
 
     UserModel
@@ -109,6 +113,7 @@ controller.readMany = function(req, res, next) {
 
     var populate = req.body.populate || '';
 
+    var limit, orderBy;
 
     UserModel
         .findAndCountAll()
@@ -126,15 +131,54 @@ controller.readMany = function(req, res, next) {
         });
 };
 
-controller.updateOne = function(req, res, next) {};
+controller.updateOne = function(req, res, next) {
 
-controller.addAddress = function(req, res, next) {};
+    var user = req.user || {};
+};
 
-controller.addPhoneNumber = function(req, res, next) {};
+controller.addAddress = function(req, res, next) {
 
-controller.updateAddress = function(req, res, next) {};
+    var user = req.user || {};
+};
 
-controller.updatePhoneNumber = function(req, res, next) {};
+controller.addPhoneNumber = function(req, res, next) {
+
+    var user = req.user || {};
+};
+
+controller.updateAddress = function(req, res, next) {
+
+    var user = req.user || {};
+};
+
+controller.updatePhoneNumber = function(req, res, next) {
+
+    var user = req.user || {};
+};
+
+controller.removeAddress = function(req, res, next) {
+
+    var user = req.user || {};
+};
+
+controller.removePhoneNumber = function(req, res, next) {
+
+    var user = req.user || {};
+};
+
+controller.deleteOne = function(req, res, next) {
+
+    var user = req.user || {};
+
+    var id = req.params.id;
+
+    console.log(id);
+
+    // UserModel
+    //     .destory({where: {id: id}})
+    //     .then()
+    //     .catch();
+};
 
 controller.generateQRCode = function(req, res, next) {
 
@@ -154,6 +198,8 @@ controller.generateQRCode = function(req, res, next) {
                 });
                 return;
             }
+
+            // add QR Code logic here
         })
         .catch(function(err) {
             res.status(404);
@@ -164,7 +210,7 @@ controller.generateQRCode = function(req, res, next) {
         });
 };
 
-controller.deleteOne = function(req, res, next) {};
+
 
 controller.before([
     '*'
@@ -173,7 +219,7 @@ controller.before([
     if (!req.isAuthenticated()) {
         res.status(401);
         res.json({
-            errors: ['NNC-00000']
+            errors: 'UNAUTHORIZED'
         });
         return;
     }
@@ -182,6 +228,17 @@ controller.before([
 
 });
 
-controller.before(['deleteOne'], function(req, res, next) {});
+controller.before(['deleteOne'], function(req, res, next) {
+
+    if (req.user.canDelete()) {
+        res.status(401);
+        res.json({
+            errors: 'UNAUTHORIZED'
+        });
+        return;
+    }
+
+    next();
+});
 
 module.exports = controller;

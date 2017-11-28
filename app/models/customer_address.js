@@ -26,6 +26,10 @@ module.exports = function(sequelize, DataTypes) {
         zip: {
             type: DataTypes.STRING
         },
+        isPrimary: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false
+        },
         createdById: {
             type: DataTypes.INTEGER,
             defaultValue: 0,

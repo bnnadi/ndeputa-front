@@ -11,6 +11,10 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false,
         },
+        isPrimray: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false
+        },
         createdById: {
             type: DataTypes.INTEGER,
             defaultValue: 0,
@@ -26,6 +30,8 @@ module.exports = function(sequelize, DataTypes) {
 
     var User = sequelize.models.User;
     UserPhoneNumber.belongsTo(User, { foreignKey: 'userId', targetKey: 'id' });
+
+    // UserPhoneNumber.beforeSave(function(instance, options) {});
 
     return UserPhoneNumber;
 };

@@ -77,5 +77,9 @@ module.exports = function(sequelize, DataTypes) {
         return (_.includes(['admin', 'pmanager', 'smanager'], this.accountType));
     };
 
+    User.prototype.canDelete = function() {
+        return (_.includes(['admin', 'pmanager'], this.accountType));
+    };
+
     return User;
 };

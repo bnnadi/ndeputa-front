@@ -11,6 +11,10 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false,
         },
+        isPrimary: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false
+        },
         createdById: {
             type: DataTypes.INTEGER,
             defaultValue: 0,
