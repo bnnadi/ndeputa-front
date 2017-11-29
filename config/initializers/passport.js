@@ -41,6 +41,8 @@ module.exports = function(done) {
     passport.use(new JWTStrategy({
         jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('jwt'),
         secretOrKey: process.env.JSON_WEB_TOKEN_KEY,
+        algorithms: [process.env.JWT_KEY_ALGOR],
+        // audience: '',
         ignoreExpiration: false
     }, function(payload, done) {
         var UserModel = require(BACKEND + '/models').user;

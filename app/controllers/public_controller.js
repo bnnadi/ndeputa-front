@@ -85,8 +85,13 @@ controller.login = function(req, res, next) {
                 });
                 return;
             }
+            var payload = {
+                id: result.id,
+                accountType: result.accountType,
+                exp: process.env.JWT_KEY_TTL
+            };
 
-            token = jwt.encode({ id: result.id }, process.env.JSON_WEB_TOKEN_KEY);
+            token = jwt.encode({}, process.env.JSON_WEB_TOKEN_KEY, process.env.JWT_KEY_ALGOR);
 
             res.json({
                 result: { user: { '_id': result.id, 'accountType': result.accountType }, token: token }

@@ -20,6 +20,9 @@ module.exports = function routes() {
     // access
     this.post('/api/v1/login.json', passport.authenticate('jwt', { session: false }), public.login);
     this.get('/api/v1/logout', passport.authenticate('jwt', { session: false }), public.logout);
+
+    this.get('/api/v1/authenticate');
+
     // reset
     this.post('/api/v1/passwordReset.json', v1PasswordReset.start);
     this.put('/api/v1/passwordVerify.json', v1PasswordReset.verify);
