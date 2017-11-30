@@ -2,7 +2,7 @@
 var async = require('async');
 var fs = require('fs');
 var jsSchema = require('js-schema');
-var jwt = require('jwt-simple');
+var jwt = require('jsonwebtoken');
 var passport = require('passport');
 
 // classes
@@ -85,16 +85,24 @@ controller.login = function(req, res, next) {
                 });
                 return;
             }
-            var payload = {
+
+            var user = {
                 id: result.id,
                 accountType: result.accountType,
-                exp: process.env.JWT_KEY_TTL
+                exp: Math.floor(Date.now() / 1000) + (60 * 60)
             };
 
-            token = jwt.encode({}, process.env.JSON_WEB_TOKEN_KEY, process.env.JWT_KEY_ALGOR);
+            var token = jwt.sign(user, process.env.JWT_KEY);
+
+            delete user.exp;
+
+            user.token = token;
+            user.email = result.email;
+            user.name = result.getFullName();
+            user.profile_img = '';
 
             res.json({
-                result: { user: { '_id': result.id, 'accountType': result.accountType }, token: token }
+                result: user
             });
             return;
 

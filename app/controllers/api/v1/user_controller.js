@@ -2,6 +2,7 @@
 var async = require('async');
 var fs = require('fs');
 var jsSchema = require('js-schema');
+var jwt = require('jwt-simple');
 var generatePsswrd = require('password-generator');
 
 // classes
@@ -15,6 +16,42 @@ var db = require(BACKEND + '/models');
 var UserModel = db.user;
 var AddressModel = db.address;
 var PhoneModel = db.phone_number;
+
+controller.authenticate = function(req, res, next) {
+    console.log(req.user);
+    UserModel
+        .findById(req.user.id)
+        .then(function(result) {
+            var user = {
+                id: result.id,
+                accountType: result.accountType,
+                exp: process.env.JWT_KEY_TTL
+            };
+
+            var token = jwt.encode(user, process.env.JWT_KEY, process.env.JWT_KEY_ALGOR);
+
+            delete user.exp;
+
+            user.token = token;
+            user.email = result.email;
+            user.name = result.getFullName();
+            user.profile_img = '';
+
+            res.json({
+                result: user
+            });
+            return;
+        })
+        .catch(function(err) {
+            console.log(nnLine, new Date());
+            res.status(404);
+            res.json({
+                errors: err,
+            });
+            return;
+        });
+
+};
 
 controller.createOne = function(req, res, next) {
 
@@ -167,50 +204,6 @@ controller.removePhoneNumber = function(req, res, next) {
 
     var user = req.user || {};
 };
-
-controller.deleteOne = function(req, res, next) {
-
-    var user = req.user || {};
-
-    var id = req.params.id;
-
-    UserModel
-        .destory({ where: { id: id } })
-        .then()
-        .catch();
-};
-
-controller.generateQRCode = function(req, res, next) {
-
-    var user = req.user || {};
-
-    var populate = req.body.populate || '';
-
-    var id = req.body.id;
-
-    UserModel
-        .findById(id)
-        .then(function(user) {
-            if (!user) {
-                res.status(404);
-                res.json({
-                    errors: 'Record not Found',
-                });
-                return;
-            }
-
-            // TODO: add QR Code logic here
-        })
-        .catch(function(err) {
-            res.status(404);
-            res.json({
-                errors: err,
-            });
-            return;
-        });
-};
-
-
 
 controller.before([
     '*'

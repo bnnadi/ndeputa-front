@@ -28,7 +28,9 @@ module.exports = function(sequelize, DataTypes) {
         paranoid: true
     });
 
-    Product.associate = function(models) {};
+    Product.associate = function(models) {
+        Product.hasOne(models.company);
+    };
 
     return Product;
 };

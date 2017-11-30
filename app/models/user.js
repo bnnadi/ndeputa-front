@@ -45,39 +45,36 @@ module.exports = function(sequelize, DataTypes) {
         }
     }, {
         tableName: 'users',
-        paranoid: true,
-        instanceMethods: {
-            toJSON: function() {
-                var values = Object.assign({}, this.get());
-                delete values.password;
-                return values;
-            }
-        }
+        paranoid: true
     });
 
     User.associate = function(models) {
-
+        User.Address = User.hasMany(models.address);
+        User.Company = User.hasOne(models.company);
+        User.Phone = User.hasMany(models.phone_number);
     };
-
-    var Address = sequelize.models.address;
-    var Company = sequelize.models.company;
-    var Phone = sequelize.models.phone_number;
-
-    User.Address = User.hasMany(Address, { foreignKey: 'userId', sourceKey: 'id' });
-    User.Company = User.hasOne(Company);
-    User.Phone = User.hasMany(Phone, { foreignKey: 'userId', sourceKey: 'id' });
 
     User.beforeValidate(function(user, options) {
         user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync());
     });
 
-    // User.beforeFind(function() {});
+    User.beforeCreate(function(user, options) {
+        if ('admin' === user.accountType) {
+            user.companyId = 0;
+        }
+    });
+
+    User.prototype.toJSON = function() {
+        var values = Object.assign({}, this.get());
+        delete values.password;
+        return values;
+    };
 
     User.prototype.isValidPassword = function(password) {
         return bcrypt.compareSync(password, this.password);
     };
 
-    User.prototype.getfullName = function() {
+    User.prototype.getFullName = function() {
         return [this.firstName, this.lastName].join(' ');
     };
 

@@ -39,12 +39,12 @@ module.exports = function(done) {
     }));
 
     passport.use(new JWTStrategy({
-        jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('jwt'),
-        secretOrKey: process.env.JSON_WEB_TOKEN_KEY,
-        algorithms: [process.env.JWT_KEY_ALGOR],
+        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+        secretOrKey: process.env.JWT_KEY,
         // audience: '',
         ignoreExpiration: false
     }, function(payload, done) {
+        console.log(payload);
         var UserModel = require(BACKEND + '/models').user;
         UserModel
             .findById(payload.id)

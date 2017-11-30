@@ -30,12 +30,9 @@ module.exports = function(sequelize, DataTypes) {
         paranoid: true
     });
 
-    PhoneNumber.associate = function(models) {};
-
-    var User = sequelize.models.User;
-    PhoneNumber.belongsTo(User, { foreignKey: 'userId', targetKey: 'id' });
-
-    // PhoneNumber.beforeSave(function(instance, options) {});
+    PhoneNumber.associate = function(models) {
+        PhoneNumber.belongsTo(models.user);
+    };
 
     return PhoneNumber;
 };

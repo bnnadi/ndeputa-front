@@ -46,10 +46,9 @@ module.exports = function(sequelize, DataTypes) {
         paranoid: true
     });
 
-    Address.associate = function(models) {};
-
-    var User = sequelize.models.User;
-    Address.belongsTo(User, { foreignKey: 'userId', targetKey: 'id' });
+    Address.associate = function(models) {
+        Address.belongsTo(models.user);
+    };
 
     return Address;
 };

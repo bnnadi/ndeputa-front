@@ -28,12 +28,10 @@ module.exports = function(sequelize, DataTypes) {
         paranoid: true
     });
 
-    Customer.associate = function(models) {};
-
-    var Address = sequelize.models.address;
-    var Phone = sequelize.models.phone_number;
-    Customer.Address = Customer.hasMany(Address, { foreignKey: 'userId', sourceKey: 'id' });
-    Customer.Phone = Customer.hasMany(Phone, { foreignKey: 'userId', sourceKey: 'id' });
+    Customer.associate = function(models) {
+        Customer.Address = Customer.hasMany(models.address);
+        Customer.Phone = Customer.hasMany(models.phone_number);
+    };
 
     return Customer;
 };

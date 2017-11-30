@@ -72,7 +72,8 @@ gulp.task('v1-create-admin', function() {
         firstName: chance.first(),
         lastName: chance.last(),
         password: 'password1',
-        accountType: 'admin'
+        accountType: 'admin',
+        companyId: 0
     };
 
 

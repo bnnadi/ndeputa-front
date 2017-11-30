@@ -1,15 +1,16 @@
-"use strict";
+/*jslint node: true */
+'use strict';
 
-var fs = require("fs");
-var path = require("path");
-var Sequelize = require("sequelize");
-var env = process.env.NODE_ENV || "development";
+var fs = require('fs');
+var path = require('path');
+var Sequelize = require('sequelize');
+var env = process.env.NODE_ENV || 'development';
 var config = {
-    "database_name": process.env.DB_NAME,
-    "username": process.env.DB_USERNAME,
-    "password": process.env.DB_PASSWORD,
-    "dialect": process.env.DB_DIALECT,
-    "port": process.env.DB_PORT
+    'database_name': process.env.DB_NAME,
+    'username': process.env.DB_USERNAME,
+    'password': process.env.DB_PASSWORD,
+    'dialect': process.env.DB_DIALECT,
+    'port': process.env.DB_PORT
 };
 
 if (env === 'production') {
@@ -27,7 +28,7 @@ var db = {};
 fs
     .readdirSync(__dirname)
     .filter(function(file) {
-        return (file.indexOf(".") !== 0) && (file !== "index.js");
+        return (file.indexOf('.') !== 0) && (file !== 'index.js');
     })
     .forEach(function(file) {
         var model = sequelize.import(path.join(__dirname, file));

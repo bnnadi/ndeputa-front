@@ -6,9 +6,9 @@ var passport = require('passport');
 
 var public = require(BACKEND + '/controllers/public_controller');
 
-var v1Admin = require(BACKEND + '/controllers/api/v1/admin_controller');
 var v1Customer = require(BACKEND + '/controllers/api/v1/customer_controller');
 var v1Company = require(BACKEND + '/controllers/api/v1/company_controller');
+var v1Employee = require(BACKEND + '/controllers/api/v1/employee_controller');
 var v1Order = require(BACKEND + '/controllers/api/v1/order_controller');
 var v1PasswordReset = require(BACKEND + '/controllers/api/v1/password_reset_controller');
 var v1Product = require(BACKEND + '/controllers/api/v1/product_controller');
@@ -18,10 +18,9 @@ var v1User = require(BACKEND + '/controllers/api/v1/user_controller');
 module.exports = function routes() {
 
     // access
-    this.post('/api/v1/login.json', passport.authenticate('jwt', { session: false }), public.login);
-    this.get('/api/v1/logout', passport.authenticate('jwt', { session: false }), public.logout);
-
     this.get('/api/v1/authenticate');
+    this.post('/api/v1/login.json', public.login);
+    this.get('/api/v1/logout', passport.authenticate('jwt', { session: false }), public.logout);
 
     // reset
     this.post('/api/v1/passwordReset.json', v1PasswordReset.start);
@@ -29,6 +28,8 @@ module.exports = function routes() {
 
     // timesheet
     this.post('/api/v1/clockInOut', v1Time.clockInOut);
+
+    //TODO: look into the JWT authenticate
 
     // company
     this.get('/api/v1/companies.json', passport.authenticate('jwt', { session: false }), v1Company.readMany);
@@ -42,9 +43,24 @@ module.exports = function routes() {
     this.post('/api/v1/customer/addPhoneNumber.json', passport.authenticate('jwt', { session: false }), v1Customer.addPhoneNumber);
     this.put('/api/v1/customer/updateAddress.json', passport.authenticate('jwt', { session: false }), v1Customer.updateAddress);
     this.put('/api/v1/customer/updatePhoneNumber.json', passport.authenticate('jwt', { session: false }), v1Customer.updatePhoneNumber);
-    this.put('/api/v1/user/removeAddress.json', passport.authenticate('jwt', { session: false }), v1Customer.removeAddress);
-    this.put('/api/v1/user/removePhoneNumber.json', passport.authenticate('jwt', { session: false }), v1Customer.removePhoneNumber);
+    this.put('/api/v1/customer/removeAddress.json', passport.authenticate('jwt', { session: false }), v1Customer.removeAddress);
+    this.put('/api/v1/customer/removePhoneNumber.json', passport.authenticate('jwt', { session: false }), v1Customer.removePhoneNumber);
     this.delete('/api/v1/customer/:id.json', passport.authenticate('jwt', { session: false }), v1Customer.deleteOne);
+
+    // employee
+    this.post('/api/v1/employee.json', passport.authenticate('jwt', { session: false }), v1Employee.createOne);
+    this.get('/api/v1/employee.json', passport.authenticate('jwt', { session: false }), v1Employee.readOne);
+    this.get('/api/v1/employees.json', passport.authenticate('jwt', { session: false }), v1Employee.readMany);
+    this.put('/api/v1/employee.json', passport.authenticate('jwt', { session: false }), v1Employee.updateOne);
+    this.delete('/api/v1/employee/:id.json', passport.authenticate('jwt', { session: false }), v1Employee.deleteOne);
+    this.post('/api/v1/employee/addAddress.json', passport.authenticate('jwt', { session: false }), v1Employee.addAddress);
+    this.post('/api/v1/employee/addPhoneNumber.json', passport.authenticate('jwt', { session: false }), v1Employee.addPhoneNumber);
+    this.put('/api/v1/employee/updateAddress.json', passport.authenticate('jwt', { session: false }), v1Employee.updateAddress);
+    this.put('/api/v1/employee/updatePhoneNumber.json', passport.authenticate('jwt', { session: false }), v1Employee.updatePhoneNumber);
+    this.put('/api/v1/employee/removeAddress.json', passport.authenticate('jwt', { session: false }), v1Employee.removeAddress);
+    this.put('/api/v1/employee/removePhoneNumber.json', passport.authenticate('jwt', { session: false }), v1Employee.removePhoneNumber);
+    this.get('/api/v1/employee/generateQRCode', passport.authenticate('jwt', { session: false }), v1Employee.generateQRCode);
+
 
     // orders
     this.post('/api/v1/order.json', passport.authenticate('jwt', { session: false }), v1Order.createOne);
@@ -66,18 +82,17 @@ module.exports = function routes() {
     this.get('/api/v1/clockInOut', passport.authenticate('jwt', { session: false }), v1Time.ReadMany);
 
     // user
+    this.get('/api/v1/user/authenticate', passport.authenticate('jwt', { session: false }), v1User.authenticate);
     this.post('/api/v1/user.json', passport.authenticate('jwt', { session: false }), v1User.createOne);
     this.get('/api/v1/user.json', passport.authenticate('jwt', { session: false }), v1User.readOne);
     this.get('/api/v1/users.json', passport.authenticate('jwt', { session: false }), v1User.readMany);
+    this.put('/api/v1/user.json', passport.authenticate('jwt', { session: false }), v1User.updateOne);
     this.post('/api/v1/user/addAddress.json', passport.authenticate('jwt', { session: false }), v1User.addAddress);
     this.post('/api/v1/user/addPhoneNumber.json', passport.authenticate('jwt', { session: false }), v1User.addPhoneNumber);
     this.put('/api/v1/user/updateAddress.json', passport.authenticate('jwt', { session: false }), v1User.updateAddress);
     this.put('/api/v1/user/updatePhoneNumber.json', passport.authenticate('jwt', { session: false }), v1User.updatePhoneNumber);
     this.put('/api/v1/user/removeAddress.json', passport.authenticate('jwt', { session: false }), v1User.removeAddress);
     this.put('/api/v1/user/removePhoneNumber.json', passport.authenticate('jwt', { session: false }), v1User.removePhoneNumber);
-    this.get('/api/v1/user/generateQRCode', passport.authenticate('jwt', { session: false }), v1User.generateQRCode);
-    // this.put('/api/v1/user.json', passport.authenticate('jwt', { session: false }),  v1User.updateOne);
-    // this.delete('/api/v1/user/:id.json', passport.authenticate('jwt', { session: false }),  v1User.deleteOne);
 
     this.get('/values/strings.js', function(req, res) {
 

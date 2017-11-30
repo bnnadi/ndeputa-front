@@ -8,20 +8,12 @@ module.exports = function(sequelize, DataTypes) {
         userId: {
             type: DataTypes.INTEGER,
             field: 'user_id',
-            allowNull: false,
-            references: {
-                model: User,
-                key: 'id',
-            }
+            allowNull: false
         },
         companyId: {
             type: DataTypes.INTEGER,
             field: 'company_id',
-            allowNull: false,
-            references: {
-                model: Company,
-                key: 'id',
-            }
+            allowNull: false
         },
         timeIn: {
             type: DataTypes.DATE,
@@ -36,7 +28,10 @@ module.exports = function(sequelize, DataTypes) {
         paranoid: true
     });
 
-    Timesheet.associate = function(models) {};
+    Timesheet.associate = function(models) {
+        Timesheet.hasOne(models.company);
+        Timesheet.hasOne(models.user);
+    };
 
     return Timesheet;
 };
