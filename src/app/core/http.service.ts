@@ -10,7 +10,6 @@ import {
 } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/Rx';
 import { CustomReqeustOptions } from './request-options';
 import { LoaderService } from './loader/loader.service';
 import { HttpClient } from '@angular/common/http/src/client';
