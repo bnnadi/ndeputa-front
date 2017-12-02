@@ -1,11 +1,8 @@
 export class User {
     id: number;
-    firstname: String;
-    lastname: String;
+    name: String;
     accountType: String;
     email: String;
     profile_img: String;
-    // createdAt: Date;
-    // updatedAt: Date;
-    // deleteAt: Date;
+    token: string;
 }

@@ -13,7 +13,7 @@ export class AddProductsComponent {
   url: string;
   detailUrl: string;
 
-  constructor(private ps: ProductService, private cs: CompanyService ) { 
+  constructor(private ps: ProductService, private cs: CompanyService ) {
     this.getCompanies();
   }
 
@@ -34,11 +34,11 @@ export class AddProductsComponent {
 
   }
 
-  fileChange(event:any) {
-    if(event.target.files && event.target.files[0]) {
-      var reader = new FileReader();
+  fileChange(event: any) {
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
 
-      reader.onload = (event:any) => {
+      reader.onload = (event: any) => {
         this.url = event.target.result;
       }
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { 
+import {
     Http,
     RequestOptions,
     RequestOptionsArgs,
@@ -14,14 +14,14 @@ import 'rxjs/Rx';
 import { CustomReqeustOptions } from './request-options';
 import { LoaderService } from './loader/loader.service';
 import { HttpClient } from '@angular/common/http/src/client';
+import { JwtService } from 'app/services';
 
 @Injectable()
 
 export class HttpService extends Http {
 
-    public token: string;
-
     apiUrl = 'http://localhost:3006/api/v1/';
+    private jwt: JwtService;
 
     constructor( backend: XHRBackend, defaultOptions: CustomReqeustOptions, private loaderService: LoaderService) {
         super(backend, defaultOptions);
@@ -57,12 +57,42 @@ export class HttpService extends Http {
                 })
     }
 
+    put(url: string, body: Object, options?: RequestOptionsArgs): Observable<any> {
+
+      this.showLoader();
+      return super.post(this.getFullUrl(url), body, this.requestOptions(options))
+        .catch(this.onCatch)
+        .do((res: Response) => {
+          this.onSuccess(res.json());
+        }, (error: any) => {
+          this.onError(error);
+        })
+        .finally(() => {
+          this.onEnd();
+        })
+      }
+
+      delete(url: string, options?: RequestOptionsArgs): Observable<any> {
+
+        this.showLoader();
+        return super.post(this.getFullUrl(url), this.requestOptions(options))
+          .catch(this.onCatch)
+          .do((res: Response) => {
+            this.onSuccess(res.json());
+          }, (error: any) => {
+            this.onError(error);
+          })
+          .finally(() => {
+            this.onEnd();
+          })
+      }
+
     private requestOptions(options?: RequestOptionsArgs): RequestOptionsArgs {
-         if(options == null) {
+         if (options == null) {
              options = new CustomReqeustOptions();
          }
 
-         if(options.headers == null) {
+         if (options.headers == null) {
              options.headers = new Headers();
          }
 

@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 
@@ -11,8 +11,8 @@ export class CompanyService {
     constructor(private http: HttpService) {}
 
     getCompanies(): Observable<any> {
-        return this.http.get("companies.json")
-            .map((res:Response) => res.json())
-            .catch((error:any) => Observable.throw(error));
+        return this.http.get('companies.json')
+            .map((res: Response) => res.json())
+            .catch((error: any) => Observable.throw(error));
     }
 }

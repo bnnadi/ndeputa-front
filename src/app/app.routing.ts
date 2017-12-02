@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CanDeactivateGuard } from './can-deactivate-guard.service';
+import { CanDeactivateGuard } from 'app/_access/can-deactivate-guard.service';
 
 // Import Containers
 import {
@@ -8,7 +8,7 @@ import {
   SimpleLayoutComponent
 } from './containers';
 import { PageNotFoundComponent } from 'app/error-pages';
-import { AuthGuard } from 'app/auth-guard.service';
+import { AuthGuard } from 'app/_access/auth-guard.service';
 import { ForgotPasswordComponent } from './login/forgot-password.component';
 
 export const routes: Routes = [
@@ -80,7 +80,7 @@ export const routes: Routes = [
        {
         path: '**',
         component: PageNotFoundComponent,
-       },   
+       },
     ]
   }
 ];

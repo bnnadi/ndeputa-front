@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { EmployeeComponent } from './employees.component';
 import { AddEmployeeComponent, DetailEmployeeComponent, ListEmployeeComponent } from './components';
-import { CanDeactivateGuard } from 'app/can-deactivate-guard.service';
+import { CanDeactivateGuard } from 'app/_access/can-deactivate-guard.service';
 // import { EmployeeResolver } from 'app/services';
 
 const routes: Routes = [

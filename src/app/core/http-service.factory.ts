@@ -8,4 +8,4 @@ function httpServiceFactory(backend: XHRBackend, opitions: CustomReqeustOptions,
     return new HttpService(backend, opitions, loaderService);
 }
 
-export { httpServiceFactory } ;
+export { httpServiceFactory };

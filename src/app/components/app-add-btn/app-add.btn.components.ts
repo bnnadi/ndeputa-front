@@ -5,10 +5,11 @@ import { NavBarService } from 'app/services/navbar.service';
 
 @Component({
     selector: 'app-add-btn',
-    template:`
+    template: `
     <div *ngIf="nav.visible" class="btn-group" role="group" aria-label="Adds Product, Customer, or Employee">
-        <a class="btn" routerLink="{{addPath}}"><i class="icon-plus"></i> &nbsp;Add</a>
+        <a class="btn btn-lg" routerLink="{{addPath}}"><i class="icon-plus"></i> &nbsp;Add</a>
     </div>`,
+    styleUrls: ['app-btn.css'],
     providers: [NavBarService]
 })
 export class AppAddBtnComponent {
@@ -29,6 +30,6 @@ export class AppAddBtnComponent {
                 this.nav.hide();
             }
         });
-       
+
     }
 }

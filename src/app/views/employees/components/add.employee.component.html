@@ -14,11 +14,14 @@
                                 <select class="custom-select" [(ngModel)]="company_id " name="company">
                                 <option value="null" disabled="true" [selected]="true">Select Company..</option>
                                 <option *ngFor="let c of companies" [value]="c.id">{{c.companyName}}</option>
-                            </select>
+                              </select>
                             </div>
                             <div class="form-group">
-                                <label for="title">Title</label>
-                                <input type="text" class="form-control" id="title" placeholder="Title">
+                                <label for="title ">Title</label>
+                                <select class="custom-select" [(ngModel)]="accountType" name="title">
+                                <option value="null" disabled="true" [selected]="true">Select Title..</option>
+                                <option *ngFor="let t of titles" [value]="t.abv">{{t.name}}</option>
+                              </select>
                             </div>
                             <div class="row">
                                 <div class="form-group col-sm-6">

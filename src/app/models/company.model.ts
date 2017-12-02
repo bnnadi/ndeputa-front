@@ -1,6 +1,6 @@
 export class Company {
     id: number;
-    company_name: String;
+    companyName: String;
     // createdAt: Date;
     // updatedAt: Date;
     // deleteAt: Date;

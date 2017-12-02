@@ -1,17 +1,17 @@
 import { BaseRequestOptions } from '@angular/http';
+import { JwtService } from 'app/services/jwt.service';
 
 export class CustomReqeustOptions extends BaseRequestOptions {
 
-    public token: string;
+    public token: String;
 
     constructor(customOptions?: any) {
 
         super();
 
-            let token = localStorage.getItem('token');
-            this.token = token;
-            this.headers.append('Content-Type', 'application/json');
-            this.headers.append('Authorization', 'JWT ' + this.token);
+        this.token = localStorage.getItem('token');
+        this.headers.append('Content-Type', 'application/json');
+        this.headers.append('Authorization', 'bearer ' + this.token);
     }
 
 }

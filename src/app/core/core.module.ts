@@ -25,7 +25,7 @@ import { LoaderComponent } from './loader/loader.component';
         {
             provide: HttpService,
             useFactory: httpServiceFactory,
-            deps: [XHRBackend, RequestOptions ,LoaderService]
+            deps: [XHRBackend, RequestOptions , LoaderService]
         }
     ]
 })

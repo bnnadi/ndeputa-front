@@ -115,6 +115,10 @@ export class AppSidebarNavLinkComponent {
     return this.link.icon ? true : false
   }
 
+  // public isDisabled() {
+  //   return
+  // }
+
   constructor() { }
 }
 

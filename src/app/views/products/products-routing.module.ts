@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ProductsComponent } from './products.component';
 import { AddProductsComponent, DetailProductsComponent, ListProductsComponent } from './components';
 import { ProductResolver } from 'app/services';
-import { CanDeactivateGuard } from 'app/can-deactivate-guard.service';
+import { CanDeactivateGuard } from 'app/_access/can-deactivate-guard.service';
 
 
 const routes: Routes = [

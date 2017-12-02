@@ -6,7 +6,7 @@ import { LoaderState } from './loader';
 
 
 @Component({
-    selector: 'angular-loader',
+    selector: 'app-loader',
     templateUrl: './loader.component.html',
     styleUrls: ['loader.component.css']
 })

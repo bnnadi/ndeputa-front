@@ -2,19 +2,19 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { User } from 'app/models';
+import { User, Employee } from 'app/models';
 import { EmployeesService } from 'app/services';
 
 @Component({
   templateUrl: 'detail.employee.component.html'
 })
 export class DetailEmployeeComponent implements OnInit {
-  @Input() employee: User;
+  @Input() employee: Employee;
 
-  constructor(private route:ActivatedRoute, 
-    private router:Router, 
+  constructor(private route: ActivatedRoute,
+    private router: Router,
     private location: Location,
-    private es:EmployeesService) { 
+    private es: EmployeesService) {
 
   }
 

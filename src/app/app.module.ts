@@ -1,20 +1,20 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { MatProgressBarModule } from '@angular/material';
 
+import { CoreModule } from './core/core.module'
 
-import { Router } from '@angular/router';
+import { AuthGuard } from 'app/_access/auth-guard.service';
+import { AuthService } from 'app/_access/auth.service';
+import { JwtService, UserService } from 'app/services';
 
 import { AppComponent } from './app.component';
-import { AuthGuard } from 'app/auth-guard.service';
-import { AuthService } from 'app/auth.service';
 import { ForgotPasswordComponent } from './login/forgot-password.component';
 import { PageNotFoundComponent, InternalErrorComponent } from './error-pages';
-
-import { CoreModule } from './core/core.module';
 
 // Import containers
 import {
@@ -81,6 +81,7 @@ import { AppRoutingModule } from './app.routing';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { AuthModule } from 'angular2-jwt';
 
 @NgModule({
   imports: [
@@ -92,7 +93,8 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     ChartsModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    AuthModule
   ],
   declarations: [
     AppComponent,
@@ -103,9 +105,9 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
   providers: [{
     provide: LocationStrategy,
     useClass: PathLocationStrategy
-  }, AuthGuard, AuthService],
+  }, AuthGuard, AuthService, UserService, JwtService],
   bootstrap: [ AppComponent ]
 })
-export class AppModule { 
+export class AppModule {
   constructor(router: Router) {}
 }

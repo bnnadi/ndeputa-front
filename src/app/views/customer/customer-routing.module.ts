@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { CustomerComponent } from './customer.component';
 import { AddCustomerComponent, DetailCustomerComponent, ListCustomerComponent } from './components';
-import { CanDeactivateGuard } from 'app/can-deactivate-guard.service';
+import { CanDeactivateGuard } from 'app/_access/can-deactivate-guard.service';
 // import { CustomerResolver } from 'app/services';
 
 

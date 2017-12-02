@@ -17,3 +17,9 @@
     font-size: 12px;
     line-height: 1.42857;
 }
+
+a.disabled {
+    color: gray;
+    cursor: not-allowed;
+    text-decoration: underline;
+}

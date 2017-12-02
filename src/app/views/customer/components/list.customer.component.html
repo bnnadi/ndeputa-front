@@ -1,6 +1,5 @@
 <div class="animated fadeIn">
     <div class="container mb-4">
-        <a class="btn btn-primary" routerLink="/customers/add">Add</a>
         <div class="row">
             <div *ngIf="customers.count > 0">
                 <employee-card class="col-sm-6 col-md-5" *ngFor="let c of customers.rows" [person]="c"></employee-card>

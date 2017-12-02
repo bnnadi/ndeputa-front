@@ -1,21 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { EmployeesService } from 'app/services';
-import { User } from 'app/models';
+import { Employee } from 'app/models';
 
 @Component({
   templateUrl: 'list.employee.component.html'
 })
 export class ListEmployeeComponent implements OnInit {
-  
+
   employees: any = {count: Number, rows: Array};
   totalEmployees: number
 
-  constructor(private es:EmployeesService, private router:Router, private route:ActivatedRoute,) {}
+  constructor(private es: EmployeesService, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit() {
    this.getEmployees();
-   
   }
 
   getEmployees() {

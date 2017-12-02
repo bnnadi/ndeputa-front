@@ -11,7 +11,7 @@ export class ListCustomerComponent implements OnInit {
 
     customers: any = {count: Number, rows: Array};
 
-    constructor(private cs:CustomerService, private router:Router) {}
+    constructor(private cs: CustomerService, private router: Router) {}
 
     ngOnInit() {
         this.getCustomers();

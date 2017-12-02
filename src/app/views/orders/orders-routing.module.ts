@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AddOrdersComponent, DetailOrdersComponent, TableOrdersComponent } from './components';
 import { OrdersComponent } from './orders.component';
-import { CanDeactivateGuard } from 'app/can-deactivate-guard.service';
+import { CanDeactivateGuard } from 'app/_access/can-deactivate-guard.service';
 
 const routes: Routes = [
   // {
