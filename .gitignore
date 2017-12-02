@@ -31,3 +31,12 @@ testem.log
 #System Files
 .DS_Store
 Thumbs.db
+.vscode/
+node_modules/
+public/
+data/
+
+*.http
+
+.env
+.eslintrc
