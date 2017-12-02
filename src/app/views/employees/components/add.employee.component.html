@@ -10,15 +10,15 @@
                         </div>
                         <div class="card-body">
                             <div class=" form-group">
-                                <label for="company ">Company </label>
-                                <select class="custom-select" [(ngModel)]="company_id " name="company">
+                                <label for="companyId">Company </label>
+                                <select class="custom-select" name="companyId" ngModel>
                                 <option value="null" disabled="true" [selected]="true">Select Company..</option>
                                 <option *ngFor="let c of companies" [value]="c.id">{{c.companyName}}</option>
                               </select>
                             </div>
                             <div class="form-group">
-                                <label for="title ">Title</label>
-                                <select class="custom-select" [(ngModel)]="accountType" name="title">
+                                <label for="accountType ">Title</label>
+                                <select class="custom-select" name="accountType" ngModel>
                                 <option value="null" disabled="true" [selected]="true">Select Title..</option>
                                 <option *ngFor="let t of titles" [value]="t.abv">{{t.name}}</option>
                               </select>
@@ -26,21 +26,21 @@
                             <div class="row">
                                 <div class="form-group col-sm-6">
                                     <label for="firstname">First Name</label>
-                                    <input type="text" class="form-control" id="firstname" placeholder="First Name">
+                                    <input type="text" class="form-control" id="firstname" placeholder="First Name" ngModel>
                                 </div>
                                 <div class="form-group col-sm-6">
                                     <label for="lastname">Last Name</label>
-                                    <input type="text" class="form-control" id="lastname" placeholder="Last Name">
+                                    <input type="text" class="form-control" id="lastname" placeholder="Last Name" ngModel>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-sm-6">
                                     <label for="email">Email</label>
-                                    <input type="email" class="form-control" id="email" placeholder="Email">
+                                    <input type="email" class="form-control" id="email" placeholder="Email" ngModel>
                                 </div>
                                 <div class="form-group col-sm-6">
                                     <label for="phone">Phone</label>
-                                    <input type="phone" class="form-control" id="phone" placeholder="Phone">
+                                    <input type="phone" class="form-control" id="phone" placeholder="Phone" ngModel>
                                 </div>
                             </div>
                             <!--/.row-->
@@ -56,22 +56,22 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="street">Street</label>
-                                <input type="text" class="form-control" id="street" placeholder="Enter street name">
+                                <input type="text" class="form-control" id="street" placeholder="Enter street name" ngModel>
                             </div>
                             <div class="row">
                                 <div class="form-group col-sm-8">
                                     <label for="city">City</label>
-                                    <input type="text" class="form-control" id="city" placeholder="Enter your city">
+                                    <input type="text" class="form-control" id="city" placeholder="Enter your city" ngModel>
                                 </div>
                                 <div class="form-group col-sm-4">
                                     <label for="postal-code">Postal Code</label>
-                                    <input type="text" class="form-control" id="postal-code" placeholder="Postal Code">
+                                    <input type="text" class="form-control" id="postal-code" placeholder="Postal Code" ngModel>
                                 </div>
                             </div>
                             <!--/.row-->
                             <div class="form-group">
                                 <label for="country">Country</label>
-                                <input type="text" class="form-control" id="country" placeholder="Country name">
+                                <input type="text" class="form-control" id="country" placeholder="Country name" ngModel>
                             </div>
                         </div>
                     </div>

@@ -78,10 +78,8 @@ const APP_DIRECTIVES = [
 import { AppRoutingModule } from './app.routing';
 
 // Import 3rd party components
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { TabsModule } from 'ngx-bootstrap/tabs';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
-import { AuthModule } from 'angular2-jwt';
 
 @NgModule({
   imports: [
@@ -90,11 +88,9 @@ import { AuthModule } from 'angular2-jwt';
     CoreModule,
     FormsModule,
     AppRoutingModule,
-    BsDropdownModule.forRoot(),
-    TabsModule.forRoot(),
+    NgbModule.forRoot(),
     ChartsModule,
-    MatProgressBarModule,
-    AuthModule
+    MatProgressBarModule
   ],
   declarations: [
     AppComponent,

@@ -9,8 +9,8 @@
                     <div class="card-body">
                         <form #productForm="ngForm" (ngSubmit)="addProduct(productForm.value)">
                             <div class=" form-group">
-                                <label for="company ">Company </label>
-                                <select class="custom-select" [(ngModel)]="company_id " name="company_id">
+                                <label for="companyId">Company </label>
+                                <select class="custom-select" name="companyId" ngModel>
                                     <option value="null" disabled="true" [selected]="true">Select Company..</option>
                                     <option *ngFor="let c of companies" [value]="c.id">{{c.companyName}}</option>
                                   </select>
@@ -36,7 +36,7 @@
 
                             <div class="form-group">
                                 <label class="custom-file" id="customFile">
-                                    <input type="file" id="file" class="custom-file-input" aria-describedby="fileHelp" 
+                                    <input type="file" id="file" class="custom-file-input" aria-describedby="fileHelp"
                                     (change)="fileChange($event)" placeholder="Upload file" accept=".jpg,.png,.jpeg">
                                     <span class="custom-file-control form-control-file"></span>
                                 </label>

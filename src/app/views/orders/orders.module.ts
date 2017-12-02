@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
-import { TabsModule } from 'ngx-bootstrap';
+import { NgbTabsetModule } from '@ng-bootstrap/ng-bootstrap/tabset/tabset.module';
 
 import { AddOrdersComponent, DetailOrdersComponent, TableOrdersComponent } from './components';
 import { OrdersComponent } from './orders.component';
@@ -12,7 +12,7 @@ import { SharedModule } from 'app/shared/shared.module';
   imports: [
     OrdersRoutingModule,
     ChartsModule,
-    TabsModule,
+    NgbTabsetModule,
     SharedModule
   ],
   declarations: [ OrdersComponent, AddOrdersComponent, DetailOrdersComponent, TableOrdersComponent ],

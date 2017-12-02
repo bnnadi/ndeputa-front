@@ -7,6 +7,8 @@ import { ColumnSetting } from 'app/shared/layout.model';
 })
 export class TableOrdersComponent implements OnInit {
 
+  orders: any;
+
   orderSettings: ColumnSetting[] = [
       {
         primaryKey: 'name',
