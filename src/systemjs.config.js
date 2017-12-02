@@ -10,14 +10,13 @@
         'rxjs': 'node_modules/rxjs',
         'moment': 'node_modules/moment/moment.js',
         '@ng-bootstrap/ng-bootstrap': 'node_modules/@ng-bootstrap/ng-bootstrap/bundles/ng-bootstrap.js',
-        'angular2-jwt': 'npm:angular2-jwt/angular2-jwt.js'
+        'ng2-jwt': 'node_modules/ng2-jwt/bundles/ng2-jwt.js'
     };
     // packages tells the System loader how to load when no filename and/or no extension
     var packages = {
         'app': { main: 'main.js', defaultExtension: 'js' },
         'rxjs': { defaultExtension: 'js' },
-        'moment': { defaultExtension: 'js' },
-        'angular2-jwt': { defaultExtension: 'js' },
+        'moment': { defaultExtension: 'js' }
     };
     var ngPackageNames = [
         'common',

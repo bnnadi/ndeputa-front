@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Response } from '@angular/http';
-import { JwtHelper } from 'angular2-jwt';
 import { Observable } from 'rxjs/Rx';
 
 import { HttpService } from '../core/http.service';
@@ -10,14 +9,13 @@ import { JwtService } from './jwt.service';
 import { User } from '../models';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
-
 @Injectable()
 export class UserService {
   private endpointUser = 'user.json';
   private currentUserSubject = new BehaviorSubject<User>(new User());
   private currentUser = this.currentUserSubject.asObservable().distinctUntilChanged();
 
-  constructor(private http: HttpService, private jwt: JwtService, public router: Router, public jwtHelper: JwtHelper) {}
+  constructor(private http: HttpService, private jwt: JwtService, public router: Router) {}
 
   populate() {
     if (this.jwt.getToken()) {
@@ -47,9 +45,16 @@ export class UserService {
       .catch((error: any) => Observable.throw(error));
   }
 
+  isTokenExpired(token: string) {
+    if ('undefined' === token) {
+      return true;
+    }
+    return false;
+  }
+
   isAuthenticated() {
     const token = localStorage.getItem('token');
-    return !this.jwtHelper.isTokenExpired(token)
+    return !this.isTokenExpired(token)
   }
 
   getCurrentUser(): User {
