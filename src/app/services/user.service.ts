@@ -10,6 +10,9 @@ import { JwtService } from './jwt.service';
 import { User } from '../models';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { JwtHelper } from '../core/jwt-helper.service';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class UserService {

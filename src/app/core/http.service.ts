@@ -9,17 +9,22 @@ import {
     XHRBackend
 } from '@angular/http';
 
-import { Observable } from 'rxjs/Observable';
+
 import { CustomReqeustOptions } from './request-options';
 import { LoaderService } from './loader/loader.service';
 import { HttpClient } from '@angular/common/http/src/client';
 import { JwtService } from 'app/services';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/finally';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 @Injectable()
 
 export class HttpService extends Http {
 
-    apiUrl = 'http://localhost:3006/api/v1/';
+    apiUrl = 'http://www.yana-ng.com/api/v1/';
     private jwt: JwtService;
 
     constructor( backend: XHRBackend, defaultOptions: CustomReqeustOptions, private loaderService: LoaderService) {

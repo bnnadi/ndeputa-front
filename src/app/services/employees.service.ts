@@ -4,6 +4,8 @@ import { Observable } from 'rxjs/Observable';
 
 import { HttpService } from 'app/core/http.service';
 import { of } from 'rxjs/observable/of';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 import { Employee } from '../models';
 import { EMPLOYEES } from 'app/fake/mock-employee';

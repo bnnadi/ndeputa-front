@@ -8,12 +8,13 @@ import { ProductService } from './product.service';
 import { EmployeesService } from './employees.service';
 import { CustomerService } from 'app/services';
 import { Customer } from '../models/customer.model';
+import 'rxjs/add/operator/take';
 @Injectable()
 export class ProductResolver implements Resolve<Product> {
     constructor(private ps: ProductService, private router: Router) {}
-    
+
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Product> {
-        let id = route.paramMap.get('id');
+        const id = route.paramMap.get('id');
 
         return this.ps.getProduct(id).take(1).map(product => {
             if(product) {
@@ -31,7 +32,7 @@ export class ProductResolver implements Resolve<Product> {
 // @Injectable()
 // export class EmployeeResolver implements Resolve<User> {
 //     constructor(private es: EmployeesService, private router: Router) {}
-    
+
 //     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Product> {
 //         let id = route.paramMap.get('id');
 
@@ -49,7 +50,7 @@ export class ProductResolver implements Resolve<Product> {
 // @Injectable()
 // export class CustomerResolver implements Resolve<Customer> {
 //     constructor(private cs: CustomerService, private router: Router) {}
-    
+
 //     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Product> {
 //         let id = route.paramMap.get('id');
 
