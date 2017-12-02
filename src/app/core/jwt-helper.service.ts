@@ -12,7 +12,7 @@ export class JwtHelper {
         case 2: { output += '=='; break; }
         case 3: { output += '='; break; }
         default: {
-          throw 'Illegal base64url string!';
+          throw new Error('Illegal base64url string!');
         }
       }
       return this.b64DecodeUnicode(output);
@@ -31,7 +31,7 @@ export class JwtHelper {
 
       for (
         // initialize result and counters
-        let bc: number = 0, bs: any, buffer: any, idx: number = 0;
+        let bc: number, bs: any, buffer: any, idx: number;
         // get next character
         buffer = str.charAt(idx++);
         // character found in table? initialize bit storage and add its ascii value;
@@ -43,19 +43,19 @@ export class JwtHelper {
         // try to find character in table (0-63, not found => -1)
         buffer = chars.indexOf(buffer);
       }
+
       return output;
     }
 
     // https://developer.mozilla.org/en/docs/Web/API/WindowBase64/Base64_encoding_and_decoding#The_Unicode_Problem
     private b64DecodeUnicode(str: any) {
-      return decodeURIComponent(Array.prototype.map.call(this.b64decode(str), (c: any) => {
+      return decodeURIComponent(Array.prototype.map.call(atob(str), (c: any) => {
         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
       }).join(''));
     }
 
     public decodeToken(token: string): any {
       const parts = token.split('.');
-
       if (parts.length !== 3) {
         throw new Error('JWT must have 3 parts');
       }
@@ -83,6 +83,7 @@ export class JwtHelper {
     }
 
     public isTokenExpired(token: string, offsetSeconds?: number): boolean {
+
       const date = this.getTokenExpirationDate(token);
       offsetSeconds = offsetSeconds || 0;
 
