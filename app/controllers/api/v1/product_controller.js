@@ -3,6 +3,7 @@ var _ = require('lodash');
 var async = require('async');
 var bwipjs = require('bwip-js');
 var fs = require('fs');
+var image = require(BACKEND + '/helpers/image');
 
 // classes
 var Controller = require(ROOT + '/app/controllers/base_controller');
@@ -20,6 +21,11 @@ controller.createOne = function(req, res, next) {
     record.companyId = req.body.company_id;
     record.description = req.body.description;
     record.qty = req.body.qty;
+
+    if (req.file) {
+        console.log(req.file);
+        // image.saveImage();
+    }
 
     ProductModel
         .create(record)

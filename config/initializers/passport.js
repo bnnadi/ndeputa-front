@@ -2,12 +2,14 @@
 var _ = require('lodash');
 var bcrypt = require('bcryptjs');
 var passport = require('passport');
-var passportJWT = require('passport-jwt')
+var passportJWT = require('passport-jwt');
+var passportAPIKEY = require('passport-localapikey');
 
 // strategies
 var LocalStrategy = require('passport-local').Strategy;
 var JWTStrategy = passportJWT.Strategy;
 var ExtractJwt = passportJWT.ExtractJwt;
+var LocalAPIKeyStrategy = passportAPIKEY.Strategy;
 
 module.exports = function(done) {
 
@@ -53,6 +55,17 @@ module.exports = function(done) {
                 return done(null, user);
             }).catch(function(err) {
                 return done(null, err);
+            });
+    }));
+
+    passport.use(new LocalAPIKeyStrategy(function(apikey, done) {
+        var ApiKeyModel = require(BACKEND + '/models').api_key;
+        ApiKeyModel
+            .find({ where: { key: apikey } }, function(err, key) {
+                if (err) { return done(err); }
+                if (!key) { return done(null, false); }
+                if (key.isExpired()) { return done(null, false); }
+                return done(null, key);
             });
     }));
 

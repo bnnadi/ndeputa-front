@@ -3,7 +3,7 @@ var chalk = require('chalk');
 var dotenv = require('dotenv').config();
 var gulp = require('gulp'),
     gutil = require('gulp-util');
-
+var uuid = require('uuid/v4');
 
 var Chance = require('chance');
 var Sequelize = require("sequelize");
@@ -80,7 +80,27 @@ gulp.task('v1-create-admin', function() {
     return User
         .create(admin)
         .then(function(user) {
-            console.log(user);
+            console.log(user.toJSON());
+        })
+        .catch(function(err) {
+            console.log(err);
+        });
+});
+
+gulp.task('v1-genrate-api-key', function() {
+    var ApiKey = db.api_key;
+    var now = new Date();
+    var expiredDate = new Date(now.setFullYear(now.getFullYear() + 1));
+
+    var api_key = {
+        key: uuid(),
+        ttl: expiredDate
+    };
+
+    return ApiKey
+        .create(api_key)
+        .then(function(key) {
+            console.log(key.get());
         })
         .catch(function(err) {
             console.log(err);

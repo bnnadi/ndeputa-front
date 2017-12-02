@@ -18,5 +18,10 @@ module.exports = function(sequelize, DataTypes) {
         paranoid: true
     });
 
+    ApiKey.prototype.isExpired = function() {
+        var current = new Date();
+        return current > this.ttl;
+    };
+
     return ApiKey;
 };

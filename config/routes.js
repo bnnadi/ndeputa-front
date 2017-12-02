@@ -18,7 +18,7 @@ var v1User = require(BACKEND + '/controllers/api/v1/user_controller');
 module.exports = function routes() {
 
     // access
-    this.get('/api/v1/authenticate');
+    this.get('/api/v1/authenticate', public.authenticate);
     this.post('/api/v1/login.json', public.login);
     this.get('/api/v1/logout', passport.authenticate('jwt', { session: false }), public.logout);
 
@@ -26,10 +26,9 @@ module.exports = function routes() {
     this.post('/api/v1/passwordReset.json', v1PasswordReset.start);
     this.put('/api/v1/passwordVerify.json', v1PasswordReset.verify);
 
+    //TODO: look into the api key authenticate
     // timesheet
-    this.post('/api/v1/clockInOut', v1Time.clockInOut);
-
-    //TODO: look into the JWT authenticate
+    this.post('/api/v1/clockInOut', passport.authenticate('localapikey', { session: false }), v1Time.clockInOut);
 
     // company
     this.get('/api/v1/companies.json', passport.authenticate('jwt', { session: false }), v1Company.readMany);
@@ -78,8 +77,8 @@ module.exports = function routes() {
     this.delete('/api/v1/product/:id.json', passport.authenticate('jwt', { session: false }), v1Product.deleteOne);
 
     // timesheet
-    this.get('/api/v1/clockInOut', passport.authenticate('jwt', { session: false }), v1Time.Read);
-    this.get('/api/v1/clockInOut', passport.authenticate('jwt', { session: false }), v1Time.ReadMany);
+    this.get('/api/v1/timesheet', passport.authenticate('jwt', { session: false }), v1Time.Read);
+    this.get('/api/v1/timesheets', passport.authenticate('jwt', { session: false }), v1Time.ReadMany);
 
     // user
     this.get('/api/v1/user/authenticate', passport.authenticate('jwt', { session: false }), v1User.authenticate);

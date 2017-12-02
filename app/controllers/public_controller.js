@@ -11,12 +11,56 @@ var Controller = require('./base_controller');
 // instances
 var controller = new Controller();
 
+var db = require(BACKEND + '/models');
+
+var ApiKeyModel = db.api_key;
+
 controller.index = function(req, res) {
     res.sendFile('index.html', {
         root: ROOT + '/public/ndeputa/dist'
     });
 };
 
+controller.authenticate = function(req, res, next) {
+
+    var api_key = req.query.key;
+
+    ApiKeyModel
+        .find({ where: { key: api_key } })
+        .then(function(key) {
+            if (!key) {
+                console.log(nnLine, new Date());
+                res.status(400);
+                res.json({
+                    errors: 'Unauthorized',
+                });
+                return;
+            }
+
+            if (key.isExpired()) {
+                console.log(nnLine, new Date());
+                res.status(400);
+                res.json({
+                    errors: 'Unauthorized',
+                });
+                return;
+            }
+
+            res.json({
+                success: true
+            });
+            return;
+        })
+        .catch(function(err) {
+            console.log(nnLine, new Date());
+            res.status(400);
+            res.json({
+                errors: invalid,
+            });
+            return;
+        });
+
+};
 
 controller.login = function(req, res, next) {
 
