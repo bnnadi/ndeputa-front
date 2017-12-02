@@ -1,7 +1,0 @@
-{
-    "database_name": "ndeputa_db_test",
-    "username": "root",
-    "password": "root",
-    "dialect": "mysql",
-    "port": "3306"
-}
