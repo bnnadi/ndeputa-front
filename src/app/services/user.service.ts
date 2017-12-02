@@ -48,7 +48,8 @@ export class UserService {
   }
 
   isAuthenticated() {
-    const token = localStorage.getItem('token');
+    const token = this.jwt.getToken();
+    if (token === null || token === 'undefined') { return false; }
     return !this.jwtHelper.isTokenExpired(token)
   }
 
