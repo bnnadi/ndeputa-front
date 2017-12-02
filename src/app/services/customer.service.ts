@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 
 import { HttpService } from '../core/http.service';
@@ -11,7 +11,7 @@ import { Customer } from 'app/models/customer.model';
 @Injectable()
 export class CustomerService {
     private endpoint = 'customers.json';
-    
+
     constructor(private http: HttpService) {}
 
     getCustomers() : Observable<any> {
@@ -32,7 +32,7 @@ export class CustomerService {
 
     updateCustomer(body : Object): Observable<Customer> {
         let bodyString = JSON.stringify(body);
-        
+
         return this.http.put(this.endpoint, body)
             .map((res:Response) => res.json())
             .catch((error:any) => Observable.throw(error));

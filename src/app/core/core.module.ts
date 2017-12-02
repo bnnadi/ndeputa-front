@@ -7,7 +7,7 @@ import { HttpService } from './http.service';
 import { httpServiceFactory } from './http-service.factory';
 import { LoaderService } from './loader/loader.service';
 import { LoaderComponent } from './loader/loader.component';
-
+import { JwtHelper } from './jwt-helper.service';
 
 @NgModule({
     imports: [
@@ -26,7 +26,8 @@ import { LoaderComponent } from './loader/loader.component';
             provide: HttpService,
             useFactory: httpServiceFactory,
             deps: [XHRBackend, RequestOptions , LoaderService]
-        }
+        },
+        JwtHelper
     ]
 })
 
