@@ -1,10 +1,6 @@
 .vscode/
 node_modules/
 public/
-public/ndeputa-admin/
-public/ndeputa-marketplace/
-public/ndeputa-main/
-public/ndeputa-secure/
 data/
 
 *.http
