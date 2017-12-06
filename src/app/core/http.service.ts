@@ -19,12 +19,13 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/finally';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import { Constants } from '../constants';
 
 @Injectable()
 
 export class HttpService extends Http {
 
-    apiUrl = 'http://www.yana-ng.com/api/v1/';
+    private apiUrl = Constants.API_URL;
     private jwt: JwtService;
 
     constructor( backend: XHRBackend, defaultOptions: CustomReqeustOptions, private loaderService: LoaderService) {
