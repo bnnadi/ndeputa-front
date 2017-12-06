@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../../_access/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -7,5 +8,9 @@ import { Component } from '@angular/core';
 export class AppHeaderComponent {
   notifyCount: any;
 
-  constructor() {}
+  constructor(private as: AuthService) {}
+
+  logout () {
+    return this.as.logout();
+  }
 }

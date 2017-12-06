@@ -39,6 +39,7 @@ export class UserService {
   purgeAuth() {
     this.jwt.destoryToken();
     this.currentUserSubject.next(new User());
+    this.router.navigate(['/login']);
   }
 
   authenticate() {
