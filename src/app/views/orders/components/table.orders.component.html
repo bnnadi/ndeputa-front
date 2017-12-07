@@ -4,12 +4,16 @@
             <!-- Nav tabs -->
             <ngb-tabset>
                 <ngb-tab heading="Yana">
-                    <ct-table [records]="orders" [caption]="" [settings]="orderSettings">
-                    </ct-table>
+                    <ng-template ngbTabContent>
+                        <ct-table [records]="orders" [caption]="" [settings]="orderSettings">
+                        </ct-table>
+                    </ng-template>
                 </ngb-tab>
                 <ngb-tab heading="Willow">
-                    <ct-table [records]="orders" [caption]="" [settings]="orderSettings">
-                    </ct-table>
+                    <ng-template ngbTabContent>
+                        <ct-table [records]="orders" [caption]="" [settings]="orderSettings">
+                        </ct-table>
+                    </ng-template>
                 </ngb-tab>
             </ngb-tabset>
         </div>
