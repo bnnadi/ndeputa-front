@@ -11,7 +11,7 @@ import { LoaderState } from './loader';
     styleUrls: ['loader.component.css']
 })
 
-export class LoaderComponent implements OnInit {
+export class LoaderComponent implements OnInit, OnDestroy {
 
 
     show = false
