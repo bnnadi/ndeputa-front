@@ -61,6 +61,10 @@ export class UserService {
     return this.currentUserSubject.value;
   }
 
+  getAccess(): string {
+    return this.currentUserSubject.value.access;
+  }
+
   // These methonds are for the user Profile
   getUser(): Observable<User> {
       return this.http.get(this.endpointUser)

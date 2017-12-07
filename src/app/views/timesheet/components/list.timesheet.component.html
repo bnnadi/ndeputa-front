@@ -2,14 +2,14 @@
     <div class="row">
         <div class="col-md-12 mb-6">
             <!-- Nav tabs -->
-            <ngb-tabset>
-                <ngb-tab title="Yana">
+            <ngb-tabset (tabChange)="beforeChange($event)">
+                <ngb-tab id="yana" title="Yana">
                     <ng-template ngbTabContent>
                         <!-- <ct-table [records]="orders" [caption]="" [settings]="orderSettings">
                     </ct-table> -->
                     </ng-template>
                 </ngb-tab>
-                <ngb-tab title="Willow">
+                <ngb-tab id="willow" title="Willow">
                     <ng-template ngbTabContent>
                         <!-- <ct-table [records]="orders" [caption]="" [settings]="orderSettings">
                     </ct-table> -->
