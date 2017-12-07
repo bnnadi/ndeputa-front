@@ -26,7 +26,7 @@ export class AuthService {
   }
 
   logout(): void {
-
+    console.log(':Logging out...');
     this.http.get('logout')
         .map((res: Response) => {
           this.us.purgeAuth();
