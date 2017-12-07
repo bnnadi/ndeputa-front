@@ -26,9 +26,11 @@ export class AuthService {
   }
 
   logout(): void {
-    console.log(':Logging out...');
+    console.log('Logging out...');
+    // TODO look into why this isn't firing
     this.http.get('logout')
         .map((res: Response) => {
+          console.log('logged out');
           this.us.purgeAuth();
         })
         .catch((error: any) => Observable.throw(error.json()));
