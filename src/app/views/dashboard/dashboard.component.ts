@@ -6,8 +6,6 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent {
 
-  constructor( ) { }
-
   // public brandPrimary = '#20a8d8';
   // public brandSuccess = '#4dbd74';
   // public brandInfo = '#63c2de';
@@ -84,11 +82,13 @@ public lineChart4Type = 'line';
     public barChart2Legend = false;
     public barChart2Type = 'bar';
 
+    constructor( ) { }
+
     // events
     public chartClicked(e: any): void {
       console.log(e);
     }
-  
+
     public chartHovered(e: any): void {
       console.log(e);
     }

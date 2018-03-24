@@ -57,7 +57,15 @@ export const routes: Routes = [
       {
         path: 'settings',
         loadChildren: './views/settings/settings.module#SettingsModule'
-      }
+      },
+      // {
+      //   path: 'messages',
+      //   loadChildren: './views/profile/profile.module#ProfileModule'
+      // },
+      // {
+      //   path: 'tasks',
+      //   loadChildren: './views/settings/settings.module#SettingsModule'
+      // }
     ]
   },
   {
