@@ -13,7 +13,7 @@ export class FormatCellPipe implements PipeTransform {
 
         if (format === 'default') {
             if (Array.isArray(value)) {
-                if (typeof value[0] != 'object') {
+                if (typeof value[0] !== 'object') {
                     return value.join(', ');
                 } else {
                     return value.map(obj => {
@@ -22,7 +22,7 @@ export class FormatCellPipe implements PipeTransform {
                 }
             }
 
-            if (typeof value === "object") {
+            if (typeof value === 'object') {
                 return value.name;
             }
         }

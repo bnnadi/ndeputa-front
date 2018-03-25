@@ -18,5 +18,8 @@
 // Import core styles
 @import "core/core";
 
+// Import material angular themes
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
 // Custom styles
 @import "custom";
